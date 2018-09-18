@@ -19,6 +19,7 @@
   <div id="app">
     <navb></navb>
     <article></article>
+    <p></P
 
    </div>
   <script src="{{asset('js/app.js') }}"></script>
