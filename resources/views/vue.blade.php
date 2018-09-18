@@ -18,6 +18,7 @@
 <body>
   <div id="app">
     <navb></navb>
+    <article></article>
 
    </div>
   <script src="{{asset('js/app.js') }}"></script>
