@@ -14,14 +14,9 @@ window.Vue = require('vue');
 import App from './App.vue'
 import VueRouter from 'vue-router';
 window.Vue.use(VueRouter)
-import Routes from './routes'
+import router from './routes.js'
 
-//new router instance
-const router= new VueRouter({
-  routes:Routes,
-  mode:'history'
 
-});
 
 
 
@@ -38,5 +33,5 @@ Vue.component('navb', require('./components/Navb.vue'));
 
 const app = new Vue({
     el: '#app',
-    router:router
+    router
 });
