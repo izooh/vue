@@ -17,8 +17,10 @@
 </head>
 <body>
   <div id="app">
-    <navb></navb>
-    <article></article>
+  <router-link to='/'>home</router-link>
+    <router-link to='/views'>views</router-link>
+  <router-view></router-view>
+
 
    </div>
   <script src="{{asset('js/app.js') }}"></script>

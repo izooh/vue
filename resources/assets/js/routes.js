@@ -1,4 +1,17 @@
-import addArticles from './components/addArticles.vue';
-export default[
-  {path:'/',component:addArticles}
-]
+import VueRouter from 'vue-router';
+
+
+let routes=[
+  {
+    path:'/',
+    component:require('./components/add')
+  },
+  {
+    path:'/views',
+    component:require('./components/views')
+  }
+];
+export default new VueRouter({
+  routes
+
+});
