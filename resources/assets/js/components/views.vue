@@ -7,7 +7,7 @@
 
    <blockquote class="blockquote">{{article.name}}</blockquote>
   <p>{{article.content}}</p>
-  <h6><strong>posted by....on....</strong></h6>
+  <h6><strong>posted by..{{article.user.name}}....date comming soon</strong></h6>
   <button v-on:click='deleteData(article.id)' class="btn btn-danger">Remove</button>
     <button v-on:click='' class="btn btn-info">Edit</button>
     <hr>
