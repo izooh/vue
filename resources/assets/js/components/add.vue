@@ -1,7 +1,7 @@
 <template>
 <div>
 <h4>Add New Article</h4>
-<form @submit.prevent="sendData">
+<form @submit.prevent="sendData" >
 <div class="form-group">
 <input type="text" class="form-control" placeholder="user_id" v-model="user_id">
 </div>
