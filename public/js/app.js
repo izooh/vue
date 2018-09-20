@@ -49942,6 +49942,9 @@ var routes = [{
 }, {
   path: '/views',
   component: __webpack_require__(45)
+}, {
+  path: '/guest',
+  component: __webpack_require__(55)
 }];
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
   routes: routes
@@ -50239,6 +50242,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -50246,41 +50259,62 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             articles: [],
-            article: {},
             name: '',
-            user_id: '',
             title: '',
             body: '',
             search: '',
             article_id: '',
             pagination: {},
-            edit: false
+            editForm: '',
+            notebookEditData: { title: '', body: '', user_id: '' }
         };
     },
     created: function created() {
+
         this.fetchData();
     },
 
     methods: {
-        fetchData: function fetchData() {
+        editIt: function editIt(notebookId) {
+
+            return this.editForm = notebookId;
+        },
+        showIt: function showIt(notebookId) {
+            if (this.editForm == notebookId) {
+                return true;
+            }
+            return false;
+        },
+        updateIt: function updateIt(articleId) {
             var _this = this;
+
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('api/article/' + articleId, this.notebookEditData).then(function (response) {
+                console.log(response);
+                _this.notebookEditData = "";
+                _this.$router.push('/guest');
+            }).catch(function (error) {
+                console.log(error.response);
+            });
+        },
+        fetchData: function fetchData() {
+            var _this2 = this;
 
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('api/articles').then(function (response) {
                 console.log(response.data.data);
-                _this.articles = response.data.data;
+                _this2.articles = response.data.data;
             }).catch(function (error) {
                 console.log(error);
             });
         },
         deleteData: function deleteData(id) {
-            var _this2 = this;
+            var _this3 = this;
 
             if (confirm("are you sure you want to delete")) {
 
                 __WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete('api/article/' + id).then(function (response) {
                     //console.log(response.data.data);
                     alert("alert deleted");
-                    _this2.fetchData();
+                    _this3.fetchData();
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -50289,10 +50323,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     computed: {
         filteredBlogs: function filteredBlogs() {
-            var _this3 = this;
+            var _this4 = this;
 
             return this.articles.filter(function (article) {
-                return article.name.match(_this3.search);
+                return article.name.match(_this4.search);
             });
         }
 
@@ -50332,16 +50366,204 @@ var render = function() {
         }
       }),
       _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
       _vm._l(_vm.filteredBlogs, function(article) {
         return _c(
           "div",
           { key: article.id, staticClass: "card card-body mb-2" },
           [
-            _c("blockquote", { staticClass: "blockquote" }, [
-              _vm._v(_vm._s(article.name))
-            ]),
-            _vm._v(" "),
-            _c("p", [_vm._v(_vm._s(article.content))]),
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    _vm.updateIt(article.id)
+                  }
+                }
+              },
+              [
+                _c(
+                  "h3",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.showIt(article.id),
+                        expression: "showIt(article.id)"
+                      }
+                    ]
+                  },
+                  [_vm._v("Update")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.showIt(article.id),
+                      expression: "showIt(article.id)"
+                    },
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.notebookEditData.user_id,
+                      expression: "notebookEditData.user_id"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.notebookEditData.user_id },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.notebookEditData,
+                        "user_id",
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "blockquote",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.showIt(article.id),
+                        expression: "!showIt(article.id)"
+                      }
+                    ],
+                    staticClass: "blockquote"
+                  },
+                  [_vm._v(_vm._s(article.name))]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.showIt(article.id),
+                      expression: "showIt(article.id)"
+                    },
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.notebookEditData.title,
+                      expression: "notebookEditData.title"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.notebookEditData.title },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.notebookEditData,
+                        "title",
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.showIt(article.id),
+                        expression: "!showIt(article.id)"
+                      }
+                    ]
+                  },
+                  [_vm._v(_vm._s(article.content))]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.showIt(article.id),
+                      expression: "showIt(article.id)"
+                    },
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.notebookEditData.body,
+                      expression: "notebookEditData.body"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.notebookEditData.body },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.notebookEditData,
+                        "body",
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.showIt(article.id),
+                        expression: "showIt(article.id)"
+                      }
+                    ],
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("ok")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.showIt(article.id),
+                        expression: "showIt(article.id)"
+                      }
+                    ],
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.editForm = false
+                      }
+                    }
+                  },
+                  [_vm._v("cancel")]
+                )
+              ]
+            ),
             _vm._v(" "),
             _c("h6", [
               _c("strong", [
@@ -50370,9 +50592,13 @@ var render = function() {
               "button",
               {
                 staticClass: "btn btn-info",
-                on: { click: function($event) {} }
+                on: {
+                  click: function($event) {
+                    _vm.editIt(article.id)
+                  }
+                }
               },
-              [_vm._v("Edit")]
+              [_vm._v("edit")]
             ),
             _vm._v(" "),
             _c("hr")
@@ -50523,6 +50749,195 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(56)
+/* template */
+var __vue_template__ = __webpack_require__(57)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/guest.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c9fc2b5e", Component.options)
+  } else {
+    hotAPI.reload("data-v-c9fc2b5e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 56 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            articles: [],
+            article: {},
+            name: '',
+            user_id: '',
+            title: '',
+            body: '',
+            search: '',
+            article_id: '',
+            pagination: {},
+            edit: false
+        };
+    },
+    created: function created() {
+        this.fetchData();
+    },
+
+    methods: {
+        fetchData: function fetchData() {
+            var _this = this;
+
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('api/articles').then(function (response) {
+                console.log(response.data.data);
+                _this.articles = response.data.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    },
+
+    computed: {
+        filteredBlogs: function filteredBlogs() {
+            var _this2 = this;
+
+            return this.articles.filter(function (article) {
+                return article.name.match(_this2.search);
+            });
+        }
+
+    }
+});
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.search,
+            expression: "search"
+          }
+        ],
+        staticClass: "form-control ",
+        attrs: { type: "text", placeholder: "Search Blogs" },
+        domProps: { value: _vm.search },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.search = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _vm._l(_vm.filteredBlogs, function(article) {
+        return _c(
+          "div",
+          { key: article.id, staticClass: "card card-body mb-2" },
+          [
+            _c("blockquote", { staticClass: "blockquote" }, [
+              _vm._v(_vm._s(article.name))
+            ]),
+            _vm._v(" "),
+            _c("p", [_vm._v(_vm._s(article.content))]),
+            _vm._v(" "),
+            _c("h6", [
+              _c("strong", [
+                _vm._v("posted by...." + _vm._s(article.user.email) + " on....")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("hr")
+          ]
+        )
+      })
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-c9fc2b5e", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

@@ -2,14 +2,24 @@
 
 <div>
   <input class="form-control " type="text" v-model="search" placeholder="Search Blogs"/>
+  <hr>
+
 
 <div class="card card-body mb-2" v-for="article in filteredBlogs" v-bind:key="article.id" >
+<form @submit.prevent=(updateIt(article.id))>
+<h3 v-show=showIt(article.id) >Update</h3>
+<input v-show="showIt(article.id)" type="text" class="form-control" v-model="notebookEditData.user_id">
+   <blockquote class="blockquote" v-show="!showIt(article.id)">{{article.name}}</blockquote>
+   <input v-show="showIt(article.id)" type="text" class="form-control" v-model="notebookEditData.title">
 
-   <blockquote class="blockquote">{{article.name}}</blockquote>
-  <p>{{article.content}}</p>
+<div v-show="!showIt(article.id)">{{article.content}}</div>
+<input v-show="showIt(article.id)" type="text" class="form-control"  v-model="notebookEditData.body">
+<button type="submit" v-show="showIt(article.id)">ok</button>
+<button @click.prevent="editForm=false" v-show="showIt(article.id)">cancel</button>
+</form>
   <h6><strong>posted by..{{article.user.name}}....date comming soon</strong></h6>
   <button v-on:click='deleteData(article.id)' class="btn btn-danger">Remove</button>
-    <button v-on:click='' class="btn btn-info">Edit</button>
+    <button v-on:click='editIt(article.id)' class="btn btn-info">edit</button>
     <hr>
   </div>
 </div>
@@ -21,22 +31,45 @@
         data(){
 return{
     articles:[],
-    article:{},
     name:'',
-    user_id:'',
     title:'',
     body:'',
     search:'',
     article_id:'',
     pagination:{},
-    edit:false
+    editForm:'',
+    notebookEditData:{title:'',body:'',user_id:''}
 }
         },
         created() {
+
        this.fetchData();
+
 
          },
         methods: {
+    editIt(notebookId){
+
+    return this.editForm=notebookId;
+        },
+        showIt(notebookId){
+        if(this.editForm==notebookId)
+        {
+        return true;
+        }
+        return false;
+
+        },
+        updateIt(articleId){
+        axios.put('api/article/'+articleId,this.notebookEditData)
+        .then((response)=>{
+        console.log(response);
+        this.notebookEditData="";
+      this.$router.push('/guest');
+        }).catch(error=>{
+        console.log(error.response);
+        })
+        },
 
         fetchData(){
 

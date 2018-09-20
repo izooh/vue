@@ -9,6 +9,10 @@ let routes=[
   {
     path:'/views',
     component:require('./components/views')
+  },
+  {
+    path:'/guest',
+    component:require('./components/guest')
   }
 ];
 export default new VueRouter({
