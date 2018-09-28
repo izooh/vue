@@ -15,9 +15,11 @@
 <script>window.Laravel={csrfToken:'{{csrf_token()}}'}</script>
 
 </head>
+//
 <body>
   <div id="app">
     <navb></navb>
+
   <router-link to='/'>home</router-link>
     <router-link to='/views'>views</router-link>
     <router-link to='/guest'>guest</router-link>
