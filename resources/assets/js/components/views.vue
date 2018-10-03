@@ -65,7 +65,7 @@ return{
         .then((response)=>{
         console.log(response);
         this.notebookEditData="";
-      this.$router.push('/guest');
+        this.$router.push('/guest');
         }).catch(error=>{
         console.log(error.response);
         })
