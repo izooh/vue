@@ -50023,33 +50023,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             articles: [],
-            article: {},
+            article: '',
             name: '',
             user_id: '',
             title: '',
             body: '',
-            search: '',
-            article_id: '',
-            pagination: {},
-            edit: false
+            search: ''
         };
     },
 
     methods: {
         sendData: function sendData() {
+            var _this = this;
+
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('api/article', {
                 user_id: this.user_id,
                 title: this.title,
                 body: this.body
             }).then(function (response) {
-                console.log(response);
+
                 alert('article added successfully');
+                console.log(response.data.data);
+                _this.article = response.data.data;
+                _this.user_id = '', _this.title = '', _this.body = '';
             }).catch(function (error) {
                 console.log(error);
             });
@@ -50091,6 +50104,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
+            staticStyle: { width: "170px" },
             attrs: { type: "text", placeholder: "user_id" },
             domProps: { value: _vm.user_id },
             on: {
@@ -50115,6 +50129,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
+            staticStyle: { width: "200px" },
             attrs: { type: "text", placeholder: "name" },
             domProps: { value: _vm.title },
             on: {
@@ -50129,7 +50144,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
-          _c("input", {
+          _c("textarea", {
             directives: [
               {
                 name: "model",
@@ -50139,7 +50154,8 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", placeholder: "content" },
+            staticStyle: { width: "200px" },
+            attrs: { rows: "5", placeholder: "content" },
             domProps: { value: _vm.body },
             on: {
               input: function($event) {
@@ -50158,7 +50174,31 @@ var render = function() {
           [_vm._v("save")]
         )
       ]
-    )
+    ),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _vm.article
+      ? _c("div", { staticClass: "card card-body mb-2 w-25 p-3" }, [
+          _c("p", { staticClass: "text-danger" }, [
+            _vm._v("article successfully added")
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-primary" }),
+          _c("h4", [_vm._v(_vm._s(_vm.article.name))]),
+          _c("p"),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-success" }, [
+            _vm._v(_vm._s(_vm.article.content))
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-muted" }, [
+            _vm._v("posted by.." + _vm._s(_vm.article.user.email))
+          ]),
+          _vm._v(" "),
+          _c("hr")
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -50688,7 +50728,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -50899,21 +50938,15 @@ var staticRenderFns = [
           ]),
           _vm._v(" "),
           _c("li", { staticClass: "nav-item" }, [
-            _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-              _vm._v("Features")
-            ])
+            _c("a", { staticClass: "nav-link", attrs: { href: "#" } })
           ]),
           _vm._v(" "),
           _c("li", { staticClass: "nav-item" }, [
-            _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-              _vm._v("Pricing")
-            ])
+            _c("a", { staticClass: "nav-link", attrs: { href: "#" } })
           ]),
           _vm._v(" "),
           _c("li", { staticClass: "nav-item" }, [
-            _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-              _vm._v("About")
-            ])
+            _c("a", { staticClass: "nav-link", attrs: { href: "#" } })
           ])
         ])
       ]

@@ -3,7 +3,6 @@
 
 <div>
   <input class="form-control " type="text" v-model="search" placeholder="Search Blogs"/>
-
 <div class="card card-body mb-2" v-for="article in filteredBlogs" v-bind:key="article.id" >
 
    <blockquote class="blockquote">{{article.name}}</blockquote>
