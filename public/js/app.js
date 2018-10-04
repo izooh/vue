@@ -50184,7 +50184,7 @@ var render = function() {
             _vm._v("article successfully added")
           ]),
           _vm._v(" "),
-          _c("p", { staticClass: "text-primary" }),
+          _c("p", { staticClass: "text-info" }),
           _c("h4", [_vm._v(_vm._s(_vm.article.name))]),
           _c("p"),
           _vm._v(" "),
@@ -50394,6 +50394,7 @@ var render = function() {
           }
         ],
         staticClass: "form-control ",
+        staticStyle: { width: "200px" },
         attrs: { type: "text", placeholder: "Search Blogs" },
         domProps: { value: _vm.search },
         on: {
@@ -50411,7 +50412,11 @@ var render = function() {
       _vm._l(_vm.filteredBlogs, function(article) {
         return _c(
           "div",
-          { key: article.id, staticClass: "card card-body mb-2" },
+          {
+            key: article.id,
+            staticClass: "card card-body mb-2",
+            staticStyle: { width: "1000px" }
+          },
           [
             _c(
               "form",
@@ -50531,7 +50536,11 @@ var render = function() {
                       }
                     ]
                   },
-                  [_vm._v(_vm._s(article.content))]
+                  [
+                    _c("p", { staticClass: "text-info" }, [
+                      _vm._v(_vm._s(article.content))
+                    ])
+                  ]
                 ),
                 _vm._v(" "),
                 _c("input", {
@@ -50605,12 +50614,14 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _c("h6", [
+            _c("h6", { staticClass: "text-muted" }, [
               _c("strong", [
                 _vm._v(
-                  "posted by.." +
+                  "posted by *" +
                     _vm._s(article.user.name) +
-                    "....date comming soon"
+                    "* on *" +
+                    _vm._s(article.date.date) +
+                    "*"
                 )
               ])
             ]),
@@ -50910,7 +50921,7 @@ var staticRenderFns = [
       { staticClass: "navbar navbar-expand-lg navbar-dark bg-primary" },
       [
         _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-          _vm._v("Navbar")
+          _vm._v("Oroni writes")
         ]),
         _vm._v(" "),
         _c(
