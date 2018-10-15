@@ -50192,8 +50192,16 @@ var render = function() {
             _vm._v(_vm._s(_vm.article.content))
           ]),
           _vm._v(" "),
-          _c("p", { staticClass: "text-muted" }, [
-            _vm._v("posted by.." + _vm._s(_vm.article.user.email))
+          _c("h6", { staticClass: "text-muted" }, [
+            _c("strong", [
+              _vm._v(
+                "posted by *" +
+                  _vm._s(_vm.article.user.name) +
+                  "* on *" +
+                  _vm._s(_vm.article.date.date) +
+                  "*"
+              )
+            ])
           ]),
           _vm._v(" "),
           _c("hr")
@@ -50316,12 +50324,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         editIt: function editIt(notebookId) {
-
             return this.editForm = notebookId;
         },
         showIt: function showIt(notebookId) {
             if (this.editForm == notebookId) {
                 return true;
+                console.log(articles);
             }
             return false;
         },

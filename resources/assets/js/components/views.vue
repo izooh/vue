@@ -49,13 +49,14 @@ return{
          },
         methods: {
     editIt(notebookId){
+return this.editForm=notebookId;
 
-    return this.editForm=notebookId;
         },
         showIt(notebookId){
         if(this.editForm==notebookId)
         {
         return true;
+        console.log(articles)
         }
         return false;
 
