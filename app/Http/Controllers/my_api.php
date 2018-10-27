@@ -16,9 +16,9 @@ class my_api extends Controller
     public function index()
     {
         //
-          return articleresource::collection(Article::with('user')->paginate(25));
+         return articleresource::collection(Article::with('user')->paginate(25));
         //$articles=Article::paginate(15);
-      //  print_r($articles);
+        //print_r($articles);
 
       // return articleresource::collection($articles);
 

@@ -17,9 +17,9 @@
   <hr>
 <div class="card card-body mb-2 w-25 p-3" v-if='article'>
 <p class="text-danger">article successfully added</p>
-<p class="text-primary"><h4>{{article.name}}</h4></p>
+<p class="text-info"><h4>{{article.name}}</h4></p>
 <p class="text-success">{{article.content}}</p>
-<p class="text-muted">posted by..{{article.user.email}}</p>
+<h6 class="text-muted"><strong>posted by *{{article.user.name}}* on *{{article.date.date}}*</strong></h6>
   <hr>
 </div>
 </div>
