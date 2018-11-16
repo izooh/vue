@@ -49,8 +49,8 @@ search:''
     })
 .then((response)=>{
 
-alert('article added successfully');
-console.log(response.data.data)
+alert('added successfully');
+console.log(response.data)
 this.article=response.data.data
 this.user_id='',
 this.title='',

@@ -50059,8 +50059,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 body: this.body
             }).then(function (response) {
 
-                alert('article added successfully');
-                console.log(response.data.data);
+                alert('added successfully');
+                console.log(response.data);
                 _this.article = response.data.data;
                 _this.user_id = '', _this.title = '', _this.body = '';
             }).catch(function (error) {
@@ -50926,47 +50926,10 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "nav",
-      { staticClass: "navbar navbar-expand-lg navbar-dark bg-primary" },
+      { staticClass: "navbar navbar-expand-lg navbar-primary bg-primary" },
       [
         _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-          _vm._v("Oroni writes")
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "navbar-toggler",
-            attrs: {
-              type: "button",
-              "data-toggle": "collapse",
-              "data-target": "#navbarColor01",
-              "aria-controls": "navbarColor01",
-              "aria-expanded": "false",
-              "aria-label": "Toggle navigation"
-            }
-          },
-          [_c("span", { staticClass: "navbar-toggler-icon" })]
-        ),
-        _vm._v(" "),
-        _c("ul", { staticClass: "navbar-nav mr-auto" }, [
-          _c("li", { staticClass: "nav-item active" }, [
-            _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-              _vm._v("Home "),
-              _c("span", { staticClass: "sr-only" }, [_vm._v("(current)")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c("a", { staticClass: "nav-link", attrs: { href: "#" } })
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c("a", { staticClass: "nav-link", attrs: { href: "#" } })
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c("a", { staticClass: "nav-link", attrs: { href: "#" } })
-          ])
+          _vm._v("Oroni Writes")
         ])
       ]
     )
