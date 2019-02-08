@@ -7,7 +7,7 @@
 
    <blockquote class="blockquote">{{article.name}}</blockquote>
   <p>{{article.content}}</p>
-  <h6><strong>posted by....{{article.user.email}} on....</strong></h6>
+  <h6><strong>posted by....{{article.user.email}} on....{{article.date}}</strong></h6>
     <hr>
   </div>
 </div>

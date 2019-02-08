@@ -16,7 +16,7 @@
 </div>
 <button type="submit" class="btn btn-light btn-block">save</button>
 </form>
-<div class="card card-body mb-2" v-for="article in filteredBlogs" v-bind:key="article.id" >
+<div class="card text-white bg-primary mb-3" style="max-width: 18rem;" v-for="article in filteredBlogs" v-bind:key="article.id" >
 
    <blockquote class="blockquote">{{article.name}}</blockquote>
   <p>{{article.content}}</p>

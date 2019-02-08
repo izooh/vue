@@ -5,7 +5,7 @@
   <hr>
 
 
-<div class="card card-body mb-2" style="width:1000px;" v-for="article in filteredBlogs" v-bind:key="article.id" >
+<div class="card card-body text-white bg-success mb-2" style="width:1000px;" v-for="article in filteredBlogs" v-bind:key="article.id" >
 <form @submit.prevent=(updateIt(article.id))>
 <h3 v-show=showIt(article.id) >Update</h3>
 <input v-show="showIt(article.id)" type="text" class="form-control" v-model="notebookEditData.user_id">

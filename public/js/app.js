@@ -50422,7 +50422,7 @@ var render = function() {
           "div",
           {
             key: article.id,
-            staticClass: "card card-body mb-2",
+            staticClass: "card card-body text-white bg-success mb-2",
             staticStyle: { width: "1000px" }
           },
           [
@@ -50840,7 +50840,12 @@ var render = function() {
             _vm._v(" "),
             _c("h6", [
               _c("strong", [
-                _vm._v("posted by...." + _vm._s(article.user.email) + " on....")
+                _vm._v(
+                  "posted by...." +
+                    _vm._s(article.user.email) +
+                    " on...." +
+                    _vm._s(article.date)
+                )
               ])
             ]),
             _vm._v(" "),
