@@ -17,7 +17,7 @@
 <button type="submit" v-show="showIt(article.id)">ok</button>
 <button @click.prevent="editForm=false" v-show="showIt(article.id)">cancel</button>
 </form>
-<h6 class="text-muted"><strong>posted by *{{article.user.name}}* on *{{article.date.date}}*</strong></h6>
+<h6 class="text-muted"><strong>posted by *{{article.user.name}}* on *{{article.date}}*</strong></h6>
   <button v-on:click='deleteData(article.id)' class="btn btn-danger">Remove</button>
     <button v-on:click='editIt(article.id)' class="btn btn-info">edit</button>
     <hr>

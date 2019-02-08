@@ -18,7 +18,7 @@ class articleresource extends JsonResource
             'id'=>$this->id,
             'name'=>$this->title,
             'content'=>$this->body,
-            'date'=>$this->created_at,
+            'date'=>$this->created_at->format('d/m/y'),
             'user'=>$this->user
         ];
     }

@@ -50628,7 +50628,7 @@ var render = function() {
                   "posted by *" +
                     _vm._s(article.user.name) +
                     "* on *" +
-                    _vm._s(article.date.date) +
+                    _vm._s(article.date) +
                     "*"
                 )
               ])
