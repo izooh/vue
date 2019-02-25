@@ -4,20 +4,23 @@
 <v-toolbar flat app>
 <v-toolbar-side-icon class='grey--text' @click='drawer=!drawer'></v-toolbar-side-icon>
 <v-toolbar title flat class="text-uppercase grey--text">
-<span class="font-weight-dark">Notice</span>
-<span>Board</span>
+<span class="font-weight-dark">Keep</span>
+<span> Close</span>
 </v-toolbar title>
 <v-btn flat color="grey">
 <span>Sign Out</span>
 <v-icon right>exit_to_app</v-icon>
 </v-btn>
 </v-toolbar>
-<v-navigation-drawer v-model='drawer' flat app class='black lighten-3'>
+<v-navigation-drawer v-model='drawer' flat app class='indigo lighten-1'>
 <v-layout column align-center>
 <v-flex class="mt-5">
 <v-avatar size='100'>
 <p>image here</p>
 </v-avatar>
+</v-flex>
+<v-flex class='mt-4 mb-3'>
+<adding/>
 </v-flex>
 </v-layout>
 <v-list>
@@ -36,7 +39,9 @@
 </div>
 </template>
 <script>
+import adding from './adding.vue'
 export default{
+components:{adding},
 data(){
 return{
 drawer:false,

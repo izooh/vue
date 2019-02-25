@@ -1,10 +1,12 @@
 <template>
-
 <div>
-  <input class="form-control " type="text" v-model="search" style="width:200px;" placeholder="Search Blogs"/>
-  <hr>
+<br><br>
+<h1 class='subheading grey--text'>Notice Board</h1>
+<br>
+  <input class="form-control " type="text" v-model="search" style="width:300px;" placeholder="Search Notes"/>
+  <hr class="grey">
 
-<h1 class='subheading grey--text'>Notices</h1>
+
 
   <v-expansion-panel popout>
     <v-expansion-panel-content  v-for="article in filteredBlogs" v-bind:key="article.id">
@@ -51,7 +53,7 @@
         data(){
 return{
     articles:[],
-    name:'',
+    article:'',
     title:'',
     body:'',
     search:'',
