@@ -4,24 +4,44 @@
   <input class="form-control " type="text" v-model="search" style="width:200px;" placeholder="Search Blogs"/>
   <hr>
 
+<h1 class='subheading grey--text'>Notices</h1>
 
-<div class="card card-body text-white bg-success mb-2" style="width:1000px;" v-for="article in filteredBlogs" v-bind:key="article.id" >
-<form @submit.prevent=(updateIt(article.id))>
-<h3 v-show=showIt(article.id) >Update</h3>
-<input v-show="showIt(article.id)" type="text" class="form-control" v-model="notebookEditData.user_id">
-   <blockquote class="blockquote" v-show="!showIt(article.id)">{{article.name}}</blockquote>
-   <input v-show="showIt(article.id)" type="text" class="form-control" v-model="notebookEditData.title">
+  <v-expansion-panel popout>
+    <v-expansion-panel-content  v-for="article in filteredBlogs" v-bind:key="article.id">
+    <div slot="header"><div class='caption grey--text' v-show="!showIt(article.id)"><strong>{{article.name}}</strong></div>
 
-<div v-show="!showIt(article.id)"><p class="text-info">{{article.content}}</p></div>
-<input v-show="showIt(article.id)" type="text" class="form-control"  v-model="notebookEditData.body">
-<button type="submit" v-show="showIt(article.id)">ok</button>
-<button @click.prevent="editForm=false" v-show="showIt(article.id)">cancel</button>
-</form>
-<h6 class="text-muted"><strong>posted by *{{article.user.name}}* on *{{article.date}}*</strong></h6>
-  <button v-on:click='deleteData(article.id)' class="btn btn-danger">Remove</button>
-    <button v-on:click='editIt(article.id)' class="btn btn-info">edit</button>
-    <hr>
-  </div>
+    <div class="right">
+    <v-chip small class="white--text caption my-2">
+  New
+    </v-chip>
+    </div>
+
+</div>
+    <v-card>
+      <v-card-text><div v-show="!showIt(article.id)"><p class="text-success">{{article.content}}</p></div></v-card-text>
+      <h6 class="text-muted"><strong>posted by *{{article.user.name}}* on *{{article.date}}*</strong></h6>
+      <form @submit.prevent=(updateIt(article.id))>
+      <h3 v-show=showIt(article.id) >Update</h3>
+      <input v-show="showIt(article.id)" type="text" class="form-control" v-model="notebookEditData.user_id">
+
+         <input v-show="showIt(article.id)" type="text" class="form-control" v-model="notebookEditData.title">
+      <input v-show="showIt(article.id)" type="text" class="form-control"  v-model="notebookEditData.body">
+      <button type="submit" v-show="showIt(article.id)">ok</button>
+      <button @click.prevent="editForm=false" v-show="showIt(article.id)">cancel</button>
+      </form>
+        <v-btn  flat color="red" v-on:click='deleteData(article.id)' >Delete<v-icon small left>delete</v-icon></v-btn>
+          <v-btn flat color="blue"  v-on:click='editIt(article.id)' >edit<v-icon small left>edit</v-icon></v-btn>
+
+    </v-card>
+
+      </v-expansion-panel-content>
+    </v-expansion-panel>
+
+
+
+
+</div>
+
 </div>
 </template>
 <script>
@@ -115,6 +135,12 @@ return this.editForm=notebookId;
 
         }
 
+
+
+
         }
     }
 </script>
+<style>
+
+</style>

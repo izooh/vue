@@ -15,6 +15,11 @@ window.Vue = require('vue');
 import VueRouter from 'vue-router';
 window.Vue.use(VueRouter)
 import router from './routes.js'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+
+
+Vue.use(Vuetify)
 
 
 

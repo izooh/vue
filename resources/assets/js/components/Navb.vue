@@ -1,26 +1,52 @@
 <template>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Oroni writes</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<div>
+<nav>
+<v-toolbar flat app>
+<v-toolbar-side-icon class='grey--text' @click='drawer=!drawer'></v-toolbar-side-icon>
+<v-toolbar title flat class="text-uppercase grey--text">
+<span class="font-weight-dark">Notice</span>
+<span>Board</span>
+</v-toolbar title>
+<v-btn flat color="grey">
+<span>Sign Out</span>
+<v-icon right>exit_to_app</v-icon>
+</v-btn>
+</v-toolbar>
+<v-navigation-drawer v-model='drawer' flat app class='black lighten-3'>
+<v-layout column align-center>
+<v-flex class="mt-5">
+<v-avatar size='100'>
+<p>image here</p>
+</v-avatar>
+</v-flex>
+</v-layout>
+<v-list>
+<v-list-tile  v-for='link in links' :key='link.text' router :to="link.route" >
+<v-list-tile-action>
+<v-icon class='white--text'>{{link.icon}}</v-icon>
+</v-list-tile-action>
+<v-list-tile-content>
+<v-list-tile-title class='white--text'>{{link.text}}</v-list-tile-title>
+</v-list-tile-content>
+</v-list-tile>
+</v-list>
 
-
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"></a>
-      </li>
-    </ul>
-
-  </div>
+</v-navigation-drawer>
 </nav>
+</div>
 </template>
+<script>
+export default{
+data(){
+return{
+drawer:false,
+links:[
+{icon:'dashboard',text:'Dashboard',route:'/'},
+{icon:'store',text:'My work',route:'/views'},
+{icon:'person',text:'Admin',route:'/guest'}
+]
+
+}
+}
+}
+</script>

@@ -1,6 +1,8 @@
 <template>
-<div>
+<div mx-4>
+
 <h4>Add New Article</h4>
+
 
 <form @submit.prevent="sendData" >
 <div class="form-group">
@@ -22,7 +24,12 @@
 <h6 class="text-muted"><strong>posted by *{{article.user.name}}* on *{{article.date.date}}*</strong></h6>
   <hr>
 </div>
+<v-form>
+<v-text-field label="First name"></v-text-field>
+</v-form>
+
 </div>
+
 
 
 </template>
