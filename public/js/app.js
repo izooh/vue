@@ -402,6 +402,12 @@ module.exports = g;
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(22);
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -508,12 +514,6 @@ module.exports = function normalizeComponent (
   }
 }
 
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(22);
 
 /***/ }),
 /* 4 */
@@ -16836,7 +16836,7 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(3);
+window.axios = __webpack_require__(2);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -51537,7 +51537,7 @@ var routes = [{
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(45)
 /* template */
@@ -51585,7 +51585,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 //
 //
@@ -51802,7 +51802,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _c("v-form", [_c("v-text-field", { attrs: { label: "First name" } })], 1)
+      _c("v-form")
     ],
     1
   )
@@ -51826,7 +51826,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(48)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(52)
 /* template */
@@ -51903,7 +51903,7 @@ exports = module.exports = __webpack_require__(15)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -52175,8 +52175,30 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -52279,6 +52301,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error);
             });
         },
+        sortBy: function sortBy(prop) {
+            this.articles.sort(function (a, b) {
+                return a[prop] < b[prop] ? -1 : 1;
+            });
+        },
         deleteData: function deleteData(id) {
             var _this3 = this;
 
@@ -52326,28 +52353,118 @@ var render = function() {
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.search,
-            expression: "search"
-          }
+      _c(
+        "v-layout",
+        { staticClass: "mb-3", attrs: { row: "" } },
+        [
+          _c("v-flex", { attrs: { xs12: "", md6: "" } }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.search,
+                  expression: "search"
+                }
+              ],
+              staticClass: "form-control ",
+              staticStyle: { width: "300px" },
+              attrs: { type: "text", placeholder: "Search Notes" },
+              domProps: { value: _vm.search },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.search = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { xs12: "", md6: "" } },
+            [
+              _c(
+                "v-tooltip",
+                { attrs: { top: "" } },
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        slot: "activator",
+                        small: "",
+                        flat: "",
+                        color: "grey"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.sortBy("name")
+                        }
+                      },
+                      slot: "activator"
+                    },
+                    [
+                      _c("v-icon", { attrs: { small: "", left: "" } }, [
+                        _vm._v("folder")
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "caption text-lowercase" }, [
+                        _vm._v("By Note Title")
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("sorting items by notes title")])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-tooltip",
+                { attrs: { top: "" } },
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        slot: "activator",
+                        small: "",
+                        flat: "",
+                        color: "grey"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.sortBy("content")
+                        }
+                      },
+                      slot: "activator"
+                    },
+                    [
+                      _c("v-icon", { attrs: { small: "", left: "" } }, [
+                        _vm._v("person")
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "caption text-lowercase" }, [
+                        _vm._v("By Note Content")
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("sorting items by  notes content")])
+                ],
+                1
+              )
+            ],
+            1
+          )
         ],
-        staticClass: "form-control ",
-        staticStyle: { width: "300px" },
-        attrs: { type: "text", placeholder: "Search Notes" },
-        domProps: { value: _vm.search },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.search = $event.target.value
-          }
-        }
-      }),
+        1
+      ),
       _vm._v(" "),
       _c("hr", { staticClass: "grey" }),
       _vm._v(" "),
@@ -52655,7 +52772,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(55)
 /* template */
@@ -52703,7 +52820,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 //
 //
@@ -79246,7 +79363,7 @@ module.exports = function (css) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(63)
 /* template */
@@ -79354,7 +79471,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(65)
 /* template */
@@ -79402,6 +79519,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 //
 //
 //
@@ -79423,10 +79542,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {};
-  }
+    data: function data() {
+        return {
+            articles: [],
+            article: '',
+            name: '',
+            user_id: '',
+            title: '',
+            body: '',
+            search: '',
+            loading: false,
+            dialog: false
+        };
+    },
+
+    methods: {
+        sendData: function sendData() {
+            var _this = this;
+
+            this.loading = true;
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('api/article', {
+                user_id: this.user_id,
+                title: this.title,
+                body: this.body
+            }).then(function (response) {
+
+                alert('article added successfully');
+                console.log(response.data.data);
+                _this.article = response.data.data;
+                _this.user_id = '', _this.title = '', _this.body = '', _this.loading = false, _this.dialog = false;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }
+
 });
 
 /***/ }),
@@ -79439,7 +79591,16 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-dialog",
-    { attrs: { "max-width": "800px" } },
+    {
+      attrs: { "max-width": "800px" },
+      model: {
+        value: _vm.dialog,
+        callback: function($$v) {
+          _vm.dialog = $$v
+        },
+        expression: "dialog"
+      }
+    },
     [
       _c(
         "v-btn",
@@ -79469,25 +79630,52 @@ var render = function() {
                 { staticClass: "px-3" },
                 [
                   _c("v-text-field", {
-                    attrs: { label: "user id", "prepend-icon": "person" }
+                    attrs: { label: "user id", "prepend-icon": "person" },
+                    model: {
+                      value: _vm.user_id,
+                      callback: function($$v) {
+                        _vm.user_id = $$v
+                      },
+                      expression: "user_id"
+                    }
                   }),
                   _vm._v(" "),
                   _c("v-text-field", {
                     attrs: {
                       label: "Suggestion title",
                       "prepend-icon": "folder"
+                    },
+                    model: {
+                      value: _vm.title,
+                      callback: function($$v) {
+                        _vm.title = $$v
+                      },
+                      expression: "title"
                     }
                   }),
                   _vm._v(" "),
                   _c(
                     "v-textarea",
-                    { attrs: { label: "Content", "prepend-icon": "edit" } },
+                    {
+                      attrs: { label: "Content", "prepend-icon": "edit" },
+                      model: {
+                        value: _vm.body,
+                        callback: function($$v) {
+                          _vm.body = $$v
+                        },
+                        expression: "body"
+                      }
+                    },
                     [_vm._v(">")]
                   ),
                   _vm._v(" "),
                   _c(
                     "v-btn",
-                    { staticClass: "blue lighten-1", attrs: { flat: "" } },
+                    {
+                      staticClass: "blue lighten-1",
+                      attrs: { type: "submit", flat: "", loading: _vm.loading },
+                      on: { click: _vm.sendData }
+                    },
                     [_vm._v("Submit")]
                   )
                 ],
@@ -79570,7 +79758,7 @@ var render = function() {
         _c(
           "v-navigation-drawer",
           {
-            staticClass: "indigo lighten-1",
+            staticClass: "indigo lighten-4",
             attrs: { flat: "", app: "" },
             model: {
               value: _vm.drawer,

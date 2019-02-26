@@ -12,7 +12,7 @@
 <v-icon right>exit_to_app</v-icon>
 </v-btn>
 </v-toolbar>
-<v-navigation-drawer v-model='drawer' flat app class='indigo lighten-1'>
+<v-navigation-drawer v-model='drawer' flat app class='indigo lighten-4'>
 <v-layout column align-center>
 <v-flex class="mt-5">
 <v-avatar size='100'>

@@ -3,7 +3,29 @@
 <br><br>
 <h1 class='subheading grey--text'>Notice Board</h1>
 <br>
+<v-layout row class="mb-3">
+<v-flex xs12 md6>
   <input class="form-control " type="text" v-model="search" style="width:300px;" placeholder="Search Notes"/>
+  </v-flex>
+
+  <v-flex xs12 md6>
+<v-tooltip top>
+<v-btn small flat color="grey" @click="sortBy('name')" slot="activator">
+<v-icon small left>folder</v-icon>
+<span class="caption text-lowercase">By Note Title</span>
+</v-btn>
+<span>sorting items by notes title</span>
+</v-tooltip>
+
+<v-tooltip top>
+<v-btn small flat color="grey" @click="sortBy('content')" slot="activator">
+<v-icon small left>person</v-icon>
+<span class="caption text-lowercase">By Note Content</span>
+</v-btn>
+<span>sorting items by  notes content</span>
+</v-tooltip>
+</v-flex>
+</v-layout>
   <hr class="grey">
 
 
@@ -69,7 +91,7 @@ return{
 
 
          },
-        methods: {
+        methods:{
     editIt(notebookId){
 return this.editForm=notebookId;
 
@@ -108,6 +130,10 @@ return this.editForm=notebookId;
 
 
         },
+
+        sortBy(prop){
+this.articles.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
+},
          deleteData(id){
          if
          (confirm("are you sure you want to delete"))
