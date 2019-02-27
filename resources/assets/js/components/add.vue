@@ -4,7 +4,7 @@
 <h4>Add New Article</h4>
 
 
-<form @submit.prevent="sendData" >
+<form @submit.prevent="sendData">
 <div class="form-group">
 <input type="text" class="form-control" style="width:170px;" placeholder="user_id" v-model="user_id">
 </div>
@@ -25,7 +25,7 @@
   <hr>
 </div>
 <v-form>
-<v-text-field label="First name"></v-text-field>
+
 </v-form>
 
 </div>
