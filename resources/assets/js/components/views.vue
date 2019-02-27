@@ -4,7 +4,7 @@
 <h1 class='subheading grey--text'>Notice Board</h1>
 <br>
 <v-layout row class="mb-3">
-<v-flex xs12 md6>
+<v-flex xs12 md6 >
   <input class="form-control " type="text" v-model="search" style="width:300px;" placeholder="Search Notes"/>
   </v-flex>
 
@@ -25,24 +25,28 @@
 <span>sorting items by  notes content</span>
 </v-tooltip>
 </v-flex>
+
 </v-layout>
   <hr class="grey">
 
 
-
+<v-layout row wrap>
+<v-flex xs12 md12>
   <v-expansion-panel popout>
-    <v-expansion-panel-content  v-for="article in filteredBlogs" v-bind:key="article.id">
-    <div slot="header"><div class='caption grey--text' v-show="!showIt(article.id)"><strong>{{article.name}}</strong></div>
+  <v-expansion-panel-content   v-for="article in filteredBlogs" v-bind:key="article.id">
+    <div slot="header" :class="`${article.user.name} `" ><div class='caption grey--text' v-show="!showIt(article.id)"><strong>{{article.name}}</strong></div>
 
-    <div class="right">
-    <v-chip small class="white--text caption my-2">
-  New
+    <div class="right" >
+    <v-chip small :class="`${article.user.name} white--text caption my-2`">
+{{article.date}}
     </v-chip>
     </div>
 
+
+
 </div>
     <v-card>
-      <v-card-text><div v-show="!showIt(article.id)"><p class="text-success">{{article.content}}</p></div></v-card-text>
+      <v-card-text><div v-show="!showIt(article.id)"><p class="">{{article.content}}</p></div></v-card-text>
       <h6 class="text-muted"><strong>posted by *{{article.user.name}}* on *{{article.date}}*</strong></h6>
       <form @submit.prevent=(updateIt(article.id))>
       <h3 v-show=showIt(article.id) >Update</h3>
@@ -53,17 +57,16 @@
       <button type="submit" v-show="showIt(article.id)">ok</button>
       <button @click.prevent="editForm=false" v-show="showIt(article.id)">cancel</button>
       </form>
-        <v-btn  flat color="red" v-on:click='deleteData(article.id)' >Delete<v-icon small left>delete</v-icon></v-btn>
-          <v-btn flat color="blue"  v-on:click='editIt(article.id)' >edit<v-icon small left>edit</v-icon></v-btn>
+        <v-btn flat color='red'  v-on:click='deleteData(article.id)' ><v-icon small left>delete</v-icon></v-btn>
+          <v-btn flat  color='blue' v-on:click='editIt(article.id)' ><v-icon small left>edit</v-icon></v-btn>
 
     </v-card>
 
       </v-expansion-panel-content>
     </v-expansion-panel>
+    </v-flex>
 
-
-
-
+</v-layout>
 </div>
 
 </div>
@@ -76,6 +79,7 @@
 return{
     articles:[],
     article:'',
+    articl:'',
     title:'',
     body:'',
     search:'',
@@ -88,7 +92,6 @@ return{
         created() {
 
        this.fetchData();
-
 
          },
         methods:{
@@ -134,6 +137,8 @@ return this.editForm=notebookId;
         sortBy(prop){
 this.articles.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
 },
+
+
          deleteData(id){
          if
          (confirm("are you sure you want to delete"))
@@ -158,11 +163,10 @@ this.articles.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
         computed:{
         filteredBlogs:function(){
         return this.articles.filter((article)=>{
-        return article.name.match(this.search);
-        });
+        return article.name.match(this.search)
+              });
 
-        }
-
+        },
 
 
 
@@ -170,5 +174,22 @@ this.articles.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
     }
 </script>
 <style>
-
+.louis{
+border-left:4px solid #3cd1c2;
+}
+.Junior{
+border-left:4px solid indigo;
+}
+.project.pending{
+border-left:4px solid red;
+}
+.v-chip.louis{
+border:12px solid #3cd1c2;
+}
+.v-chip.Junior{
+border:12px solid indigo;
+}
+.v-chip.pending{
+border:12px solid red;
+}
 </style>

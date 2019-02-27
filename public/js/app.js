@@ -51903,7 +51903,7 @@ exports = module.exports = __webpack_require__(15)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.louis{\r\nborder-left:4px solid #3cd1c2;\n}\n.Junior{\r\nborder-left:4px solid indigo;\n}\n.project.pending{\r\nborder-left:4px solid red;\n}\n.v-chip.louis{\r\nborder:12px solid #3cd1c2;\n}\n.v-chip.Junior{\r\nborder:12px solid indigo;\n}\n.v-chip.pending{\r\nborder:12px solid red;\n}\r\n", ""]);
 
 // exports
 
@@ -52247,6 +52247,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -52255,6 +52258,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             articles: [],
             article: '',
+            articl: '',
             title: '',
             body: '',
             search: '',
@@ -52469,288 +52473,312 @@ var render = function() {
       _c("hr", { staticClass: "grey" }),
       _vm._v(" "),
       _c(
-        "v-expansion-panel",
-        { attrs: { popout: "" } },
-        _vm._l(_vm.filteredBlogs, function(article) {
-          return _c(
-            "v-expansion-panel-content",
-            { key: article.id },
+        "v-layout",
+        { attrs: { row: "", wrap: "" } },
+        [
+          _c(
+            "v-flex",
+            { attrs: { xs12: "", md12: "" } },
             [
-              _c("div", { attrs: { slot: "header" }, slot: "header" }, [
-                _c(
-                  "div",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: !_vm.showIt(article.id),
-                        expression: "!showIt(article.id)"
-                      }
-                    ],
-                    staticClass: "caption grey--text"
-                  },
-                  [_c("strong", [_vm._v(_vm._s(article.name))])]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "right" },
-                  [
-                    _c(
-                      "v-chip",
-                      {
-                        staticClass: "white--text caption my-2",
-                        attrs: { small: "" }
-                      },
-                      [_vm._v("\r\n  New\r\n    ")]
-                    )
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
               _c(
-                "v-card",
-                [
-                  _c("v-card-text", [
-                    _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: !_vm.showIt(article.id),
-                            expression: "!showIt(article.id)"
-                          }
+                "v-expansion-panel",
+                { attrs: { popout: "" } },
+                _vm._l(_vm.filteredBlogs, function(article) {
+                  return _c(
+                    "v-expansion-panel-content",
+                    { key: article.id },
+                    [
+                      _c(
+                        "div",
+                        {
+                          class: article.user.name + " ",
+                          attrs: { slot: "header" },
+                          slot: "header"
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: !_vm.showIt(article.id),
+                                  expression: "!showIt(article.id)"
+                                }
+                              ],
+                              staticClass: "caption grey--text"
+                            },
+                            [_c("strong", [_vm._v(_vm._s(article.name))])]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "right" },
+                            [
+                              _c(
+                                "v-chip",
+                                {
+                                  class:
+                                    article.user.name +
+                                    " white--text caption my-2",
+                                  attrs: { small: "" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\r\n" + _vm._s(article.date) + "\r\n    "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          )
                         ]
-                      },
-                      [
-                        _c("p", { staticClass: "text-success" }, [
-                          _vm._v(_vm._s(article.content))
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("h6", { staticClass: "text-muted" }, [
-                    _c("strong", [
-                      _vm._v(
-                        "posted by *" +
-                          _vm._s(article.user.name) +
-                          "* on *" +
-                          _vm._s(article.date) +
-                          "*"
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "form",
-                    {
-                      on: {
-                        submit: function($event) {
-                          $event.preventDefault()
-                          _vm.updateIt(article.id)
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "h3",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.showIt(article.id),
-                              expression: "showIt(article.id)"
-                            }
-                          ]
-                        },
-                        [_vm._v("Update")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.showIt(article.id),
-                            expression: "showIt(article.id)"
-                          },
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.notebookEditData.user_id,
-                            expression: "notebookEditData.user_id"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text" },
-                        domProps: { value: _vm.notebookEditData.user_id },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.notebookEditData,
-                              "user_id",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.showIt(article.id),
-                            expression: "showIt(article.id)"
-                          },
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.notebookEditData.title,
-                            expression: "notebookEditData.title"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text" },
-                        domProps: { value: _vm.notebookEditData.title },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.notebookEditData,
-                              "title",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.showIt(article.id),
-                            expression: "showIt(article.id)"
-                          },
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.notebookEditData.body,
-                            expression: "notebookEditData.body"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text" },
-                        domProps: { value: _vm.notebookEditData.body },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.notebookEditData,
-                              "body",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.showIt(article.id),
-                              expression: "showIt(article.id)"
-                            }
-                          ],
-                          attrs: { type: "submit" }
-                        },
-                        [_vm._v("ok")]
                       ),
                       _vm._v(" "),
                       _c(
-                        "button",
-                        {
-                          directives: [
+                        "v-card",
+                        [
+                          _c("v-card-text", [
+                            _c(
+                              "div",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: !_vm.showIt(article.id),
+                                    expression: "!showIt(article.id)"
+                                  }
+                                ]
+                              },
+                              [_c("p", {}, [_vm._v(_vm._s(article.content))])]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("h6", { staticClass: "text-muted" }, [
+                            _c("strong", [
+                              _vm._v(
+                                "posted by *" +
+                                  _vm._s(article.user.name) +
+                                  "* on *" +
+                                  _vm._s(article.date) +
+                                  "*"
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "form",
                             {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.showIt(article.id),
-                              expression: "showIt(article.id)"
-                            }
-                          ],
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              _vm.editForm = false
-                            }
-                          }
-                        },
-                        [_vm._v("cancel")]
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  _vm.updateIt(article.id)
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "h3",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.showIt(article.id),
+                                      expression: "showIt(article.id)"
+                                    }
+                                  ]
+                                },
+                                [_vm._v("Update")]
+                              ),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.showIt(article.id),
+                                    expression: "showIt(article.id)"
+                                  },
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.notebookEditData.user_id,
+                                    expression: "notebookEditData.user_id"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { type: "text" },
+                                domProps: {
+                                  value: _vm.notebookEditData.user_id
+                                },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.notebookEditData,
+                                      "user_id",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.showIt(article.id),
+                                    expression: "showIt(article.id)"
+                                  },
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.notebookEditData.title,
+                                    expression: "notebookEditData.title"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { type: "text" },
+                                domProps: { value: _vm.notebookEditData.title },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.notebookEditData,
+                                      "title",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.showIt(article.id),
+                                    expression: "showIt(article.id)"
+                                  },
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.notebookEditData.body,
+                                    expression: "notebookEditData.body"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { type: "text" },
+                                domProps: { value: _vm.notebookEditData.body },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.notebookEditData,
+                                      "body",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.showIt(article.id),
+                                      expression: "showIt(article.id)"
+                                    }
+                                  ],
+                                  attrs: { type: "submit" }
+                                },
+                                [_vm._v("ok")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.showIt(article.id),
+                                      expression: "showIt(article.id)"
+                                    }
+                                  ],
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      _vm.editForm = false
+                                    }
+                                  }
+                                },
+                                [_vm._v("cancel")]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { flat: "", color: "red" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteData(article.id)
+                                }
+                              }
+                            },
+                            [
+                              _c("v-icon", { attrs: { small: "", left: "" } }, [
+                                _vm._v("delete")
+                              ])
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { flat: "", color: "blue" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.editIt(article.id)
+                                }
+                              }
+                            },
+                            [
+                              _c("v-icon", { attrs: { small: "", left: "" } }, [
+                                _vm._v("edit")
+                              ])
+                            ],
+                            1
+                          )
+                        ],
+                        1
                       )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { flat: "", color: "red" },
-                      on: {
-                        click: function($event) {
-                          return _vm.deleteData(article.id)
-                        }
-                      }
-                    },
-                    [
-                      _vm._v("Delete"),
-                      _c("v-icon", { attrs: { small: "", left: "" } }, [
-                        _vm._v("delete")
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { flat: "", color: "blue" },
-                      on: {
-                        click: function($event) {
-                          return _vm.editIt(article.id)
-                        }
-                      }
-                    },
-                    [
-                      _vm._v("edit"),
-                      _c("v-icon", { attrs: { small: "", left: "" } }, [
-                        _vm._v("edit")
-                      ])
                     ],
                     1
                   )
-                ],
+                }),
                 1
               )
             ],
             1
           )
-        }),
+        ],
         1
       )
     ],
