@@ -2,9 +2,12 @@
 <div>
 <br><br>
 <h1 class='subheading grey--text'>Notice Board</h1>
-<br>
+<span class="caption grey--text"><v-icon small left>access_time</v-icon>{{theDate}}</span>
+
+<br><br>
 <v-layout row class="mb-3">
 <v-flex xs12 md6 >
+
   <input class="form-control " type="text" v-model="search" style="width:300px;" placeholder="Search Notes"/>
   </v-flex>
 
@@ -47,7 +50,7 @@
 </div>
     <v-card>
       <v-card-text><div v-show="!showIt(article.id)"><p class="">{{article.content}}</p></div></v-card-text>
-      <h6 class="text-muted"><strong>posted by *{{article.user.name}}* on *{{article.date}}*</strong></h6>
+      <h6 class="text-muted"><strong>posted by {{article.user.name}}</strong></h6>
       <form @submit.prevent=(updateIt(article.id))>
       <h3 v-show=showIt(article.id) >Update</h3>
       <input v-show="showIt(article.id)" type="text" class="form-control" v-model="notebookEditData.user_id">
@@ -59,6 +62,7 @@
       </form>
         <v-btn flat color='red'  v-on:click='deleteData(article.id)' ><v-icon small left>delete</v-icon></v-btn>
           <v-btn flat  color='blue' v-on:click='editIt(article.id)' ><v-icon small left>edit</v-icon></v-btn>
+          <v-btn flat  color='black' v-on:click='' ><v-icon small left>message</v-icon></v-btn>
 
     </v-card>
 
@@ -72,6 +76,7 @@
 </div>
 </template>
 <script>
+var moment=require('moment');
     import axios from "axios";
 
     export default {
@@ -167,6 +172,11 @@ this.articles.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
               });
 
         },
+        theDate:function(){
+        return Date();
+
+        }
+
 
 
 
@@ -180,16 +190,11 @@ border-left:4px solid #3cd1c2;
 .Junior{
 border-left:4px solid indigo;
 }
-.project.pending{
-border-left:4px solid red;
-}
 .v-chip.louis{
 border:12px solid #3cd1c2;
 }
 .v-chip.Junior{
 border:12px solid indigo;
 }
-.v-chip.pending{
-border:12px solid red;
-}
+
 </style>

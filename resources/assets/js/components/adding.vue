@@ -1,7 +1,7 @@
 <template>
 <v-dialog max-width='800px' v-model='dialog'>
 <v-btn flat slot='activator' class='blue lighten-1'>Add Suggestion</v-btn>
-<v-card>
+<v-card flat>
 <v-card-title>
  <div class='caption grey--text'>
 Whats on Your Mind
@@ -10,9 +10,9 @@ Whats on Your Mind
 <v-card text>
 <v-form class="px-3">
 <v-text-field label="user id" prepend-icon='person' v-model='user_id'></v-text-field>
-<v-text-field label="Suggestion title" prepend-icon='folder' v-model='title'></v-text-field>
-<v-textarea label="Content" prepend-icon='edit' v-model='body'>></v-textarea>
-<v-btn type="submit" flat class="blue lighten-1" @click='sendData' :loading='loading'>Submit</v-btn>
+<v-text-field label="suggestion title" prepend-icon='folder' v-model='title'></v-text-field>
+<v-textarea label="content" prepend-icon='edit' v-model='body'>></v-textarea>
+<v-btn type="submit" flat class="indigo lighten-3" @click='sendData' :loading='loading'>Submit</v-btn>
 </v-form>
 </v-card text>
 </v-card>
