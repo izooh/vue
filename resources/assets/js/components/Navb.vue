@@ -4,9 +4,10 @@
 <v-toolbar flat app>
 <v-toolbar-side-icon class='grey--text' @click='drawer=!drawer'></v-toolbar-side-icon>
 <v-toolbar title flat class="text-uppercase grey--text">
-<span class="font-weight-dark">Keep</span>
-<span> Close</span>
+<span class="font-weight-dark">Kidyavai Advocate </span>
+<span></span>
 </v-toolbar title>
+<span class="caption grey--text"><v-icon small left>access_time</v-icon>{{theDate}}</span>
 <v-btn flat color="grey">
 <span>Sign Out</span>
 <v-icon right>exit_to_app</v-icon>
@@ -52,6 +53,15 @@ links:[
 ]
 
 }
+},
+computed:{
+theDate:function(){
+return Date();
+}
+
+
+
+
 }
 }
 </script>

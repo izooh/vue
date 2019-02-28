@@ -2,13 +2,10 @@
 <div>
 <br><br>
 <h1 class='subheading grey--text'>Notice Board</h1>
-<span class="caption grey--text"><v-icon small left>access_time</v-icon>{{theDate}}</span>
-
-<br><br>
+<br>
 <v-layout row class="mb-3">
 <v-flex xs12 md6 >
-
-  <input class="form-control " type="text" v-model="search" style="width:300px;" placeholder="Search Notes"/>
+<input class="form-control " type="text" v-model="search" placeholder="Search Blogs"/>
   </v-flex>
 
   <v-flex xs12 md6>
@@ -170,10 +167,6 @@ this.articles.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
         return this.articles.filter((article)=>{
         return article.name.match(this.search)
               });
-
-        },
-        theDate:function(){
-        return Date();
 
         }
 

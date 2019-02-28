@@ -4,11 +4,12 @@ import VueRouter from 'vue-router';
 let routes=[
   {
     path:'/',
-    component:require('./components/add')
+    component:require('./components/views')
+
   },
   {
     path:'/views',
-    component:require('./components/views')
+    component:require('./components/add')
   },
   {
     path:'/guest',

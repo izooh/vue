@@ -1,9 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Http\Request;
+use App\User;
 use App\Http\Controllers\Controller;
+use App\Exceptions\AuthFailedException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Auth;
+
+
 
 class LoginController extends Controller
 {
@@ -25,7 +30,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -36,4 +41,35 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function logout(Request $request) {
+      Auth::logout();
+      session()->flash('logout','you are currently LogedOut');
+      return redirect('/');
+    }
+
+/**
+ * The user has been authenticated.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @param  mixed  $user
+ * @return mixed
+ */
+protected function authenticated(Request $request, $user)
+{
+return view('vue');
+}
+/**
+ * Get the failed login response instance.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @return \Symfony\Component\HttpFoundation\Response
+ *
+ * @throws \Illuminate\Validation\ValidationException
+ */
+protected function sendFailedLoginResponse(Request $request)
+{
+    throw new AuthFailedException;
+
+}
 }
