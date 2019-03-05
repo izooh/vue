@@ -7,8 +7,15 @@
 <span class="font-weight-dark">Kidyavai Advocate </span>
 <span></span>
 </v-toolbar title>
-<span class="caption grey--text"><v-icon small left>access_time</v-icon>{{theDate}}</span>
-<v-btn flat color="grey">
+<v-btn  flat color="grey" v-if='!loggedIn'>
+<span>Login</span>
+<v-icon right>exit_to_app</v-icon>
+</v-btn>
+<v-btn flat color="grey"  v-if='!loggedIn'>
+<span>Register</span>
+<v-icon right>power_settings_new</v-icon>
+</v-btn>
+<v-btn flat color="grey"  v-if='loggedIn' >
 <span>Sign Out</span>
 <v-icon right>exit_to_app</v-icon>
 </v-btn>
@@ -48,15 +55,15 @@ return{
 drawer:false,
 links:[
 {icon:'dashboard',text:'Dashboard',route:'/'},
-{icon:'store',text:'My work',route:'/views'},
-{icon:'person',text:'Admin',route:'/guest'}
+{icon:'store',text:'My Team',route:'/views'},
+{icon:'person',text:'Profile',route:'/guest'}
 ]
 
 }
 },
 computed:{
-theDate:function(){
-return Date();
+loggedIn(){
+return this.$store.getters.loggedIn
 }
 
 

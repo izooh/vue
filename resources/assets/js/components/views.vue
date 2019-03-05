@@ -3,9 +3,11 @@
 <br><br>
 <h1 class='subheading grey--text'>Notice Board</h1>
 <br>
+<span class="caption grey--text"><v-icon small left>access_time</v-icon>{{theDate}}</span>
+<br><br>
 <v-layout row class="mb-3">
 <v-flex xs12 md6 >
-<input class="form-control " type="text" v-model="search" placeholder="Search Blogs"/>
+<input class="form-control " type="text" v-model="search" placeholder="Search Notes..."/>
   </v-flex>
 
   <v-flex xs12 md6>
@@ -168,6 +170,9 @@ this.articles.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
         return article.name.match(this.search)
               });
 
+        },
+        theDate:function(){
+        return Date();
         }
 
 

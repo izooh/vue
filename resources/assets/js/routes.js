@@ -9,11 +9,15 @@ let routes=[
   },
   {
     path:'/views',
-    component:require('./components/add')
+    component:require('./components/notices')
   },
   {
     path:'/guest',
-    component:require('./components/guest')
+    component:require('./components/myprofile')
+  },
+  {
+    path:'/login',
+    component:require('./components/login')
   }
 ];
 export default new VueRouter({

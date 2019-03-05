@@ -23,7 +23,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', function () {
-    return view('register');
+    return view('vue');
 });
 Route::get('/r', function () {
     return view('vue');

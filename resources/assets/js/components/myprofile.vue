@@ -1,8 +1,9 @@
 <template>
 <div>
-<h1>my team comments</h1>
+<h1>Profile</h1>
 <v-container>
-open Suggestions
+profile details of legal firm team
+image,Suggestions,cases handled
 </v-container>
 </div>
 </template>
