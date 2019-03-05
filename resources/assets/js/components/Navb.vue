@@ -11,12 +11,13 @@
 <span>Login</span>
 <v-icon right>exit_to_app</v-icon>
 </v-btn>
-<v-btn flat color="grey"  v-if='!loggedIn'>
-<span>Register</span>
+<v-btn flat color="grey"  v-if='!loggedIn'><router-link :to="{name:'login'}">
+<span>Register</span></router-link>
 <v-icon right>power_settings_new</v-icon>
 </v-btn>
-<v-btn flat color="grey"  v-if='loggedIn' >
-<span>Sign Out</span>
+<v-btn flat color="grey"  v-if='loggedIn' ><router-link :to="{name:'logout'}">
+<span>Sign Out</span></router-link>
+
 <v-icon right>exit_to_app</v-icon>
 </v-btn>
 </v-toolbar>

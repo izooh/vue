@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::post('/register','AuthController@register');
 Route::post('/login','AuthController@login');
+Route::post('/logout','AuthController@logout');
 Route::get('articles', 'my_api@index');
 Route::get('article/{id}', 'my_api@show');
 Route::delete('article/{id}', 'my_api@destroy');

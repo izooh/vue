@@ -79,4 +79,7 @@ return response(['data'=>json_decode((string) $response->getBody(), true)]);
       }
 
     }
+    public function logout(){
+      return 'loggedout';
+    }
 }

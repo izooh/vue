@@ -7,15 +7,27 @@ export default{
     retrieveToken(state,token){
       state.token=token
 
+    },
+    destroyToken(state){
+      state.token=null
     }
   },
   getters:{
     loggedIn(state){
-      return state.token = !null
+      return state.token!=null
 
     }
   },
   actions:{
+    destroyToken(context){
+if(context.getters.loggedIn){
+  axios.post('api/logout').then((res)=>{
+  localStorage.removeItem('access_token')
+  context.commit('destroyToken')
+}
+)
+}
+    },
     retrieveToken(context ,credentials){
       axios.post('api/login',{
         email:credentials.email,
