@@ -8,11 +8,12 @@
 <span></span>
 </v-toolbar title>
 <v-btn  flat color="grey" v-if='!loggedIn'>
-<span>Login</span>
+<router-link :to="{name:'register'}">
+<span>Register</span></router-link>
 <v-icon right>exit_to_app</v-icon>
 </v-btn>
-<v-btn flat color="grey"  v-if='!loggedIn'><router-link :to="{name:'login'}">
-<span>Register</span></router-link>
+<v-btn flat color="grey"  v-if='!loggedIn'><router-link :to="{name:'login'}"><span>Login</span>
+</router-link>
 <v-icon right>power_settings_new</v-icon>
 </v-btn>
 <v-btn flat color="grey"  v-if='loggedIn' ><router-link :to="{name:'logout'}">

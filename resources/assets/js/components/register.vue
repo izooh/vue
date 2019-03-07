@@ -1,7 +1,20 @@
 <template>
-  <v-form@submit.prevent='login' v-model="valid">
+  <v-form@submit.prevent='register' v-model="valid">
     <v-container>
       <v-layout>
+      <v-flex
+         xs12
+         md4
+       >
+         <v-text-field
+           v-model="name"
+           :rules="nameRules"
+           :counter="10"
+           label="name"
+           required
+         ></v-text-field>
+       </v-flex>
+
       <v-flex
         xs12
         md4
@@ -48,38 +61,24 @@
         v => v.length <= 10 || 'Password must be less than 10 characters'
       ],
       email: '',
+      name:'',
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+/.test(v) || 'E-mail must be valid'
       ]
     }),
-    mounted(){
-
-
-    },
     methods:{
-    login(){
-
-    this.$store.dispatch('retrieveToken',{
+    register(){
+    console.log('login')
+    this.$store.dispatch('retrieveToken2',{
     email:this.email,
+    name:this.name,
     password:this.password
     }).then((res)=>{
     this.$router.push('/')
-    this.user()
     }).catch((error)=>{
     console.log(error)
     })
-    },
-    user(){
-    axios.get('api/user')
-.then((response) => {
-              console.log(response.data);
-
-
-          })
-.catch(function (error) {
-console.log(error);
-});
     }
 
     }

@@ -13,7 +13,6 @@ you are currently logged out
 <script>
 export default{
 created(){
-console.log('hello')
 this.$store.dispatch('destroyToken')
 }
 }

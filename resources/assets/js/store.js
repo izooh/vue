@@ -36,7 +36,25 @@ if(context.getters.loggedIn){
 
 
       const token = res.data.data.access_token
-      console.log(token)
+
+
+      localStorage.setItem('access_token',token);
+
+      context.commit('retrieveToken',token)
+      }).catch((error)=>{
+        console.log(console.error)
+      })
+    },
+    retrieveToken2(context ,credentials){
+      axios.post('api/register',{
+        name:credentials.name,
+        email:credentials.email,
+        password:credentials.password
+      }).then((res)=>{
+
+
+      const token = res.data.data.access_token
+  
 
       localStorage.setItem('access_token',token);
 
@@ -45,6 +63,7 @@ if(context.getters.loggedIn){
         console.log(console.error)
       })
     }
+
   }
 
 

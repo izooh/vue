@@ -24,6 +24,11 @@ let routes=[
     name:'logout',
     path:'/logout',
     component:require('./components/Logout')
+  },
+  {
+    name:'register',
+    path:'/register',
+    component:require('./components/register')
   }
 ];
 export default new VueRouter({
