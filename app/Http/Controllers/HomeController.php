@@ -3,34 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\Article;
-use View;
 
 class HomeController extends Controller
 {
-	public function vue(){
-		return view('vue');
-	}
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
-	//Returning a specific user profile
-   public function prof($username){
-		$user=User::where('name',$username)->with('article')->firstOrFail();
-		print_r($user);
-		//return View::make('profile')->with('user',$user);
-
-}
-//returning all article model with relations
-   public function art()
- {
-	    //return view('welcome');
-	    $articles= Article::all();
-
-	    return view('articles',['articles'=>$articles]);
-	   //
-
-}
-public function update(){
-	return View::make('update');
-}
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('home');
+    }
 }

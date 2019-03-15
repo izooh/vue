@@ -16,11 +16,13 @@ import VueRouter from 'vue-router';
 window.Vue.use(VueRouter)
 import router from './routes.js'
 import Vuetify from 'vuetify'
+import StoreData from './store.js'
 import 'vuetify/dist/vuetify.min.css'
+import Vuex from 'vuex'
 
-
+window.Vue.use(Vuex)
 Vue.use(Vuetify)
-
+const store  = new Vuex.Store(StoreData);
 
 
 
@@ -38,5 +40,6 @@ Vue.component('navb', require('./components/Navb.vue'));
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    store
 });

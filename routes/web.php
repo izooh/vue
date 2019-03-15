@@ -14,6 +14,17 @@ use App\Article;
 //Route::get('/', 'HomeController@art');
 Route::get('/profile/{username}','HomeController@prof');
 Route::get('/update','HomeController@update');
-Route::get('/', 'HomeController@vue');
 
 
+
+//Route::get('/', 'HomeController@vue');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', function () {
+    return view('vue');
+});
+Route::get('/r', function () {
+    return view('vue');
+});

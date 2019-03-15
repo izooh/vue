@@ -44,7 +44,7 @@ dialog:false
     })
 .then((response)=>{
 
-alert('article added successfully');
+
 console.log(response.data.data)
 this.article=response.data.data
 this.user_id='',

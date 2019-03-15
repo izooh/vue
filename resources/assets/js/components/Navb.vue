@@ -4,11 +4,21 @@
 <v-toolbar flat app>
 <v-toolbar-side-icon class='grey--text' @click='drawer=!drawer'></v-toolbar-side-icon>
 <v-toolbar title flat class="text-uppercase grey--text">
-<span class="font-weight-dark">Keep</span>
-<span> Close</span>
+<span class="font-weight-dark">Kidyavai Advocate </span>
+<span></span>
 </v-toolbar title>
-<v-btn flat color="grey">
-<span>Sign Out</span>
+<v-btn  flat color="grey" v-if='!loggedIn'>
+<router-link :to="{name:'register'}">
+<span>Register</span></router-link>
+<v-icon right>exit_to_app</v-icon>
+</v-btn>
+<v-btn flat color="grey"  v-if='!loggedIn'><router-link :to="{name:'login'}"><span>Login</span>
+</router-link>
+<v-icon right>power_settings_new</v-icon>
+</v-btn>
+<v-btn flat color="grey"  v-if='loggedIn' ><router-link :to="{name:'logout'}">
+<span>Sign Out</span></router-link>
+
 <v-icon right>exit_to_app</v-icon>
 </v-btn>
 </v-toolbar>
@@ -47,11 +57,20 @@ return{
 drawer:false,
 links:[
 {icon:'dashboard',text:'Dashboard',route:'/'},
-{icon:'store',text:'My work',route:'/views'},
-{icon:'person',text:'Admin',route:'/guest'}
+{icon:'store',text:'My Team',route:'/views'},
+{icon:'person',text:'Profile',route:'/guest'}
 ]
 
 }
+},
+computed:{
+loggedIn(){
+return this.$store.getters.loggedIn
+}
+
+
+
+
 }
 }
 </script>

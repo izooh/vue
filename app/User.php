@@ -1,26 +1,31 @@
 <?php
 
 namespace App;
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-use Illuminate\Database\Eloquent\Model;
-
-class User extends Model
+class User extends Authenticatable
 {
-    //one to Many relationship to Article Model
-  public function article()
-    {
-      return $this->hasMany('App\Article');
-    }
+    use HasApiTokens,Notifiable;
 
-    //one to Many relationship to Loan Model
-    public function loan()
-    {
-      return $this->hasMany('App\Loan');
-    }
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'email', 'password'
+    ];
 
-    //one to Many relationship to Call Model
-    public function call()
-    {
-      return $this->hasMany('App\Call');
-    }
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
 }

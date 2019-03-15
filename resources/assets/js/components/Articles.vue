@@ -2,7 +2,7 @@
 <template>
 
 <div>
-  <input class="form-control " type="text" v-model="search" placeholder="Search Blogs"/>
+  <input class="form-control " type="text" style="width:300px;" v-model="search" placeholder="Search Blogs"/>
   <h4>Add New Article</h4>
 <form @submit.prevent="sendData">
 <div class="form-group">
