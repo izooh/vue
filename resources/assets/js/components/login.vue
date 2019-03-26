@@ -1,33 +1,41 @@
 <template>
-  <v-form@submit.prevent='login' v-model="valid">
-    <v-container>
-      <v-layout>
+
+    <v-container mt-5>
+      <v-layout align-center justify-center>
       <v-flex
         xs12
         md4
       >
+      <v-form@submit.prevent='login' v-model="valid">
+      <v-card class='elevation-12'>
+      <v-toolbar dark color="primary">
+      <v-toolbar-title>Login form</v-toolbar-title>
+      <v-spacer></v-spacer>
+      </v-toolbar>
+      <v-card-text>
+
         <v-text-field
           v-model="email"
           :rules="emailRules"
           label="E-mail"
           required
         ></v-text-field>
-      </v-flex>
-      <v-spacer></v-spacer>
-        <v-flex
-          xs12
-          md4
-        >
-          <v-text-field type='password'
+        <v-text-field type='password'
             v-model="password"
             :rules="nameRules"
             :counter="10"
             label="Password"
             required
           ></v-text-field>
-        </v-flex>
-        <v-flex xs12 md2>
+
+        </v-card-text>
+
+        <v-card-actions>
         <v-btn type='submit' color="blue">Submit</v-btn>
+      </v-card-actions>
+
+      </v-card>
+    </v-form>
         </v-flex>
 
 
@@ -35,7 +43,7 @@
 
       </v-layout>
     </v-container>
-  </v-form>
+
 </template>
 <script>
   export default {

@@ -96,9 +96,24 @@ return{
         created() {
 
        this.fetchData();
+    this.getUser();
 
          },
         methods:{
+        getUser(){
+
+          axios.get('api/user')
+ .then((response) => {
+                    console.log(response.data.data);
+                    this.articles = response.data.data;
+
+                })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+
+        },
     editIt(notebookId){
 return this.editForm=notebookId;
 
@@ -164,6 +179,7 @@ this.articles.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
         }
 
         },
+
         computed:{
         filteredBlogs:function(){
         return this.articles.filter((article)=>{
