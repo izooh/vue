@@ -22,9 +22,7 @@
     <navb></navb>
 
 <div class="container">
-  <router-link to='/'>home</router-link>
-    <router-link to='/views'>admin</router-link>
-    <router-link to='/guest'>guest</router-link>
+<br><br><br>
   <router-view></router-view>
 </div>
 

@@ -7,22 +7,22 @@
 <span class="font-weight-dark">Kidyavai Advocate </span>
 <span></span>
 </v-toolbar title>
-<v-btn  flat color="grey" v-if='!loggedIn'>
+<v-btn depressed  color="blue lighten-3" v-if='!loggedIn'>
 <router-link :to="{name:'register'}">
 <span>Register</span></router-link>
 <v-icon right>exit_to_app</v-icon>
 </v-btn>
-<v-btn flat color="grey"  v-if='!loggedIn'><router-link :to="{name:'login'}"><span>Login</span>
+<v-btn depressed color="blue lighten-3"  v-if='!loggedIn'><router-link :to="{name:'login'}"><span>Login</span>
 </router-link>
 <v-icon right>power_settings_new</v-icon>
 </v-btn>
-<v-btn flat color="grey"  v-if='loggedIn' ><router-link :to="{name:'logout'}">
+<v-btn depressed  color="blue lighten-4"  v-if='loggedIn' ><router-link :to="{name:'logout'}">
 <span>Sign Out</span></router-link>
 
 <v-icon right>exit_to_app</v-icon>
 </v-btn>
 </v-toolbar>
-<v-navigation-drawer v-model='drawer' flat app class='indigo lighten-4'>
+<v-navigation-drawer v-model='drawer' flat app class='indigo lighten-2'>
 <v-layout column align-center>
 <v-flex class="mt-5">
 <v-avatar size='100'>

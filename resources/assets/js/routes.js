@@ -29,6 +29,11 @@ let routes=[
     name:'register',
     path:'/register',
     component:require('./components/register')
+  },
+  {
+    name:'add_rating',
+    path:'/rate',
+    component:require('./components/add_rating')
   }
 ];
 export default new VueRouter({
