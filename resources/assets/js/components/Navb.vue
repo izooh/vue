@@ -4,7 +4,7 @@
 <v-toolbar flat app>
 <v-toolbar-side-icon class='grey--text' @click='drawer=!drawer'></v-toolbar-side-icon>
 <v-toolbar title flat class="text-uppercase grey--text">
-<span class="font-weight-dark">Kidyavai Advocate </span>
+<span class="font-weight-dark">Dre Solutions </span>
 <span></span>
 </v-toolbar title>
 <v-btn depressed  color="blue lighten-3" v-if='!loggedIn'>
@@ -58,7 +58,7 @@ drawer:false,
 links:[
 {icon:'dashboard',text:'Dashboard',route:'/'},
 {icon:'store',text:'My Team',route:'/views'},
-{icon:'person',text:'Profile',route:'/guest'}
+{icon:'person',text:'Profile',route:'/rate'}
 ]
 
 }

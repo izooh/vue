@@ -37,13 +37,13 @@ class RatingController extends Controller
     {
         //
 
-    $ranks = Rating::query()
+    $ranks = Rating::query()->with('user')
         ->select('user_id')->selectRaw('SUM(`Totals`) TotalPoints')
         ->groupBy('user_id')
         ->orderByDesc('TotalPoints')
         ->get();
 
-return $ranks;
+ return new RatingResource($ranks);
 }
 
 

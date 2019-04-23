@@ -34,6 +34,11 @@ let routes=[
     name:'add_rating',
     path:'/rate',
     component:require('./components/add_rating')
+  },
+  {
+    name:'agent_position',
+    path:'/agent_position',
+    component:require('./components/agent_position')
   }
 ];
 export default new VueRouter({
