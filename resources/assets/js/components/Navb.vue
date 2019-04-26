@@ -1,5 +1,6 @@
 <template>
-<div>
+<div id='app'>
+
 <nav>
 <v-toolbar flat app>
 <v-toolbar-side-icon class='grey--text' @click='drawer=!drawer'></v-toolbar-side-icon>
@@ -26,7 +27,7 @@
 <v-layout column align-center>
 <v-flex class="mt-5">
 <v-avatar size='100'>
-<p>image here</p>
+<img src="/images/pics.jpg">
 </v-avatar>
 </v-flex>
 <v-flex class='mt-4 mb-3'>

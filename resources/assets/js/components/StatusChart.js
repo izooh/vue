@@ -11,7 +11,7 @@ export default {
     let Name= new Array();
     let Points = new Array();
 
-    axios.get("api/rating").then((response) => {
+    axios.post("api/default").then((response) => {
        let data = response.data.data;
        if(data) {
           data.forEach(element => {

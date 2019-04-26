@@ -1,7 +1,10 @@
 <template>
+<div>
+<h1 class='subheading grey--text'>Firm Rating</h1>
 
+  <hr>
 <div class="panel panel-default">
- <div class="panel-heading panel blue"><strong>Agents Rating</strong></div>
+
   <div class="panel-body">
     <v-form@submit.prevent='register'>
   <v-layout row wrap>
@@ -241,7 +244,7 @@
 
   </select>
 </div>
-</v-flex>
+</v-flex><br>
 <v-btn type='submit'
        depressed
       :loading="loading4"
@@ -261,13 +264,14 @@
 </v-layout>
   </v-form>
 </div>
-  <div class="panel-footer">Copyright (c) 2019 Opicho inc. All Rights Reserved. </div>
+  <div class="panel-footer"> </div>
 </div
 
 
 
 
 </template>
+</div>
 </template>
 
 

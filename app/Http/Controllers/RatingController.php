@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 use App\Rating;
 use App\Http\Resources\RatingResource;
 
@@ -17,15 +18,14 @@ class RatingController extends Controller
     public function index(Request $request)
 
     {
-      //getting the user_id and status from the front_end
-      $id=$request->input('id');
       $status=$request->input('status');
+      $ranks = Rating::query()->with('user')
+          ->select('user_id')->selectRaw('SUM('.$status.') Points')
+          ->groupBy('user_id')
+          ->orderByDesc('Points')
+          ->get();
 
-      $sum=Rating::where('user_id',$id)->sum($status);
-    $avg=Rating::where('user_id',$id)->avg($status);
-    $data=collect(['sum'=>$sum,'average'=>$avg]);
-         return new RatingResource($data);
-
+return new RatingResource($ranks);
     }
 
     /**
@@ -42,6 +42,7 @@ class RatingController extends Controller
         ->groupBy('user_id')
         ->orderByDesc('TotalPoints')
         ->get();
+
 
  return new RatingResource($ranks);
 }
