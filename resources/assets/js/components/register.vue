@@ -1,46 +1,45 @@
 <template>
+
+<v-container mt-5 >
+  <v-layout align-center justify-center>
+  <v-flex
+    xs12
+    md4
+  >
   <v-form@submit.prevent='register' v-model="valid">
-    <v-container>
-      <v-layout>
-      <v-flex
-         xs12
-         md4
-       >
-         <v-text-field
+  <v-card class='elevation-12'>
+  <v-toolbar dark color="primary">
+  <v-toolbar-title>Register form</v-toolbar-title>
+  <v-spacer></v-spacer>
+  </v-toolbar>
+      <v-card-text>
+        <v-text-field
            v-model="name"
            :rules="nameRules"
            :counter="10"
            label="name"
            required
          ></v-text-field>
-       </v-flex>
-
-      <v-flex
-        xs12
-        md4
-      >
         <v-text-field
           v-model="email"
           :rules="emailRules"
           label="E-mail"
           required
         ></v-text-field>
-      </v-flex>
-      <v-spacer></v-spacer>
-        <v-flex
-          xs12
-          md4
-        >
           <v-text-field type='password'
             v-model="password"
-            :rules="nameRules"
+            :rules="passRules"
             :counter="10"
             label="Password"
             required
           ></v-text-field>
-        </v-flex>
-        <v-flex xs12 md2>
+          </v-card-text>
+
+          <v-card-actions>
         <v-btn type='submit' color="blue">Submit</v-btn>
+                </v-card-actions>
+                </v-card>
+                </v-form>
         </v-flex>
 
 
@@ -56,7 +55,7 @@
       valid: false,
       password: '',
 
-      nameRules: [
+      passRules: [
         v => !!v || 'Password is required',
         v => v.length <= 10 || 'Password must be less than 10 characters'
       ],
@@ -65,11 +64,14 @@
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+/.test(v) || 'E-mail must be valid'
-      ]
+      ],
+      nameRules: [
+        v => !!v || 'name is required',
+        v => v.length <= 10 || 'name must be less than 10 characters'
+      ],
     }),
     methods:{
     register(){
-    console.log('login')
     this.$store.dispatch('retrieveToken2',{
     email:this.email,
     name:this.name,

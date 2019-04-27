@@ -19,6 +19,8 @@ import Vuetify from 'vuetify'
 import StoreData from './store.js'
 import 'vuetify/dist/vuetify.min.css'
 import Vuex from 'vuex'
+import materialIcons from 'material-design-icons/iconfont/material-icons.css'
+
 
 window.Vue.use(Vuex)
 Vue.use(Vuetify)

@@ -1,4 +1,5 @@
 <template>
+<div id='app'>
 <v-dialog max-width='800px' v-model='dialog'>
 <v-btn flat slot='activator' class='blue lighten-1'>Add Suggestion</v-btn>
 <v-card flat>
@@ -17,6 +18,7 @@ Whats on Your Mind
 </v-card text>
 </v-card>
 </v-dialog>
+</div>
 </template>
 <script>
 import axios from "axios";
