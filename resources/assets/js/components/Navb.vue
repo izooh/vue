@@ -15,12 +15,12 @@
 </v-btn>
 <v-btn depressed color="blue lighten-3"  v-if='!loggedIn'><router-link :to="{name:'login'}"><span>Login</span>
 </router-link>
-<v-icon right>power_settings_new</v-icon>
+<v-icon right>fingerprint</v-icon>
 </v-btn>
 <v-btn depressed  color="blue lighten-4"  v-if='loggedIn' ><router-link :to="{name:'logout'}">
 <span>Sign Out</span></router-link>
 
-<v-icon right>exit_to_app</v-icon>
+<v-icon right>open_in_browser</v-icon>
 </v-btn>
 </v-toolbar>
 <v-navigation-drawer v-model='drawer' flat app class='indigo lighten-2'>

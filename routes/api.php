@@ -27,3 +27,16 @@ Route::PUT('article/{id}', 'my_api@edit');
 Route::post('rating', 'RatingController@store');
 Route::get('rating','RatingController@create');
 Route::post('default','RatingController@index');
+
+// remains upload routes
+Route::get('/test','importController@getImport');
+Route::post('/import_parse', 'ImportController@parseImport')->name('import_parse');
+Route::post('/import_process', 'ImportController@processImport')->name('import_process');
+
+//remain controller routes
+Route::get('remains','remainsController@index');
+
+//leads upload Routes
+Route::get('/leads','leadImportController@getImport');
+Route::post('/lead_import_parse', 'leadImportController@parseImport')->name('lead_import_parse');
+Route::post('/lead_import_process', 'leadImportController@processImport')->name('lead_import_process');

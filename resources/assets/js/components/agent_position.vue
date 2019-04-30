@@ -101,7 +101,7 @@ import LineChart from './LineChart'
     },created() {
 
    this.fetchData();
-   this.filtered();
+  
 
 
      },
