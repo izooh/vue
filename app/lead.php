@@ -11,4 +11,8 @@ class lead extends Model
   {
     return $this->belongsTo('App\User');
   }
+  public function remains()
+  {
+    return $this->belongsTo('App\remain','cfid','cfid');
+  }
 }

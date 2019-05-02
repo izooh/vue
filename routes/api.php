@@ -24,6 +24,7 @@ Route::get('article/{id}', 'my_api@show');
 Route::delete('article/{id}', 'my_api@destroy');
 Route::post('article', 'my_api@store');
 Route::PUT('article/{id}', 'my_api@edit');
+//rating controller routes
 Route::post('rating', 'RatingController@store');
 Route::get('rating','RatingController@create');
 Route::post('default','RatingController@index');
@@ -40,3 +41,6 @@ Route::get('remains','remainsController@index');
 Route::get('/leads','leadImportController@getImport');
 Route::post('/lead_import_parse', 'leadImportController@parseImport')->name('lead_import_parse');
 Route::post('/lead_import_process', 'leadImportController@processImport')->name('lead_import_process');
+//leads Controller
+//route to retrive leads that dont belong to remain table
+Route::get('lead','LeadController@index');

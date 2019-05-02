@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\lead;
+use App\Http\Resources\RatingResource;
 use Illuminate\Http\Request;
 
 class LeadController extends Controller
@@ -14,7 +15,9 @@ class LeadController extends Controller
      */
     public function index()
     {
-        //
+        $lead = lead::doesntHave('remains')->get();
+
+        return new RatingResource($lead);
     }
 
     /**

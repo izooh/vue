@@ -5,7 +5,7 @@
 <v-toolbar flat app>
 <v-toolbar-side-icon class='grey--text' @click='drawer=!drawer'></v-toolbar-side-icon>
 <v-toolbar title flat class="text-uppercase grey--text">
-<span class="font-weight-dark">Dre Solutions </span>
+<span class="font-weight-dark">Skywave Managment </span>
 <span></span>
 </v-toolbar title>
 <v-btn depressed  color="blue lighten-3" v-if='!loggedIn'>
@@ -23,7 +23,7 @@
 <v-icon right>open_in_browser</v-icon>
 </v-btn>
 </v-toolbar>
-<v-navigation-drawer v-model='drawer' flat app class='indigo lighten-2'>
+<v-navigation-drawer v-model='drawer' flat app enable-resize-watcher class='indigo lighten-2'>
 <v-layout column align-center>
 <v-flex class="mt-5">
 <v-avatar size='100'>
@@ -55,11 +55,13 @@ export default{
 components:{adding},
 data(){
 return{
+clipped:false,
 drawer:false,
 links:[
 {icon:'dashboard',text:'Dashboard',route:'/'},
 {icon:'store',text:'My Team',route:'/views'},
-{icon:'person',text:'Profile',route:'/rate'}
+{icon:'person',text:'Ratings',route:'/rate'},
+{icon:'person',text:'Leads',route:'/remains'}
 ]
 
 }

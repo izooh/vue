@@ -42,10 +42,11 @@
                 </v-form>
         </v-flex>
 
-
-
-
-      </v-layout>
+  </v-layout>
+  <v-footer class="pa-3" absolute>
+  <v-spacer></v-spacer>
+  <div><span>Tensor</span>&copy; {{ new Date().getFullYear() }}</div>
+</v-footer>
     </v-container>
   </v-form>
 </template>

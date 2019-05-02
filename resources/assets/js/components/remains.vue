@@ -8,7 +8,7 @@
 <v-flex xs12 md5>
 <v-tooltip top>
 <template v-slot:activator="{ on }">
-<v-btn small fab dark  color="grey" v-on="on">
+<v-btn medium depressed fixed right bottom fab dark  color="blue" v-on="on">
       <v-icon dark>get_app</v-icon>
     </v-btn>
     </template>
@@ -16,8 +16,7 @@
     </v-tooltip>
 
 </v-flex>
-<v-flex xs12 md5>
-</v-flex>
+<v-flex xs12 md7></v-flex>
 <v-flex xs12 md5>
 <v-data-table
     :headers="headers"
@@ -36,14 +35,47 @@
   </v-flex>
 <v-flex xs12 md12 >
 <br><hr>
-
-  <v-flex xs12 md5>
-  </v-flex>
-
     </v-flex>
-  </v-layout>
   </v-form>
+<v-flex xs12 md5 >
+  <v-form@submit.prevent='login' v-model="valid">
+  <v-card class='elevation-12'>
+  <v-toolbar dark color="grey">
+  <v-toolbar-title><small>Agent Cycles</small></v-toolbar-title>
+  <v-spacer></v-spacer>
+  </v-toolbar>
+  <v-card-text>
+    <div class="form-group">
+    <label for="sel1">Select Agent Name</label>
+    <select class="form-control" v-model='name' id="sel1">
+    <option value=''>......</option>
+      <option value='Ken'>Ken</option>
+      <option value='Lous'>Louis</option>
+      <option value='Kent'>Kent</option>
+    </select>
+  </div>
+  <v-switch
+      v-model="switch1"
+      :label="`22&36: ${switch1.toString()}`"
+    ></v-switch>
+    <v-switch
+      v-model="switch2"
+      :label="`43: ${switch2.toString()}`"
+    ></v-switch>
+    </v-card-text>
 
+    <v-card-actions>
+    <v-btn type='submit' depressed color="blue">Submit</v-btn>
+  </v-card-actions>
+
+  </v-card>
+</v-form>
+</v-flex>
+  </v-layout><br>
+  <v-footer class="pa-3" absolute>
+  <v-spacer></v-spacer>
+  <div><span>Tensor</span>&copy; {{ new Date().getFullYear() }}</div>
+  </v-footer>
 </v-container>
 </div>
 </template>
@@ -56,14 +88,17 @@ import remainsChart from './remainsChart'
 
     data () {
       return {
+      naeme:'',
+      switch1: true,
+      switch2: true,
         headers: [
           {
-            text: 'Member Name',
+            text: 'Agent Name',
             align: 'left',
             sortable: false,
             value: 'name'
           },
-          { text: 'Member Score', value: 'desserts.TotalPoints' },
+          { text: '43 remaing', value: 'desserts.TotalPoints' },
 
         ],
     remains:[]

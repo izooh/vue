@@ -70,7 +70,10 @@
     </v-flex>
 
 </v-layout>
-</div>
+<v-footer class="pa-3" absolute>
+<v-spacer></v-spacer>
+<div><span>Tensor</span>&copy; {{ new Date().getFullYear() }}</div>
+</v-footer>
 
 </div>
 </template>
