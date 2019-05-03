@@ -20,6 +20,9 @@ import StoreData from './store.js'
 import 'vuetify/dist/vuetify.min.css'
 import Vuex from 'vuex'
 import materialIcons from 'material-design-icons/iconfont/material-icons.css'
+import JsonExcel from 'vue-json-excel'
+
+Vue.component('remains', JsonExcel)
 
 
 window.Vue.use(Vuex)

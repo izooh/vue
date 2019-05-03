@@ -6,14 +6,19 @@
 
 <v-layout row wrap>
 <v-flex xs12 md5>
-<v-tooltip top>
-<template v-slot:activator="{ on }">
-<v-btn medium depressed fixed right bottom fab dark  color="blue" v-on="on">
-      <v-icon dark>get_app</v-icon>
-    </v-btn>
-    </template>
-    <span>Download remaining leads</span>
-    </v-tooltip>
+<vue-csv-downloader
+      :data="data"
+      :fields="fields"
+  ><v-tooltip top>
+  <template v-slot:activator="{ on }">
+  <v-btn medium depressed fixed right bottom fab dark  color="blue" v-on="on">
+        <v-icon dark>get_app</v-icon>
+      </v-btn>
+      </template>
+      <span>Download remaining leads</span>
+      </v-tooltip>
+  </vue-csv-downloader>
+
 
 </v-flex>
 <v-flex xs12 md7></v-flex>
@@ -80,15 +85,20 @@
 </div>
 </template>
 <script>
+import VueCsvDownloader from 'vue-csv-downloader';
 import remainsChart from './remainsChart'
   export default {
   components:{
-  'remainsChart':remainsChart
+  'remainsChart':remainsChart,
+     VueCsvDownloader
   },
 
     data () {
       return {
-      naeme:'',
+      data:[],
+                 fields: ['cfid', 'contact', 'user_id','last_name'],
+
+      name:'',
       switch1: true,
       switch2: true,
         headers: [
@@ -106,17 +116,15 @@ import remainsChart from './remainsChart'
     },created() {
 
    this.fetchData();
-
-
-
+   this.fetchLeads();
      },
     methods:{
-    fetchData(){
+     fetchData(){
 
       axios.get('api/remains')
 .then((response) => {
                 console.log(response.data.data);
-                this.remains=response.data.data
+                   this.remains=response.data.data
 
 
             })
@@ -125,7 +133,23 @@ console.log(error);
 });
 
 
-    }
+    },
+    fetchLeads(){
+
+     axios.get('api/lead')
+.then((response) => {
+               console.log(response.data.data);
+               this.data=response.data.data
+
+
+
+           })
+.catch(function (error) {
+console.log(error);
+});
+
+
+   }
     }
 
   }

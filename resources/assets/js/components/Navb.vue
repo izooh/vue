@@ -61,7 +61,7 @@ links:[
 {icon:'dashboard',text:'Dashboard',route:'/'},
 {icon:'store',text:'My Team',route:'/views'},
 {icon:'person',text:'Ratings',route:'/rate'},
-{icon:'person',text:'Leads',route:'/remains'}
+{icon:'call',text:'Leads',route:'/remains'}
 ]
 
 }
