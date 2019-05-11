@@ -79,7 +79,7 @@
 </template>
 <script>
 var moment=require('moment');
-    import axios from "axios";
+
 
     export default {
         data(){
@@ -99,7 +99,6 @@ return{
         created() {
 
        this.fetchData();
-    this.getUser();
 
          },
         methods:{

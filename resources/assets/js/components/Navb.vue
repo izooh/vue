@@ -23,7 +23,7 @@
 <v-icon right>open_in_browser</v-icon>
 </v-btn>
 </v-toolbar>
-<v-navigation-drawer v-model='drawer' flat app enable-resize-watcher class='indigo lighten-2'>
+<v-navigation-drawer v-model='drawer' flat app enable-resize-watcher class='indigo lighten-1'>
 <v-layout column align-center>
 <v-flex class="mt-5">
 <v-avatar size='100'>
@@ -58,10 +58,12 @@ return{
 clipped:false,
 drawer:false,
 links:[
-{icon:'dashboard',text:'Dashboard',route:'/'},
-{icon:'store',text:'My Team',route:'/views'},
+{icon:'dashboard',text:'Notice Board',route:'/'},
+{icon:'store',text:'Suggestions',route:'/views'},
 {icon:'person',text:'Ratings',route:'/rate'},
-{icon:'call',text:'Leads',route:'/remains'}
+{icon:'call',text:'Leads',route:'/remains'},
+{icon:'bubble_chart',text:'Agent Position',route:'/agent_position'},
+{icon:'account_balance',text:'Human Resource',route:''}
 ]
 
 }

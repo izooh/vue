@@ -15,7 +15,7 @@
         <v-icon dark>get_app</v-icon>
       </v-btn>
       </template>
-      <span>Download remaining leads</span>
+      <span>Download leads</span>
       </v-tooltip>
   </vue-csv-downloader>
 
@@ -59,6 +59,10 @@
       <option value='Kent'>Kent</option>
     </select>
   </div>
+  <v-menu>
+  <v-text-field slot='activator' label='Completion Date' :value='picker' prepend-icon='date_range'></v-text-field>
+     <v-date-picker v-model="picker"></v-date-picker>
+     </v-menu>
   <v-switch
       v-model="switch1"
       :label="`22&36: ${switch1.toString()}`"
@@ -95,6 +99,7 @@ import remainsChart from './remainsChart'
 
     data () {
       return {
+      picker:'',
       data:[],
                  fields: ['cfid', 'contact', 'user_id','last_name'],
 
@@ -120,8 +125,8 @@ import remainsChart from './remainsChart'
      },
     methods:{
      fetchData(){
-
-      axios.get('api/remains')
+let tokenStr = localStorage.getItem('access_token');
+      axios.get('api/remains',{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
 .then((response) => {
                 console.log(response.data.data);
                    this.remains=response.data.data
@@ -135,8 +140,8 @@ console.log(error);
 
     },
     fetchLeads(){
-
-     axios.get('api/lead')
+  let tokenStr = localStorage.getItem('access_token');
+     axios.get('api/lead',{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
 .then((response) => {
                console.log(response.data.data);
                this.data=response.data.data

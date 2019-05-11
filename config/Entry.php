@@ -1,6 +1,6 @@
 <?php
 return[
   'administrator'=>[
-    'isaacopicho@gmail.com'
+    'lous@gmail.com'
   ]
 ];

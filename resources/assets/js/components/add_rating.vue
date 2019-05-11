@@ -322,6 +322,7 @@ export default {
   },
   methods:{
   register(){
+      let tokenStr = localStorage.getItem('access_token');
 this.loader = 'loading4'
 axios.post('api/rating',{
 user_id:this.user_id,
@@ -343,9 +344,9 @@ Closing:this.Closing,
 Verification:this.Verification,
 Opening:this.Opening
 
-}).then((res)=>{
+},{ headers: {"Authorization" : `Bearer ${tokenStr}`} }).then((res)=>{
 console.log(res)
-this.$router.push('/agent_position')
+
 }).catch((error)=>{
 console.log('failed')
 })
