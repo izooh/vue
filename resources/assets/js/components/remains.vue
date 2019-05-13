@@ -1,5 +1,6 @@
 <template>
 <div>
+<br><br>
 <h1 class='subheading grey--text'>Leads Record</h1>
   <hr>
 <v-container >

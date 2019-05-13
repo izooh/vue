@@ -71374,6 +71374,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -71461,6 +71462,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("br"),
+    _c("br"),
+    _vm._v(" "),
     _c("h1", { staticClass: "subheading grey--text" }, [_vm._v("Firm Rating")]),
     _vm._v(" "),
     _c("hr"),
@@ -72765,6 +72769,7 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__LineChart__ = __webpack_require__(204);
+//
 //
 //
 //
@@ -87849,6 +87854,9 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("br"),
+      _c("br"),
+      _vm._v(" "),
       _c("h1", { staticClass: "subheading grey--text" }, [
         _vm._v("Perfomance Dashboard")
       ]),
@@ -88168,6 +88176,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_csv_downloader__ = __webpack_require__(211);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_csv_downloader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_csv_downloader__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__remainsChart__ = __webpack_require__(221);
+//
 //
 //
 //
@@ -94107,6 +94116,9 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("br"),
+      _c("br"),
+      _vm._v(" "),
       _c("h1", { staticClass: "subheading grey--text" }, [
         _vm._v("Leads Record")
       ]),

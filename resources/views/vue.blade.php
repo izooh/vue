@@ -17,7 +17,15 @@
 
 <meta name="csrf-token" content="{{csrf_token()}}">
 <script>window.Laravel={csrfToken:'{{csrf_token()}}'}</script>
-
+<style>
+.page-enter-active, .page-leave-active {
+  transition: opacity 1s, transform 1s;
+}
+.page-enter, .page-leave-to {
+  opacity: 0;
+  transform: translateX(-30%);
+}
+</style>
 </head>
 <body>
 
@@ -28,8 +36,9 @@
 
 
 <br><br><br>
+<transition name="page" mode="out-in">
   <router-view></router-view>
-
+</transition>
 </div>
 </v-app>
 </div>
