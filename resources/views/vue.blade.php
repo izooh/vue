@@ -22,9 +22,10 @@
 <body>
 
 <div id="app">
+  <v-app>
+<navb></navb>
     <div class="container">
-      <v-app>
-  <navb></navb>
+
 
 <br><br><br>
   <router-view></router-view>

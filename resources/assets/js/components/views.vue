@@ -72,7 +72,7 @@
 </v-layout>
 <v-footer class="pa-3" absolute>
 <v-spacer></v-spacer>
-<div><span>Tensor</span>&copy; {{ new Date().getFullYear() }}</div>
+<div><span>Blockchain</span>&copy; {{ new Date().getFullYear() }}</div>
 </v-footer>
 
 </div>
@@ -99,15 +99,16 @@ return{
         created() {
 
        this.fetchData();
+       this.getUser();
 
          },
         methods:{
         getUser(){
-
-          axios.get('api/user')
+let tokenStr = localStorage.getItem('access_token');
+          axios.get('api/user',{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
  .then((response) => {
-                    console.log(response.data.data);
-                    this.articles = response.data.data;
+                    console.log(response.data);
+
 
                 })
   .catch(function (error) {

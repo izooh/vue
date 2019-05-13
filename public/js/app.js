@@ -69240,15 +69240,14 @@ var moment = __webpack_require__(0);
         created: function created() {
 
                 this.fetchData();
+                this.getUser();
         },
 
         methods: {
                 getUser: function getUser() {
-                        var _this = this;
-
-                        axios.get('api/user').then(function (response) {
-                                console.log(response.data.data);
-                                _this.articles = response.data.data;
+                        var tokenStr = localStorage.getItem('access_token');
+                        axios.get('api/user', { headers: { "Authorization": 'Bearer ' + tokenStr } }).then(function (response) {
+                                console.log(response.data);
                         }).catch(function (error) {
                                 console.log(error);
                         });
@@ -69264,22 +69263,22 @@ var moment = __webpack_require__(0);
                         return false;
                 },
                 updateIt: function updateIt(articleId) {
-                        var _this2 = this;
+                        var _this = this;
 
                         axios.put('api/article/' + articleId, this.notebookEditData).then(function (response) {
                                 console.log(response);
-                                _this2.notebookEditData = "";
-                                _this2.$router.push('/guest');
+                                _this.notebookEditData = "";
+                                _this.$router.push('/guest');
                         }).catch(function (error) {
                                 console.log(error.response);
                         });
                 },
                 fetchData: function fetchData() {
-                        var _this3 = this;
+                        var _this2 = this;
 
                         axios.get('api/articles').then(function (response) {
                                 console.log(response.data.data);
-                                _this3.articles = response.data.data;
+                                _this2.articles = response.data.data;
                         }).catch(function (error) {
                                 console.log(error);
                         });
@@ -69290,14 +69289,14 @@ var moment = __webpack_require__(0);
                         });
                 },
                 deleteData: function deleteData(id) {
-                        var _this4 = this;
+                        var _this3 = this;
 
                         if (confirm("are you sure you want to delete")) {
 
                                 axios.delete('api/article/' + id).then(function (response) {
                                         //console.log(response.data.data);
                                         alert("alert deleted");
-                                        _this4.fetchData();
+                                        _this3.fetchData();
                                 }).catch(function (error) {
                                         console.log(error);
                                 });
@@ -69307,10 +69306,10 @@ var moment = __webpack_require__(0);
 
         computed: {
                 filteredBlogs: function filteredBlogs() {
-                        var _this5 = this;
+                        var _this4 = this;
 
                         return this.articles.filter(function (article) {
-                                return article.name.match(_this5.search);
+                                return article.name.match(_this4.search);
                         });
                 },
                 theDate: function theDate() {
@@ -70070,7 +70069,7 @@ var render = function() {
           _c("v-spacer"),
           _vm._v(" "),
           _c("div", [
-            _c("span", [_vm._v("Tensor")]),
+            _c("span", [_vm._v("Blockchain")]),
             _vm._v("© " + _vm._s(new Date().getFullYear()))
           ])
         ],
@@ -70560,7 +70559,7 @@ var render = function() {
               _c("v-spacer"),
               _vm._v(" "),
               _c("div", [
-                _c("span", [_vm._v("Tensor")]),
+                _c("span", [_vm._v("Blockchain")]),
                 _vm._v("© " + _vm._s(new Date().getFullYear()))
               ])
             ],
@@ -70978,7 +70977,7 @@ var render = function() {
           _c("v-spacer"),
           _vm._v(" "),
           _c("div", [
-            _c("span", [_vm._v("Tensor")]),
+            _c("span", [_vm._v("Blockchain")]),
             _vm._v("© " + _vm._s(new Date().getFullYear()))
           ])
         ],
@@ -72691,7 +72690,7 @@ var render = function() {
             _c("v-spacer"),
             _vm._v(" "),
             _c("div", [
-              _c("span", [_vm._v("Tensor")]),
+              _c("span", [_vm._v("Blockchain")]),
               _vm._v("© " + _vm._s(new Date().getFullYear()))
             ])
           ],
@@ -88090,7 +88089,7 @@ var render = function() {
               _c("v-spacer"),
               _vm._v(" "),
               _c("div", [
-                _c("span", [_vm._v("Tensor")]),
+                _c("span", [_vm._v("Blockchain")]),
                 _vm._v("© " + _vm._s(new Date().getFullYear()))
               ])
             ],
@@ -94409,7 +94408,7 @@ var render = function() {
               _c("v-spacer"),
               _vm._v(" "),
               _c("div", [
-                _c("span", [_vm._v("Tensor")]),
+                _c("span", [_vm._v("Blockchain")]),
                 _vm._v("© " + _vm._s(new Date().getFullYear()))
               ])
             ],
@@ -123202,8 +123201,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -123486,7 +123483,7 @@ var render = function() {
       [
         _c(
           "v-toolbar",
-          { attrs: { flat: "", app: "" } },
+          { staticClass: "white", attrs: { flat: "", app: "" } },
           [
             _c("v-toolbar-side-icon", {
               staticClass: "grey--text",
@@ -123500,63 +123497,83 @@ var render = function() {
             _c(
               "v-toolbar",
               {
-                staticClass: "text-uppercase grey--text",
+                staticClass: "text-uppercase grey--text white",
                 attrs: { title: "", flat: "" }
               },
               [
                 _c("span", { staticClass: "font-weight-dark" }, [
-                  _vm._v("Skywave Managment ")
+                  _c("img", {
+                    attrs: {
+                      src: "/images/logo1.jpg",
+                      Width: "150",
+                      height: "30"
+                    }
+                  })
                 ]),
                 _vm._v(" "),
                 _c("span")
               ]
             ),
             _vm._v(" "),
-            !_vm.loggedIn
-              ? _c(
-                  "v-btn",
-                  { attrs: { depressed: "", color: "blue lighten-3" } },
-                  [
-                    _c("router-link", { attrs: { to: { name: "register" } } }, [
-                      _c("span", [_vm._v("Register")])
-                    ]),
-                    _vm._v(" "),
-                    _c("v-icon", { attrs: { right: "" } }, [
-                      _vm._v("exit_to_app")
-                    ])
-                  ],
-                  1
-                )
-              : _vm._e(),
+            _c(
+              "router-link",
+              { attrs: { to: { name: "register" } } },
+              [
+                !_vm.loggedIn
+                  ? _c(
+                      "v-btn",
+                      { attrs: { flat: "", color: "white lighten-2" } },
+                      [
+                        _c("img", {
+                          attrs: {
+                            src: "/images/register1.jpg",
+                            Width: "40",
+                            height: "15"
+                          }
+                        })
+                      ]
+                    )
+                  : _vm._e()
+              ],
+              1
+            ),
             _vm._v(" "),
-            !_vm.loggedIn
-              ? _c(
-                  "v-btn",
-                  { attrs: { depressed: "", color: "blue lighten-3" } },
-                  [
-                    _c("router-link", { attrs: { to: { name: "login" } } }, [
-                      _c("span", [_vm._v("Login")])
-                    ]),
-                    _vm._v(" "),
-                    _c("v-icon", { attrs: { right: "" } }, [
-                      _vm._v("fingerprint")
-                    ])
-                  ],
-                  1
-                )
-              : _vm._e(),
+            _c(
+              "router-link",
+              { attrs: { to: { name: "login" } } },
+              [
+                !_vm.loggedIn
+                  ? _c(
+                      "v-btn",
+                      { attrs: { flat: "", color: "white lighten-2" } },
+                      [
+                        _c("img", {
+                          attrs: {
+                            src: "/images/login.jpg",
+                            Width: "40",
+                            height: "15"
+                          }
+                        })
+                      ]
+                    )
+                  : _vm._e()
+              ],
+              1
+            ),
             _vm._v(" "),
             _vm.loggedIn
               ? _c(
                   "v-btn",
-                  { attrs: { depressed: "", color: "blue lighten-4" } },
+                  { attrs: { flat: "", color: "white lighten-2" } },
                   [
                     _c("router-link", { attrs: { to: { name: "logout" } } }, [
-                      _c("span", [_vm._v("Sign Out")])
-                    ]),
-                    _vm._v(" "),
-                    _c("v-icon", { attrs: { right: "" } }, [
-                      _vm._v("open_in_browser")
+                      _c("img", {
+                        attrs: {
+                          src: "/images/sign-out.jpg",
+                          Width: "40",
+                          height: "15"
+                        }
+                      })
                     ])
                   ],
                   1
@@ -123589,7 +123606,7 @@ var render = function() {
                   { staticClass: "mt-5" },
                   [
                     _c("v-avatar", { attrs: { size: "100" } }, [
-                      _c("img", { attrs: { src: "/images/pics.jpg" } })
+                      _c("img", { attrs: { src: "/images/avatar.jpg" } })
                     ])
                   ],
                   1
