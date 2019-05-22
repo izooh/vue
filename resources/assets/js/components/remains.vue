@@ -1,9 +1,9 @@
 <template>
-<div>
+<div v-cloak>
 <br><br>
 <h1 class='subheading grey--text'>Leads Record</h1>
   <hr>
-<v-container >
+<v-container>
 
 <v-layout row wrap>
 <v-flex xs12 md5>
@@ -87,6 +87,7 @@
   <div><span>Blockchain</span>&copy; {{ new Date().getFullYear() }}</div>
   </v-footer>
 </v-container>
+
 </div>
 </template>
 <script>
@@ -146,7 +147,7 @@ console.log(error);
 .then((response) => {
                console.log(response.data.data);
                this.data=response.data.data
-
+                this.loading=false
 
 
            })
@@ -160,3 +161,8 @@ console.log(error);
 
   }
 </script>
+<style>
+[v-cloak] {
+     display: none;
+}
+</style>

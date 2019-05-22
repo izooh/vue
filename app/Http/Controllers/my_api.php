@@ -128,9 +128,16 @@ Article::where('id',$id)->update($data);
         //dleting from article table
 
         $article=Article::FindOrFail($id);
-        if($article->delete())
-        {
-        return new articleresource($article);
+        $logged_user=auth('api')->user()->id;
+        $del_article=$article->user_id;
+        if($logged_user==$del_article){
+          if($article->delete())
+          {
+          return 'deletion successfully';
         }
+        }else{
+          return "you dont have enough permission contact your system administrator";
+        }
+
     }
 }

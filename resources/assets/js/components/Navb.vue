@@ -3,9 +3,9 @@
 
 <nav>
 <v-toolbar class='white' flat app>
-<v-toolbar-side-icon class='grey--text' @click='drawer=!drawer'></v-toolbar-side-icon>
+<v-toolbar-side-icon class='grey--text' @click.stop='drawer=!drawer'></v-toolbar-side-icon>
 <v-toolbar title flat class="text-uppercase grey--text white">
-<span class="font-weight-dark"><img src="/images/logo1.jpg" Width='150' height='30'> </span>
+<span class="font-weight-dark"><img src="/images/logo1.jpg" Width='250' height='30'> </span>
 <span></span>
 </v-toolbar title>
 <router-link :to="{name:'register'}">
@@ -21,7 +21,7 @@
 <img src="/images/sign-out.jpg" Width='40' height='15'></router-link>
 </v-btn>
 </v-toolbar>
-<v-navigation-drawer v-model='drawer' flat app enable-resize-watcher class='indigo lighten-1'>
+<v-navigation-drawer   v-model='drawer' flat app absolute temporary disable-resize-watcher class='indigo lighten-1' >
 <v-layout column align-center>
 <v-flex class="mt-5">
 <v-avatar size='100'>
@@ -53,7 +53,6 @@ export default{
 components:{adding},
 data(){
 return{
-clipped:false,
 drawer:false,
 links:[
 {icon:'dashboard',text:'Notice Board',route:'/'},

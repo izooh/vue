@@ -18,12 +18,16 @@
 <meta name="csrf-token" content="{{csrf_token()}}">
 <script>window.Laravel={csrfToken:'{{csrf_token()}}'}</script>
 <style>
-.page-enter-active, .page-leave-active {
-  transition: opacity 1s, transform 1s;
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 1s;
+  transition-property: opacity;
+  transition-timing-function: ease;
 }
-.page-enter, .page-leave-to {
-  opacity: 0;
-  transform: translateX(-30%);
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0
 }
 </style>
 </head>
@@ -33,10 +37,8 @@
   <v-app>
 <navb></navb>
     <div class="container">
-
-
 <br><br><br>
-<transition name="page" mode="out-in">
+<transition name="fade" mode="out-in">
   <router-view></router-view>
 </transition>
 </div>

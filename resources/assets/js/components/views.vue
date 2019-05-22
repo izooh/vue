@@ -1,5 +1,6 @@
 <template>
 <div>
+<div v-cloak>
 <br><br>
 <h1 class='subheading grey--text'>Notice Board</h1>
 <br>
@@ -74,19 +75,31 @@
 <v-spacer></v-spacer>
 <div><span>Blockchain</span>&copy; {{ new Date().getFullYear() }}</div>
 </v-footer>
-
+</div>
+<template>
+<div class="text-center">
+  <loading-balls
+    v-if="loading"
+    :count="10"
+    :radius="8"
+    color="#4b0082"
+  />
+  </div>
+</template>
 </div>
 </template>
 <script>
 var moment=require('moment');
-
+import LoadingBalls from 'vue-loading-balls'
 
     export default {
+    components: {
+      LoadingBalls
+    },
         data(){
 return{
     articles:[],
-    article:'',
-    articl:'',
+    loading:true,
     title:'',
     body:'',
     search:'',
@@ -104,16 +117,16 @@ return{
          },
         methods:{
         getUser(){
-let tokenStr = localStorage.getItem('access_token');
+    let tokenStr = localStorage.getItem('access_token');
           axios.get('api/user',{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
- .then((response) => {
-                    console.log(response.data);
+    .then((response) => {
+          console.log(response.data.id)
 
 
                 })
-  .catch(function (error) {
+    .catch(function (error) {
     console.log(error);
-  });
+    });
 
 
         },
@@ -147,6 +160,7 @@ return this.editForm=notebookId;
  .then((response) => {
                     console.log(response.data.data);
                     this.articles = response.data.data;
+                    this.loading=false;
 
                 })
   .catch(function (error) {
@@ -165,12 +179,13 @@ this.articles.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
          if
          (confirm("are you sure you want to delete"))
          {
-
-          axios.delete('api/article/'+id)
+  let tokenStr = localStorage.getItem('access_token');
+          axios.delete('api/article/'+id,{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
  .then((response) => {
-                    //console.log(response.data.data);
-                    alert("alert deleted");
+
                     this.fetchData();
+                    console.log(response.data)
+                    alert(response.data);
 
                 })
   .catch(function (error) {
@@ -212,6 +227,9 @@ border:12px solid #3cd1c2;
 }
 .v-chip.Junior{
 border:12px solid indigo;
+}
+[v-cloak] {
+     display: none;
 }
 
 </style>

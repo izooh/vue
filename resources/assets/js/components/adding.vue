@@ -1,5 +1,6 @@
 <template>
 <div id='app'>
+<p v-if='name' style="text-align:center" class="text-grey font-italic""> welcome {{name}} </p>
 <v-dialog max-width='800px' v-model='dialog'>
 <v-btn flat slot='activator' class='blue lighten-1'>Add Suggestion</v-btn>
 <v-card flat>
@@ -10,7 +11,6 @@ Whats on Your Mind
 </v-card-title>
 <v-card text>
 <v-form class="px-3">
-<v-text-field label="user id" prepend-icon='person' v-model='user_id'></v-text-field>
 <v-text-field label="suggestion title" prepend-icon='folder' v-model='title'></v-text-field>
 <v-textarea label="content" prepend-icon='edit' v-model='body'>></v-textarea>
 <v-btn type="submit" flat class="indigo lighten-3" @click='sendData' :loading='loading'>Submit</v-btn>
@@ -36,7 +36,26 @@ loading:false,
 dialog:false
 }
     },
+    created() {
+   this.getUser();
+
+     },
     methods: {
+    getUser(){
+let tokenStr = localStorage.getItem('access_token');
+      axios.get('api/user',{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
+.then((response) => {
+      this.user_id=response.data.id
+      this.name=response.data.name
+
+
+            })
+.catch(function (error) {
+console.log(error);
+});
+
+
+    },
     sendData(){
     this.loading=true;
     axios.post('api/article',{
