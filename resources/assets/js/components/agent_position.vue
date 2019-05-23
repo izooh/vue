@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-cloak>
 <br><br>
 <h1 class='subheading grey--text'>Perfomance Dashboard</h1>
   <hr>
@@ -142,3 +142,8 @@ console.log(error);
 
   }
 </script>
+<style>
+[v-cloak] {
+     display: none;
+}
+</style>

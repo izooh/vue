@@ -22,7 +22,7 @@ Route::post('/logout','AuthController@logout');
 Route::get('articles', 'my_api@index');
 Route::get('article/{id}', 'my_api@show');
 Route::middleware('auth:api')->delete('article/{id}', 'my_api@destroy');
-Route::post('article', 'my_api@store');
+Route::middleware('admin')->post('article', 'my_api@store');
 Route::PUT('article/{id}', 'my_api@edit');
 //rating controller routes
 Route::middleware('admin')->post('rating', 'RatingController@store');

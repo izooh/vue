@@ -22,7 +22,6 @@ import Vuex from 'vuex'
 import materialIcons from 'material-design-icons/iconfont/material-icons.css'
 import JsonExcel from 'vue-json-excel'
 import axios from "axios";
-import LoadingBalls from 'vue-loading-balls'
 Vue.component('remains', JsonExcel)
 
 

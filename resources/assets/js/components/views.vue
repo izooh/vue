@@ -2,6 +2,26 @@
 <div>
 <div v-cloak>
 <br><br>
+    <v-dialog max-width='800px' v-model='dialog'>
+    <v-btn slot='activator' large fixed right center fab dark  color="blue">
+          <v-icon dark>note_add</v-icon>
+        </v-btn>
+
+    <v-card flat>
+    <v-card-title>
+     <div class='caption grey--text'>
+    Post to NoticeBoard
+    </div>
+    </v-card-title>
+    <v-card text>
+    <v-form class="px-3">
+    <v-text-field label="notice title" prepend-icon='folder' v-model='title'></v-text-field>
+    <v-textarea label="content" prepend-icon='edit' v-model='body'>></v-textarea>
+    <v-btn type="submit" flat class="indigo lighten-3" @click='sendData' :loading='loading'>Submit</v-btn>
+    </v-form>
+    </v-card text>
+    </v-card>
+    </v-dialog>
 <h1 class='subheading grey--text'>Notice Board</h1>
 <br>
 <span class="caption grey--text"><v-icon small left>access_time</v-icon>{{theDate}}</span>
@@ -40,7 +60,7 @@
     <div slot="header" :class="`${article.user.name} `" ><div class='caption grey--text' v-show="!showIt(article.id)"><strong>{{article.name}}</strong></div>
 
     <div class="right" >
-    <v-chip small :class="`${article.user.name} white--text caption my-2`">
+    <v-chip small :class="`${article.user.name} black--text caption my-2`">
 {{article.date}}
     </v-chip>
     </div>
@@ -91,7 +111,6 @@
 <script>
 var moment=require('moment');
 import LoadingBalls from 'vue-loading-balls'
-
     export default {
     components: {
       LoadingBalls
@@ -103,9 +122,11 @@ return{
     title:'',
     body:'',
     search:'',
+    user_id:'',
     article_id:'',
     pagination:{},
     editForm:'',
+    dialog:false,
     notebookEditData:{title:'',body:'',user_id:''}
 }
         },
@@ -121,7 +142,7 @@ return{
           axios.get('api/user',{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
     .then((response) => {
           console.log(response.data.id)
-
+            this.user_id=response.data.id
 
                 })
     .catch(function (error) {
@@ -129,6 +150,30 @@ return{
     });
 
 
+        },
+        sendData(){
+        let tokenStr = localStorage.getItem('access_token');
+        this.loading=true;
+        axios.post('api/article',{
+        user_id:this.user_id,
+        title:this.title,
+        body:this.body
+        },{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
+    .then((response)=>{
+
+
+    console.log(response.data.data)
+    this.article=response.data.data
+    this.title='',
+    this.body='',
+    this.loading=false,
+    this.dialog=false
+    this.fetchData();
+
+    })
+    .catch(function (error) {
+    console.log(error);
+    });
         },
     editIt(notebookId){
 return this.editForm=notebookId;
@@ -158,7 +203,7 @@ return this.editForm=notebookId;
 
           axios.get('api/articles')
  .then((response) => {
-                    console.log(response.data.data);
+                    console.log(response);
                     this.articles = response.data.data;
                     this.loading=false;
 
@@ -222,11 +267,17 @@ border-left:4px solid #3cd1c2;
 .Junior{
 border-left:4px solid indigo;
 }
+.izooh{
+border-left:4px solid red;
+}
 .v-chip.louis{
-border:12px solid #3cd1c2;
+border:4px solid #3cd1c2;
 }
 .v-chip.Junior{
-border:12px solid indigo;
+border:4px solid indigo;
+}
+.v-chip.izooh{
+border:4px solid red;
 }
 [v-cloak] {
      display: none;

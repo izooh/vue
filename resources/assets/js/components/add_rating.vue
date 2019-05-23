@@ -1,6 +1,10 @@
 <template>
 <div>
 <br><br>
+<v-snackbar v-model='snackbar' :timeout='3000' top color='blue'>
+<span> data succesfully uploaded</span>
+<v-btn flat color='white' @click='snackbar=false'>Close</v-btn>
+</v-snackbar>
 <h1 class='subheading grey--text'>Firm Rating</h1>
 
   <hr>
@@ -283,6 +287,7 @@
 export default {
   data () {
     return {
+    snackbar:false,
       loader: null,
       loading: false,
       loading2: false,
@@ -347,6 +352,7 @@ Opening:this.Opening
 
 },{ headers: {"Authorization" : `Bearer ${tokenStr}`} }).then((res)=>{
 console.log(res)
+this.snackbar=true;
 
 }).catch((error)=>{
 console.log('failed')
