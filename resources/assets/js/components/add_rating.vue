@@ -1,5 +1,10 @@
 <template>
 <div>
+<br><br>
+<v-snackbar v-model='snackbar' :timeout='3000' top color='blue'>
+<span> data succesfully uploaded</span>
+<v-btn flat color='white' @click='snackbar=false'>Close</v-btn>
+</v-snackbar>
 <h1 class='subheading grey--text'>Firm Rating</h1>
 
   <hr>
@@ -263,8 +268,11 @@
 
 </v-layout>
   </v-form>
-</div>
-  <div class="panel-footer"> </div>
+</div><br><br>
+<v-footer class="pa-3" absolute>
+<v-spacer></v-spacer>
+<div><span>Blockchain</span>&copy; {{ new Date().getFullYear() }}</div>
+</v-footer>
 </div
 
 
@@ -279,6 +287,7 @@
 export default {
   data () {
     return {
+    snackbar:false,
       loader: null,
       loading: false,
       loading2: false,
@@ -319,6 +328,7 @@ export default {
   },
   methods:{
   register(){
+      let tokenStr = localStorage.getItem('access_token');
 this.loader = 'loading4'
 axios.post('api/rating',{
 user_id:this.user_id,
@@ -340,9 +350,10 @@ Closing:this.Closing,
 Verification:this.Verification,
 Opening:this.Opening
 
-}).then((res)=>{
+},{ headers: {"Authorization" : `Bearer ${tokenStr}`} }).then((res)=>{
 console.log(res)
-this.$router.push('/agent_position')
+this.snackbar=true;
+
 }).catch((error)=>{
 console.log('failed')
 })

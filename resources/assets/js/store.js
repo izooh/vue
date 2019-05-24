@@ -54,7 +54,7 @@ if(context.getters.loggedIn){
 
 
       const token = res.data.data.access_token
-  
+
 
       localStorage.setItem('access_token',token);
 

@@ -2,7 +2,7 @@
 <div>
 <h1>my team comments</h1>
 <v-container>
-open Suggestions
+user Suggestions,agent position(in collection and Qa),days absent
 </v-container>
 </div>
 </template>

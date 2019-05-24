@@ -1,6 +1,8 @@
 <?php
 return[
   'administrator'=>[
-    'isaacopicho@gmail.com'
+    'lous@gmail.com',
+    'isaacopicho@gmail.com',
+    'junior@skywave.com'
   ]
 ];

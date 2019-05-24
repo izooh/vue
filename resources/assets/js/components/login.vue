@@ -1,5 +1,5 @@
 <template>
-
+<div>
     <v-container mt-5>
       <v-layout align-center justify-center>
       <v-flex
@@ -37,13 +37,14 @@
       </v-card>
     </v-form>
         </v-flex>
-
-
-
-
       </v-layout>
+      <v-footer class="pa-3" absolute>
+      <v-spacer></v-spacer>
+      <div><span>Blockchain</span>&copy; {{ new Date().getFullYear() }}</div>
+    </v-footer>
     </v-container>
 
+  </div>
 </template>
 <script>
   export default {

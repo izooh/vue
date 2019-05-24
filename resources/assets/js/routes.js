@@ -8,8 +8,8 @@ let routes=[
 
   },
   {
-    path:'/views',
-    component:require('./components/notices')
+    path:'/suggestion',
+    component:require('./components/articles')
   },
   {
     path:'/guest',
@@ -39,6 +39,11 @@ let routes=[
     name:'agent_position',
     path:'/agent_position',
     component:require('./components/agent_position')
+  },
+  {
+    name:'remains',
+    path:'/remains',
+    component:require('./components/remains')
   }
 ];
 export default new VueRouter({

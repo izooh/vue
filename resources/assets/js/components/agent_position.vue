@@ -1,5 +1,6 @@
 <template>
-<div>
+<div v-cloak>
+<br><br>
 <h1 class='subheading grey--text'>Perfomance Dashboard</h1>
   <hr>
 <v-container >
@@ -71,6 +72,10 @@
     </v-flex>
   </v-layout>
   </v-form>
+  <v-footer class="pa-3" absolute>
+  <v-spacer></v-spacer>
+  <div><span>Blockchain</span>&copy; {{ new Date().getFullYear() }}</div>
+  </v-footer>
 
 </v-container>
 </div>
@@ -86,12 +91,12 @@ import LineChart from './LineChart'
       return {
         headers: [
           {
-            text: 'Member Name',
+            text: 'Agent Name',
             align: 'left',
             sortable: false,
             value: 'name'
           },
-          { text: 'Member Score', value: 'desserts.TotalPoints' },
+          { text: 'Agent Score', value: 'desserts.TotalPoints' },
 
         ],
         desserts:[],
@@ -101,7 +106,7 @@ import LineChart from './LineChart'
     },created() {
 
    this.fetchData();
-   this.filtered();
+
 
 
      },
@@ -137,3 +142,8 @@ console.log(error);
 
   }
 </script>
+<style>
+[v-cloak] {
+     display: none;
+}
+</style>

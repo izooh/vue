@@ -28,8 +28,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
     public function isAdmin()
-    {
-      return in_array($this->email,config('Entry.administrator'));
-    }
-
+      {
+        return in_array($this->email,config('Entry.administrator'));
+      }
 }
