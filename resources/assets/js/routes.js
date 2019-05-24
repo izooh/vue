@@ -8,8 +8,8 @@ let routes=[
 
   },
   {
-    path:'/views',
-    component:require('./components/notices')
+    path:'/suggestion',
+    component:require('./components/articles')
   },
   {
     path:'/guest',

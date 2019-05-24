@@ -44,3 +44,9 @@ Route::post('/lead_import_process', 'leadImportController@processImport')->name(
 //leads Controller
 //route to retrive leads that dont belong to remain table
 Route::middleware('admin')->get('lead','LeadController@index');
+
+//SuggestionController RouteS
+Route::post('suggestion', 'SuggestionController@store');
+Route::get('suggestion', 'SuggestionController@index');
+Route::get('suggestion/{id}', 'SuggestionController@show');
+Route::middleware('auth:api')->delete('suggestion/{id}', 'SuggestionController@destroy');

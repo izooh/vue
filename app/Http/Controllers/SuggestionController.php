@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Suggestion;
 use Illuminate\Http\Request;
+use App\Http\Resources\articleresource;
 
 class SuggestionController extends Controller
 {
@@ -14,7 +15,7 @@ class SuggestionController extends Controller
      */
     public function index()
     {
-
+return articleresource::collection(Suggestion::with('user')->latest()->paginate(25));
 
     }
 
@@ -59,8 +60,8 @@ class SuggestionController extends Controller
      */
     public function show($id)
     {
-      $suggestion=Suggestion::where('user_id',$id);
-      return $suggestion;
+      $suggestion=Suggestion::where('user_id','=',$id)->latest()->get();
+  return articleresource::collection($suggestion);
     }
 
     /**
@@ -92,8 +93,19 @@ class SuggestionController extends Controller
      * @param  \App\Suggestion  $suggestion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Suggestion $suggestion)
+    public function destroy($id)
     {
-        //
+
+              $suggestion=Suggestion::FindOrFail($id);
+              $logged_user=auth('api')->user()->id;
+              $del_article=$suggestion->user_id;
+              if($logged_user==$del_article){
+                if($suggestion->delete())
+                {
+                return 'deletion successfully';
+              }
+              }else{
+                return "you dont have enough permission contact your system administrator";
+              }
     }
 }
