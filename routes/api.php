@@ -47,6 +47,6 @@ Route::middleware('admin')->get('lead','LeadController@index');
 
 //SuggestionController RouteS
 Route::post('suggestion', 'SuggestionController@store');
-Route::get('suggestion', 'SuggestionController@index');
+Route::get('suggestions', 'SuggestionController@index');
 Route::get('suggestion/{id}', 'SuggestionController@show');
 Route::middleware('auth:api')->delete('suggestion/{id}', 'SuggestionController@destroy');

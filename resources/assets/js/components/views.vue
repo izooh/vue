@@ -4,7 +4,7 @@
 <br><br>
     <v-dialog max-width='800px' v-model='dialog'>
     <v-btn slot='activator' large fixed right center fab dark  color="blue">
-          <v-icon dark>note_add</v-icon>
+          <v-icon style="height:auto;" dark>note_add</v-icon>
         </v-btn>
 
     <v-card flat>

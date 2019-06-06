@@ -20,12 +20,12 @@ class RatingController extends Controller
     {
       $status=$request->input('status');
       $ranks = Rating::query()->with('user')
-          ->select('user_id')->selectRaw('SUM('.$status.') Points')
+          ->select('user_id', DB::raw('count(*) as total'))->selectRaw('SUM('.$status.') TotalPoints')
           ->groupBy('user_id')
-          ->orderByDesc('Points')
+          ->orderByDesc('TotalPoints')
           ->get();
 
-return new RatingResource($ranks);
+   return RatingResource::collection($ranks);
     }
 
     /**
@@ -37,14 +37,14 @@ return new RatingResource($ranks);
     {
         //
 
-    $ranks = Rating::query()->with('user')
-        ->select('user_id')->selectRaw('SUM(`Totals`) TotalPoints')
+    $ranks = Rating::query()->whereDate('created_at', '=', date('2019-04-12'))->with('user')
+          ->select('user_id', DB::raw('count(*) as total'))->selectRaw('SUM(`Totals`) TotalPoints')
         ->groupBy('user_id')
         ->orderByDesc('TotalPoints')
         ->get();
 
 
- return new RatingResource($ranks);
+     return RatingResource::collection($ranks);
 }
 
 

@@ -7,7 +7,7 @@
 <v-form@submit.prevent='filtered'>
 <v-layout row wrap>
 
-<v-flex xs12 md5>
+<v-flex xs12 md12>
 <v-data-table
     :headers="headers"
     :items="desserts"
@@ -15,18 +15,17 @@
   >
     <template  v-slot:items="props">
       <td>{{ props.item.user.name }}</td>
-      <td class="text-xs-right">{{ props.item.TotalPoints }}</td>
+      <td>{{ props.item.count }}</td>
+      <td class="text-xs-right">{{ props.item.perc }}%</td>
 
     </template>
   </v-data-table>
   </v-flex>
-  <v-flex xs12 md7 >
-  <line-chart/>
-  </v-flex>
-<v-flex xs12 md12 >
+
+<v-flex xs12 md12>
 <br><hr>
 </v-flex>
-  <v-flex xs12 md6>
+  <v-flex xs12 md12>
     <div class="form-group">
     <label for="sel1">Select Status</label>
     <select class="form-control" v-model='status' id="sel1">
@@ -53,11 +52,11 @@
 
   </v-flex>
   <v-flex xs12 md7>
-        <v-btn type='submit' color="blue">Submit</v-btn>
+        <v-btn type='submit' color="blue"><font color="white">Filter</font></v-btn>
   </v-flex>
   <v-flex xs12 md5>
   </v-flex>
-  <v-flex xs12 md5>
+  <v-flex xs12 md12>
   <v-data-table
       :headers="headers"
       :items="datar"
@@ -65,7 +64,8 @@
     >
       <template  v-slot:items="props">
         <td>{{ props.item.user.name }}</td>
-        <td class="text-xs-right">{{ props.item.Points }}</td>
+         <td>{{ props.item.count }}</td>
+        <td class="text-xs-right">{{ props.item.perc }}</td>
 
       </template>
     </v-data-table>
@@ -81,11 +81,9 @@
 </div>
 </template>
 <script>
-import LineChart from './LineChart'
+
   export default {
-  components:{
-  'line-chart':LineChart
-  },
+
 
     data () {
       return {
@@ -96,7 +94,8 @@ import LineChart from './LineChart'
             sortable: false,
             value: 'name'
           },
-          { text: 'Agent Score', value: 'desserts.TotalPoints' },
+            { text: 'Number of calls',value: 'desserts.count' },
+          { text: 'Agent Score', value: 'desserts.perc' },
 
         ],
         desserts:[],

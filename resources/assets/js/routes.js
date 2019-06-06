@@ -31,9 +31,9 @@ let routes=[
     component:require('./components/register')
   },
   {
-    name:'add_rating',
+    name:'quality',
     path:'/rate',
-    component:require('./components/add_rating')
+    component:require('./components/quality.vue')
   },
   {
     name:'agent_position',
