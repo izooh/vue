@@ -257,14 +257,17 @@
       color="blue"
 
     >
-      submit details
+      <font color="white">submit details</font>
       <template v-slot:loader>
         <span class="custom-loader">
           <v-icon light>cached</v-icon>
         </span>
       </template>
     </v-btn>
-
+    <br>
+    <v-flex xs12 md12 >
+    <line-chart/>
+    </v-flex>
 
 </v-layout>
   </v-form>
@@ -282,9 +285,12 @@
 </div>
 </template>
 
-
 <script>
+import LineChart from './LineChart'
 export default {
+components:{
+'line-chart':LineChart
+},
   data () {
     return {
     snackbar:false,
@@ -311,18 +317,13 @@ export default {
       Closing:'',
       Verification:'',
       Opening:''
-
-
-
     }
   },
   watch: {
     loader () {
       const l = this.loader
       this[l] = !this[l]
-
       setTimeout(() => (this[l] = false), 3000)
-
       this.loader = null
     }
   },
@@ -349,11 +350,9 @@ Understanding:this.Understanding,
 Closing:this.Closing,
 Verification:this.Verification,
 Opening:this.Opening
-
 },{ headers: {"Authorization" : `Bearer ${tokenStr}`} }).then((res)=>{
 console.log(res)
 this.snackbar=true;
-
 }).catch((error)=>{
 console.log('failed')
 })

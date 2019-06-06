@@ -14,6 +14,12 @@ class RatingResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+      return[
+          'id'=>$this->user_id,
+          'user'=>$this->user,
+          'points'=>$this->TotalPoints,
+          'count'=>$this->total,
+          'perc'=>$this->TotalPoints/$this->total
+      ];
     }
 }

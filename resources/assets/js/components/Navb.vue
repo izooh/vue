@@ -59,7 +59,7 @@ links:[
 {icon:'store',text:'My Profile',route:'/suggestion'},
 {icon:'person',text:'Ratings',route:'/rate'},
 {icon:'call',text:'Leads',route:'/remains'},
-{icon:'bubble_chart',text:'Agent Position',route:'/agent_position'},
+{icon:'bubble_chart',text:'Agent Position',route:''},
 {icon:'account_balance',text:'Human Resource',route:''}
 ]
 

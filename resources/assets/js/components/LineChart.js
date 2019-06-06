@@ -16,7 +16,7 @@ export default {
        if(data) {
           data.forEach(element => {
           Name.push(element.user.name);
-          Points.push(element.TotalPoints);
+          Points.push(element.perc);
 
           });
           this.renderChart({

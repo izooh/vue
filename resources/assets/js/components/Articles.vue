@@ -7,7 +7,32 @@
 <span class="caption grey--text"><v-icon small left>access_time</v-icon>{{theDate}}</span>
 <br><br><hr>
 <v-layout row class="mb-3">
-<v-flex xs12 md6 >
+<v-flex xs12 md8 >
+<v-form@submit.prevent='login' >
+<v-card flat>
+<v-toolbar dark color="grey">
+<v-toolbar-title><small>PTP  Reminder</small></v-toolbar-title>
+
+<v-spacer></v-spacer>
+</v-toolbar>
+<v-card-text>
+<v-text-field
+        label="Phone Number"
+        placeholder="add a number"
+      ></v-text-field>
+<v-menu>
+<v-text-field slot='activator' label='Promise to Pay Date' :value='picker' prepend-icon='date_range'></v-text-field>
+   <v-date-picker v-model="picker"></v-date-picker>
+   </v-menu>
+  </v-card-text>
+
+  <v-card-actions>
+  <v-btn type='submit' depressed color="blue">Submit</v-btn>
+</v-card-actions>
+
+</v-card>
+</v-form>
+<hr>
 <v-btn flat  color='grey' v-on:click='fetchData()' ><span class="caption grey--text">view suggestions</span></v-btn>
   <v-card flat v-for="article in articles" v-bind:key="article.id">
   <v-card-title>
@@ -20,9 +45,9 @@
  <h6><strong>posted  on {{article.date}}</strong></h6>
  <v-btn flat color='red'  v-on:click='deleteData(article.id)' ><v-icon small left>delete</v-icon></v-btn>
    <v-btn flat  color='blue' v-on:click='' ><v-icon small left>edit</v-icon></v-btn>
-<hr>
  </v-card text>
  </v-card>
+ <br>
   </v-flex>
   </v-layout>
   <v-footer class="pa-3" absolute>
@@ -37,6 +62,7 @@
     export default {
         data(){
 return{
+picker:'',
     articles:[],
     article:{},
     name:'',
