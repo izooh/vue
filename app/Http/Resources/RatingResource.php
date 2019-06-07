@@ -19,7 +19,7 @@ class RatingResource extends JsonResource
           'user'=>$this->user,
           'points'=>$this->TotalPoints,
           'count'=>$this->total,
-          'perc'=>$this->TotalPoints/$this->total
+          'perc'=>number_format((float)($this->TotalPoints/$this->total), 0, '.', '')
       ];
     }
 }

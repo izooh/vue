@@ -19,7 +19,11 @@ class RatingController extends Controller
 
     {
       $status=$request->input('status');
-      $ranks = Rating::query()->with('user')
+      $date1=$request->input('date1');
+      $date2=$request->input('date2');
+      $ranks = Rating::query()
+           ->whereBetween('created_at', [$date1, $date2])
+           ->with('user')
           ->select('user_id', DB::raw('count(*) as total'))->selectRaw('SUM('.$status.') TotalPoints')
           ->groupBy('user_id')
           ->orderByDesc('TotalPoints')
@@ -33,15 +37,18 @@ class RatingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+      $date1=$request->input('date1');
+      $date2=$request->input('date2');
 
-    $ranks = Rating::query()->whereDate('created_at', '=', date('2019-04-12'))->with('user')
-          ->select('user_id', DB::raw('count(*) as total'))->selectRaw('SUM(`Totals`) TotalPoints')
-        ->groupBy('user_id')
-        ->orderByDesc('TotalPoints')
-        ->get();
+    $ranks = Rating::query()
+           ->whereBetween('created_at', [$date1, $date2])
+           ->with('user')
+            ->select('user_id', DB::raw('count(*) as total'))->selectRaw('SUM(`Totals`) TotalPoints')
+           ->groupBy('user_id')
+            ->orderByDesc('TotalPoints')
+            ->get();
 
 
      return RatingResource::collection($ranks);

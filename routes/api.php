@@ -26,7 +26,7 @@ Route::middleware('admin')->post('article', 'my_api@store');
 Route::PUT('article/{id}', 'my_api@edit');
 //rating controller routes
 Route::middleware('admin')->post('rating', 'RatingController@store');
-Route::get('rating','RatingController@create');
+Route::post('rating','RatingController@create');
 Route::post('default','RatingController@index');
 
 // remains upload routes
