@@ -1,18 +1,19 @@
+
 import { Line } from 'vue-chartjs';
 
 export default {
+  props: {
+  // type, required and default are optional, you can reduce it to 'options: Object'
+  deta: { type:Array, required: false}
+},
    extends: Line,
-   data() {
-      return {
-
-      }
-   },
    mounted(){
+console.log(this.deta);
     let Name= new Array();
     let Points = new Array();
 
-    axios.get("api/rating").then((response) => {
-       let data = response.data.data;
+
+       let data = this.deta
        if(data) {
           data.forEach(element => {
           Name.push(element.user.name);
@@ -29,9 +30,9 @@ export default {
     }, {responsive: true, maintainAspectRatio: false})
   }
   else {
-     console.log('No data');
+     console.log('No data received');
   }
- });
+}
 
-   }
+
 }

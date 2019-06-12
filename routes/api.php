@@ -25,7 +25,7 @@ Route::middleware('auth:api')->delete('article/{id}', 'my_api@destroy');
 Route::middleware('admin')->post('article', 'my_api@store');
 Route::PUT('article/{id}', 'my_api@edit');
 //rating controller routes
-Route::middleware('admin')->post('rating', 'RatingController@store');
+Route::middleware('admin')->post('rate', 'RatingController@store');
 Route::post('rating','RatingController@create');
 Route::post('default','RatingController@index');
 
@@ -44,7 +44,7 @@ Route::post('/lead_import_process', 'leadImportController@processImport')->name(
 //leads Controller
 //route to retrive leads that dont belong to remain table
 Route::middleware('admin')->get('lead','LeadController@index');
-
+Route::post('ledo','LeadController@create');
 //SuggestionController RouteS
 Route::post('suggestion', 'SuggestionController@store');
 Route::get('suggestions', 'SuggestionController@index');

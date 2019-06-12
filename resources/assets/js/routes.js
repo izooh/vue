@@ -9,7 +9,7 @@ let routes=[
   },
   {
     path:'/suggestion',
-    component:require('./components/articles')
+    component:require('./components/Articles.vue')
   },
   {
     path:'/guest',
@@ -29,11 +29,6 @@ let routes=[
     name:'register',
     path:'/register',
     component:require('./components/register')
-  },
-  {
-    name:'quality',
-    path:'/rate',
-    component:require('./components/quality.vue')
   },
   {
     name:'agent_position',

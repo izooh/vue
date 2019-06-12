@@ -21,15 +21,30 @@ class RatingController extends Controller
       $status=$request->input('status');
       $date1=$request->input('date1');
       $date2=$request->input('date2');
-      $ranks = Rating::query()
-           ->whereBetween('created_at', [$date1, $date2])
-           ->with('user')
-          ->select('user_id', DB::raw('count(*) as total'))->selectRaw('SUM('.$status.') TotalPoints')
-          ->groupBy('user_id')
-          ->orderByDesc('TotalPoints')
-          ->get();
+      if($date1 and $date2){
+        //first action
+        $ranks = Rating::query()
+             ->whereBetween('created_at', [$date1, $date2])
+             ->with('user')
+            ->select('user_id', DB::raw('count(*) as total'))->selectRaw('SUM('.$status.') TotalPoints')
+            ->groupBy('user_id')
+            ->orderByDesc('TotalPoints')
+            ->get();
+
+     return RatingResource::collection($ranks);
+      }else{
+        //second actions
+        $ranks = Rating::query()
+              ->whereDate('created_at',[$date1])
+             ->with('user')
+            ->select('user_id', DB::raw('count(*) as total'))->selectRaw('SUM('.$status.') TotalPoints')
+            ->groupBy('user_id')
+            ->orderByDesc('TotalPoints')
+            ->get();
 
    return RatingResource::collection($ranks);
+      }
+
     }
 
     /**
@@ -41,9 +56,23 @@ class RatingController extends Controller
     {
       $date1=$request->input('date1');
       $date2=$request->input('date2');
+      if($date1 and $date2){
 
-    $ranks = Rating::query()
-           ->whereBetween('created_at', [$date1, $date2])
+                $ranks = Rating::query()
+                   ->whereBetween('created_at', [$date1, $date2])
+                   ->with('user')
+                    ->select('user_id', DB::raw('count(*) as total'))->selectRaw('SUM(`Totals`) TotalPoints')
+                   ->groupBy('user_id')
+                    ->orderByDesc('TotalPoints')
+                    ->get();
+
+
+             return RatingResource::collection($ranks);
+
+      }else {
+
+        $ranks = Rating::query()
+           ->whereDate('created_at',[$date1])
            ->with('user')
             ->select('user_id', DB::raw('count(*) as total'))->selectRaw('SUM(`Totals`) TotalPoints')
            ->groupBy('user_id')
@@ -52,7 +81,10 @@ class RatingController extends Controller
 
 
      return RatingResource::collection($ranks);
-}
+        }
+
+      }
+
 
 
     /**
@@ -93,8 +125,10 @@ class RatingController extends Controller
         $request->input('First_Contact_Resolution')+$request->input('Call_Controlling');
         if($ratings->save())
         {
-         return new RatingResource($ratings);
-        }
+         return 'saved succesfully';
+       }else{
+         return 'operwtion failed';
+       }
     }
 
     /**
