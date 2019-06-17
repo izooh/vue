@@ -66,8 +66,8 @@ class RatingController extends Controller
                     ->orderByDesc('TotalPoints')
                     ->get();
 
-
-             return RatingResource::collection($ranks);
+              return RatingResource::collection($ranks);
+        
 
       }else {
 

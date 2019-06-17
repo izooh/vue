@@ -45,6 +45,7 @@ Route::post('/lead_import_process', 'leadImportController@processImport')->name(
 //route to retrive leads that dont belong to remain table
 Route::middleware('admin')->get('lead','LeadController@index');
 Route::post('ledo','LeadController@create');
+Route::post('leads','LeadController@store');
 //SuggestionController RouteS
 Route::post('suggestion', 'SuggestionController@store');
 Route::get('suggestions', 'SuggestionController@index');
