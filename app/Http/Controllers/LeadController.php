@@ -17,11 +17,17 @@ class LeadController extends Controller
      */
     public function index()
     {
-        $lead = lead::doesntHave('remains')->get();
-
-        return new RatingResource($lead);
+      //called numbers and numbers not contacted
+     $called = DB::table('leads')->where('status', '=', 'called')->select(DB::raw('count(*) as Called'))->get();
+     $new=DB::table('leads')->where('status', '=', 'New')->select(DB::raw('count(*) as New'))->get();
+     $called_43 = DB::table('leads')->where('status', '=', 'called')->where('last_name', '=', 'TAladpd43.')->select(DB::raw('count(*) as Called_43'))->get();
+     $new_43=DB::table('leads')->where('status', '=', 'New')->where('last_name', '=', 'TAladpd43.')->select(DB::raw('count(*) as New_43'))->get();
+     $called_36 = DB::table('leads')->where('status', '=', 'called')->where('last_name', '=', 'TAladpd36.')->select(DB::raw('count(*) as Called_36'))->get();
+     $new_36=DB::table('leads')->where('status', '=', 'New')->where('last_name', '=', 'TAladpd36.')->select(DB::raw('count(*) as New_36'))->get();
+     $collection = collect([$called,$new,$called_43,$new_43,$called_36,$new_36]);
+     $collapsed = $collection->collapse();
+      return $collapsed;
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -102,9 +108,76 @@ $final=Arr::collapse($final);
      * @param  \App\lead  $lead
      * @return \Illuminate\Http\Response
      */
-    public function show(lead $lead)
+    public function show(Request $request)
     {
-        //
+      //values from the frontend
+      $Total_Uncontacted=$request->input('Total_Uncontacted');
+      $Total_Contacted=$request->input('Total_Contacted');
+      $Total_Uncontacted_43=$request->input('Total_Uncontacted_43');
+      $Total_Contacted_43=$request->input('Total_Contacted_43');
+      $Total_Uncontacted_36=$request->input('Total_Uncontacted_36');
+      $Total_Contacted_36=$request->input('Total_Contacted_36');
+      //check value passed from the frontend to excecute the logics
+      if($Total_Uncontacted){
+
+        $remains = DB::table('leads')
+        ->where('status', '=', 'New')
+        ->select('user_id', DB::raw('count(*) as total'))
+        ->groupBy('user_id')
+        ->get();
+        return $remains;
+
+      }elseif ($Total_Contacted) {
+        // code...
+        $remains = DB::table('leads')
+        ->where('status', '=', 'called')
+        ->select('user_id', DB::raw('count(*) as total'))
+        ->groupBy('user_id')
+        ->get();
+        return $remains;
+      }elseif ($Total_Uncontacted_43) {
+        // code...
+        $remains = DB::table('leads')
+        ->where('last_name', '=', 'TAladpd43.')
+        ->where('status', '=', 'New')
+        ->select('user_id', DB::raw('count(*) as total'))
+        ->groupBy('user_id')
+        ->get();
+        return $remains;
+      }elseif ($Total_Contacted_43) {
+        // code...
+        $remains = DB::table('leads')
+        ->where('last_name', '=', 'TAladpd43.')
+        ->where('status', '=', 'called')
+        ->select('user_id', DB::raw('count(*) as total'))
+        ->groupBy('user_id')
+        ->get();
+        return $remains;
+      }elseif ($Total_Uncontacted_36) {
+        // code...
+        $remains = DB::table('leads')
+        ->where('last_name', '=', 'TAladpd36.')
+        ->where('status', '=', 'New')
+        ->select('user_id', DB::raw('count(*) as total'))
+        ->groupBy('user_id')
+        ->get();
+        return $remains;
+      }elseif ($Total_Contacted_36) {
+        // code...
+        $remains = DB::table('leads')
+        ->where('last_name', '=', 'TAladpd36.')
+        ->where('status', '=', 'called')
+        ->select('user_id', DB::raw('count(*) as total'))
+        ->groupBy('user_id')
+        ->get();
+        return $remains;
+
+      }else {
+        // code...
+        return 'nothing selected';
+      }
+
+
     }
 
     /**

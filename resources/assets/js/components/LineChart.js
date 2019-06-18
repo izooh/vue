@@ -1,12 +1,12 @@
 
-import { Line } from 'vue-chartjs';
+import { Line  } from 'vue-chartjs';
 
 export default {
   props: {
   // type, required and default are optional, you can reduce it to 'options: Object'
   deta: { type:Array, required: false}
 },
-   extends: Line,
+   extends: Line ,
    mounted(){
 console.log(this.deta);
     let Name= new Array();
