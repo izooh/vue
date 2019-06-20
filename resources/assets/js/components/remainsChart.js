@@ -11,8 +11,8 @@ export default {
     let Name= new Array();
     let Points = new Array();
   let tokenStr = localStorage.getItem('access_token');
-    axios.get("api/remains",{ headers: {"Authorization" : `Bearer ${tokenStr}`} }).then((response) => {
-       let data = response.data.data;
+    axios.get("api/remains").then((response) => {
+       let data = response.data;
        if(data) {
           data.forEach(element => {
           Name.push(element.user.name);

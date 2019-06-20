@@ -21,10 +21,8 @@ import 'vuetify/dist/vuetify.min.css'
 import Vuex from 'vuex'
 import materialIcons from 'material-design-icons/iconfont/material-icons.css'
 import JsonExcel from 'vue-json-excel'
-import axios from "axios";
+import axios from "axios"
 Vue.component('remains', JsonExcel)
-
-
 window.Vue.use(Vuex)
 Vue.use(Vuetify)
 const store  = new Vuex.Store(StoreData);

@@ -1,13 +1,9 @@
 <template>
 <div>
-<br><br>
 <v-snackbar v-model='snackbar' :timeout='3000' top color='blue'>
-<span> data succesfully uploaded</span>
+<span>{{snackval}}</span>
 <v-btn flat color='white' @click='snackbar=false'>Close</v-btn>
 </v-snackbar>
-<h1 class='subheading grey--text'>Firm Rating</h1>
-
-  <hr>
 <div class="panel panel-default">
 
   <div class="panel-body">
@@ -93,7 +89,7 @@
 </v-flex>
 <v-flex xs12 md4 >
   <div class="form-group">
-  <label for="sel1">Product_Knowledge</label>
+  <label for="sel1">Product Knowledge</label>
   <select v-model='Product_Knowledge' class="form-control" id="sel1">
   <option value='1'>1</option>
   <option value='2'>2</option>
@@ -140,7 +136,7 @@
 </v-flex>
 <v-flex xs12 md4 >
   <div class="form-group">
-  <label for="sel1">Handling_Efficiency</label>
+  <label for="sel1">Handling Efficiency</label>
   <select v-model='Handling_Efficiency' class="form-control" id="sel1">
   <option value='1'>1</option>
   <option value='2'>2</option>
@@ -176,7 +172,7 @@
 </v-flex>
 <v-flex xs12 md4 >
   <div class="form-group">
-  <label for="sel1">Tone_Manner</label>
+  <label for="sel1">Tone Manner</label>
   <select v-model='Tone_Manner' class="form-control" id="sel1">
   <option value='1'>1</option>
   <option value='2'>2</option>
@@ -212,7 +208,7 @@
 </v-flex>
 <v-flex xs12 md4 >
   <div class="form-group">
-  <label for="sel1">First_Contact_Resolution</label>
+  <label for="sel1">First Contact Resolution</label>
   <select v-model='First_Contact_Resolution' class="form-control" id="sel1">
   <option value='1'>1</option>
   <option value='2'>2</option>
@@ -224,9 +220,8 @@
 </v-flex>
 <v-flex xs12 md4 >
   <div class="form-group">
-  <label for="sel1">Call_Controlling</label>
+  <label for="sel1">Call Controlling</label>
   <select v-model='Call_Controlling' class="form-control" id="sel1">
-
   <option value='1'>1</option>
   <option value='2'>2</option>
   <option value='3'>3</option>
@@ -265,9 +260,7 @@
       </template>
     </v-btn>
     <br>
-    <v-flex xs12 md12 >
-    <line-chart/>
-    </v-flex>
+
 
 </v-layout>
   </v-form>
@@ -286,14 +279,13 @@
 </template>
 
 <script>
-import LineChart from './LineChart'
+
 export default {
-components:{
-'line-chart':LineChart
-},
+
   data () {
     return {
     snackbar:false,
+     snackval:'null',
       loader: null,
       loading: false,
       loading2: false,
@@ -331,7 +323,7 @@ components:{
   register(){
       let tokenStr = localStorage.getItem('access_token');
 this.loader = 'loading4'
-axios.post('api/rating',{
+axios.post('api/rate',{
 user_id:this.user_id,
 Call_Controlling:this.Call_Controlling,
 First_Contact_Resolution:this.First_Contact_Resolution,
@@ -352,9 +344,12 @@ Verification:this.Verification,
 Opening:this.Opening
 },{ headers: {"Authorization" : `Bearer ${tokenStr}`} }).then((res)=>{
 console.log(res)
+this.snackval=res.data
 this.snackbar=true;
 }).catch((error)=>{
 console.log('failed')
+this.snackval='sorry nothing saved'
+this.snackbar=true;
 })
   }
   }

@@ -57,7 +57,7 @@ drawer:false,
 links:[
 {icon:'dashboard',text:'Notice Board',route:'/'},
 {icon:'store',text:'My Profile',route:'/suggestion'},
-{icon:'person',text:'Ratings',route:'/rate'},
+{icon:'person',text:'Ratings',route:'/agent_position'},
 {icon:'call',text:'Leads',route:'/remains'},
 {icon:'bubble_chart',text:'Agent Position',route:''},
 {icon:'account_balance',text:'Human Resource',route:''}
