@@ -6,7 +6,7 @@
       :fields="fields"
   ><v-tooltip top>
   <template v-slot:activator="{ on }">
-  <v-btn medium depressed fixed right bottom fab dark  color="blue" v-on="on">
+  <v-btn large fixed right bottom fab dark  color="blue" v-on="on">
         <v-icon dark>get_app</v-icon>
       </v-btn>
       </template>
@@ -18,7 +18,7 @@
   <v-form@submit.prevent='sendData' >
   <v-card flat>
   <v-toolbar dark color="grey">
-  <v-toolbar-title><small>Select number of calls</small></v-toolbar-title>
+  <v-toolbar-title><v-icon left>low_priority</v-icon><small>Select number of calls</small></v-toolbar-title>
    <v-spacer></v-spacer>
   </v-toolbar>
   <v-card-text>
@@ -32,16 +32,14 @@
           <option value='3'>paul</option>
           <option value='4'>kevin</option>
           <option value='5'>joseph</option>
-          <option value='6'>rodgers</option>
-          <option value='7'>levi</option>
            </select>
           </div>
   </v-card-text>
     <v-card-actions>
     <v-btn type='submit' color="blue"><font color="white">Filter</font></v-btn>
     <v-spacer></v-spacer>
-    <v-btn color="red"><font color="white">
-    <span class="caption">Revert</span></font> <v-icon small left>replay</v-icon></v-btn>
+    <v-btn color="red" v-on:click='Revert'><font color="white">
+    <span class="caption">Revert</span></font> <v-icon small right>replay</v-icon></v-btn>
   </v-card-actions>
   </v-card>
   </v-form>
@@ -85,7 +83,7 @@
 <v-form@submit.prevent='Send'>
 <v-card flat>
 <v-toolbar dark color="grey">
-<v-toolbar-title><small>Call History</small></v-toolbar-title>
+<v-toolbar-title><v-icon left>call</v-icon><small>Call History</small></v-toolbar-title>
  <v-spacer></v-spacer>
 </v-toolbar>
 <v-card-text>
@@ -127,6 +125,10 @@
     </v-data-table>
 </v-flex>
 </v-layout>
+<v-footer class="pa-3" absolute>
+<v-spacer></v-spacer>
+<div><span>Blockchain</span>&copy; {{ new Date().getFullYear() }}</div>
+</v-footer>
 </div>
 </template>
 <script>
@@ -210,6 +212,21 @@ this.datar=response.data
 .catch(function (error) {
 console.log(error);
 });
+    },
+    Revert(){
+    if
+    (confirm("are you sure you want to undo changes in the database"))
+    {
+    axios.post('api/revert')
+.then((response)=>{
+console.log(response.data)
+this.data=response.data
+this.fetchData()
+})
+.catch(function (error) {
+console.log(error);
+});
+    }
     }
 
     }

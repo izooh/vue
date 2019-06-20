@@ -17,7 +17,7 @@ class CreateLeadsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('cfid');
-            $table->integer('contact');
+            $table->string('contact');
             $table->string('status')->default('New');
             $table->string('last_name');
             $table->timestamps();
