@@ -141,8 +141,8 @@ return{
     let tokenStr = localStorage.getItem('access_token');
           axios.get('api/user',{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
     .then((response) => {
-          console.log(response.data.id)
-            this.user_id=response.data.id
+          console.log(response.data.s_id)
+            this.user_id=response.data.s_id
 
                 })
     .catch(function (error) {

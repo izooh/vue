@@ -43,11 +43,19 @@
                                      <button type="submit" class="btn btn-primary">
                                          Parse CSV
                                      </button>
+                                     <button onclick="goBack()">Go Back</button>
+
                                  </div>
                              </div>
                          </form>
                      </div>
 </div>
                        <script src="{{asset('js/app.js') }}"></script>
+                       <script>
+function goBack() {
+  window.history.back();
+}
+</script>
+
                                                                                   </body>
                                                                                   </html>

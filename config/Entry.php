@@ -3,6 +3,6 @@ return[
   'administrator'=>[
     'lous@gmail.com',
     'isaacopicho@gmail.com',
-    'junior@skywave.com'
+    'junior@skywave.com',
   ]
 ];

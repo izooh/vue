@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,9 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/getUser', function (Request $request) {
+    return User::all();
+});
 Route::post('/register','AuthController@register');
 Route::post('/login','AuthController@login');
 Route::post('/logout','AuthController@logout');
@@ -25,7 +29,7 @@ Route::middleware('auth:api')->delete('article/{id}', 'my_api@destroy');
 Route::middleware('admin')->post('article', 'my_api@store');
 Route::PUT('article/{id}', 'my_api@edit');
 //rating controller routes
-Route::middleware('admin')->post('rate', 'RatingController@store');
+Route::post('rate', 'RatingController@store');
 Route::post('rating','RatingController@create');
 Route::post('default','RatingController@index');
 
@@ -47,6 +51,7 @@ Route::middleware('admin')->get('lead','LeadController@index');
 Route::get('remains','LeadController@index');
 Route::post('leads','LeadController@store');
 Route::post('user_remains','LeadController@show');
+Route::delete('/lead_delete','LeadController@destroy');
 //SuggestionController RouteS
 Route::post('suggestion', 'SuggestionController@store');
 Route::get('suggestions', 'SuggestionController@index');

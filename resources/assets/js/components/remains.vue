@@ -24,16 +24,7 @@
   <v-card-text>
     <v-text-field label="Deliquency 43" v-model='dp43' ></v-text-field>
     <v-text-field label="Deliquency 36 and 22" v-model='dp36'></v-text-field>
-          <div class="form-group">
-          <label>agent name</label>
-          <select v-model='user_id' class="form-control" id="sel1">
-          <option  value='1'>all</option>
-          <option value='2'>mavin</option>
-          <option value='3'>paul</option>
-          <option value='4'>kevin</option>
-          <option value='5'>joseph</option>
-           </select>
-          </div>
+
   </v-card-text>
     <v-card-actions>
     <v-btn type='submit' color="blue"><font color="white">Filter</font></v-btn>
@@ -78,6 +69,11 @@
     </div></td>
   </tr>
 </table>
+<v-btn flat color='grey'  v-on:click='deleteData()' ><v-icon small left color='red'>delete</v-icon></v-btn>
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  <a href="http://localhost:8000/api/leads"><v-icon medium left>cloud_upload</v-icon></a>
 </v-flex>
 <v-flex xs12 md4>
 <v-form@submit.prevent='Send'>
@@ -227,8 +223,25 @@ this.fetchData()
 console.log(error);
 });
     }
-    }
+    },
+    deleteData(){
+    if
+    (confirm("are you sure you want to permanently clear your database"))
+    {
+     axios.delete('api/lead_delete')
+.then((response) => {
+
+               this.fetchData();
+               console.log(response.data)
+               alert('deleted');
+
+           })
+.catch(function (error) {
+console.log(error);
+});
+}
 
     }
-  }
+    }
+}
 </script>

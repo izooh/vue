@@ -13,6 +13,12 @@
   <v-spacer></v-spacer>
   </v-toolbar>
       <v-card-text>
+      <v-text-field
+         v-model="s_id"
+         :counter="10"
+         label="User id"
+         required
+       ></v-text-field>
         <v-text-field
            v-model="name"
            :rules="nameRules"
@@ -62,18 +68,20 @@
       ],
       email: '',
       name:'',
+      s_id:'',
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+/.test(v) || 'E-mail must be valid'
       ],
       nameRules: [
         v => !!v || 'name is required',
-        v => v.length <= 10 || 'name must be less than 10 characters'
+        v => v.length <= 30 || 'name must be less than 10 characters'
       ],
     }),
     methods:{
     register(){
     this.$store.dispatch('retrieveToken2',{
+    s_id:this.s_id,
     email:this.email,
     name:this.name,
     password:this.password
