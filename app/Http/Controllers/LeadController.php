@@ -120,55 +120,67 @@ $final=Arr::collapse($final);
       //check value passed from the frontend to excecute the logics
       if($Total_Uncontacted){
 
-        $remains = DB::table('leads')
+        $remains =lead::query()
         ->where('status', '=', 'New')
+        ->with('user')
         ->select('user_id', DB::raw('count(*) as total'))
         ->groupBy('user_id')
+        ->orderByDesc('total')
         ->get();
         return $remains;
 
       }elseif ($Total_Contacted) {
         // code...
-        $remains = DB::table('leads')
+          $remains =lead::query()
         ->where('status', '=', 'called')
+        ->with('user')
         ->select('user_id', DB::raw('count(*) as total'))
         ->groupBy('user_id')
+        ->orderByDesc('total')
         ->get();
         return $remains;
       }elseif ($Total_Uncontacted_43) {
         // code...
-        $remains = DB::table('leads')
+        $remains =lead::query()
         ->where('last_name', '=', 'Taladpd43.')
+        ->with('user')
         ->where('status', '=', 'New')
         ->select('user_id', DB::raw('count(*) as total'))
         ->groupBy('user_id')
+        ->orderByDesc('total')
         ->get();
         return $remains;
       }elseif ($Total_Contacted_43) {
         // code...
-        $remains = DB::table('leads')
+          $remains =lead::query()
         ->where('last_name', '=', 'Taladpd43.')
+        ->with('user')
         ->where('status', '=', 'called')
         ->select('user_id', DB::raw('count(*) as total'))
         ->groupBy('user_id')
+        ->orderByDesc('total')
         ->get();
         return $remains;
       }elseif ($Total_Uncontacted_36) {
         // code...
-        $remains = DB::table('leads')
+        $remains =lead::query()
         ->where('last_name', '=', 'Taladpd36.')
+        ->with('user')
         ->where('status', '=', 'New')
         ->select('user_id', DB::raw('count(*) as total'))
         ->groupBy('user_id')
+        ->orderByDesc('total')
         ->get();
         return $remains;
       }elseif ($Total_Contacted_36) {
         // code...
-        $remains = DB::table('leads')
+          $remains =lead::query()
         ->where('last_name', '=', 'Taladpd36.')
+        ->with('user')
         ->where('status', '=', 'called')
         ->select('user_id', DB::raw('count(*) as total'))
         ->groupBy('user_id')
+        ->orderByDesc('total')
         ->get();
         return $remains;
 
