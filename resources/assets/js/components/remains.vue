@@ -24,6 +24,14 @@
   <v-card-text>
     <v-text-field label="Deliquency 43" v-model='dp43' ></v-text-field>
     <v-text-field label="Deliquency 36 and 22" v-model='dp36'></v-text-field>
+    <div class="row">
+    <label>select users</label>
+      <div class="col-md-12">
+        <select v-model='selected' class="mdb-select colorful-select dropdown-primary md-form" multiple searchable="Search here..">
+          <option  v-for='user in users' v-bind:key="user.id" v-bind:value="user.s_id">{{user.name}}</option>
+        </select>
+      </div>
+    </div>
 
   </v-card-text>
     <v-card-actions>
@@ -161,6 +169,8 @@ import remainsChart from './remainsChart'
   },
     data () {
       return {
+      users:'',
+      selected:[],
       data:[],
       picker:'',
       picker1:'',
@@ -188,18 +198,31 @@ import remainsChart from './remainsChart'
       }
     },created() {
 this.fetchData()
+this.getUser()
      },
     methods:{
+    getUser(){
+    axios.get('api/getUser').then((response)=>
+    {
+    console.log(response.data)
+    this.users=response.data
+    }).catch((error)=>
+    {
+    console.log(error)
+    })
+    },
     sendData(){
     axios.post('api/leads',{
     dp36:this.dp36,
-    dp43:this.dp43
+    dp43:this.dp43,
+    selected:this.selected
 
     })
 .then((response)=>{
 console.log(response.data)
 this.data=response.data
 this.fetchData()
+alert('data processed successfully');
 })
 .catch(function (error) {
 console.log(error);

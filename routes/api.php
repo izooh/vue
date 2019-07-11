@@ -57,3 +57,6 @@ Route::post('suggestion', 'SuggestionController@store');
 Route::get('suggestions', 'SuggestionController@index');
 Route::get('suggestion/{id}', 'SuggestionController@show');
 Route::middleware('auth:api')->delete('suggestion/{id}', 'SuggestionController@destroy');
+//promise controller RouteS
+Route::post('promise','PromiseController@store');
+Route::post('ptps','PromiseController@show');

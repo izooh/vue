@@ -17,4 +17,8 @@ class lead extends Model
   {
     return $this->belongsTo('App\remain','cfid','cfid');
   }
+  public function promise()
+   {
+       return $this->hasMany('App\Promise','contact','contact');
+   }
 }

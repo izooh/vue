@@ -44,7 +44,7 @@ class LeadController extends Controller
      */
     public function store(Request $request)
     {
-       $user_id= array(641,602,638,518,523,527,534,537,541,538,543,550,554,559,560,561,562,582,595,596,601,609,619);
+       $user_id= $request->input('selected');
        $dp36=$request->input('dp36');
        $dp43=$request->input('dp43');
 foreach ($user_id as $value) {

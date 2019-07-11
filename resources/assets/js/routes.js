@@ -39,6 +39,11 @@ let routes=[
     name:'remains',
     path:'/remains',
     component:require('./components/remains')
+  },
+  {
+    name:'test',
+    path:'/test',
+    component:require('./components/myprofile.vue')
   }
 ];
 export default new VueRouter({

@@ -53,6 +53,7 @@ class leadImportController extends Controller
 
     public function processImport(Request $request)
     {
+      ini_set('max_execution_time', -1);
         $data = CsvData::find($request->csv_data_file_id);
 
         $csv_data = json_decode($data->csv_data, true);
