@@ -232,15 +232,9 @@
 </v-flex>
 <v-flex xs12 md4 >
   <div class="form-group">
-  <label for="sel1">user id</label>
-  <select v-model='user_id' class="form-control" id="sel1">
-  <option value='1'>1</option>
-  <option value='2'>2</option>
-  <option value='3'>3</option>
-  <option value='4'>4</option>
-  <option value='5'>5</option>
-  <option value='6'>6</option>
-  <option value='7'>7</option>
+  <label for="sel1">Users</label>
+  <select v-model='user_id' class="form-control" id="sel1" >
+  <option  v-for='user in users' v-bind:key="user.id" v-bind:value="user.s_id">{{user.name}}</option>
 
   </select>
 </div>
@@ -284,6 +278,7 @@ export default {
 
   data () {
     return {
+    users:'',
     snackbar:false,
      snackval:'null',
       loader: null,
@@ -311,6 +306,9 @@ export default {
       Opening:''
     }
   },
+  created(){
+  this.getUser()
+  },
   watch: {
     loader () {
       const l = this.loader
@@ -320,6 +318,16 @@ export default {
     }
   },
   methods:{
+  getUser(){
+  axios.get('api/getUser').then((response)=>
+  {
+  console.log(response.data)
+  this.users=response.data
+  }).catch((error)=>
+  {
+  console.log(error)
+  })
+  },
   register(){
       let tokenStr = localStorage.getItem('access_token');
 this.loader = 'loading4'
@@ -342,7 +350,7 @@ Understanding:this.Understanding,
 Closing:this.Closing,
 Verification:this.Verification,
 Opening:this.Opening
-},{ headers: {"Authorization" : `Bearer ${tokenStr}`} }).then((res)=>{
+}).then((res)=>{
 console.log(res)
 this.snackval=res.data
 this.snackbar=true;

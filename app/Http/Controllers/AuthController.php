@@ -14,6 +14,7 @@ class AuthController extends Controller
       //verify the data from the forminput
       $request->validate([
         'email'=>'required',
+        's_id'=>'required',
         'name'=>'required',
         'password'=>'required'
       ]);
@@ -22,6 +23,7 @@ class AuthController extends Controller
       $user= User::firstOrNew(['email'=>$request->email]);
       $user->name=$request->name;
       $user->email=$request->email;
+      $user->s_id=$request->s_id;
       $user->password=bcrypt($request->password);
       $user->save();
 

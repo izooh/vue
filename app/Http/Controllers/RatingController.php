@@ -38,9 +38,11 @@ class RatingController extends Controller
               ->whereDate('created_at',[$date1])
              ->with('user')
             ->select('user_id', DB::raw('count(*) as total'))->selectRaw('SUM('.$status.') TotalPoints')
-            ->groupBy('user_id')
+             ->groupBy('user_id')
             ->orderByDesc('TotalPoints')
             ->get();
+
+
 
    return RatingResource::collection($ranks);
       }
@@ -67,7 +69,7 @@ class RatingController extends Controller
                     ->get();
 
               return RatingResource::collection($ranks);
-        
+
 
       }else {
 
@@ -75,7 +77,7 @@ class RatingController extends Controller
            ->whereDate('created_at',[$date1])
            ->with('user')
             ->select('user_id', DB::raw('count(*) as total'))->selectRaw('SUM(`Totals`) TotalPoints')
-           ->groupBy('user_id')
+            ->groupBy('user_id')
             ->orderByDesc('TotalPoints')
             ->get();
 

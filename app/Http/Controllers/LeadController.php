@@ -20,10 +20,10 @@ class LeadController extends Controller
       //called numbers and numbers not contacted
      $called = DB::table('leads')->where('status', '=', 'called')->select(DB::raw('count(*) as Called'))->get();
      $new=DB::table('leads')->where('status', '=', 'New')->select(DB::raw('count(*) as New'))->get();
-     $called_43 = DB::table('leads')->where('status', '=', 'called')->where('last_name', '=', 'TAladpd43.')->select(DB::raw('count(*) as Called_43'))->get();
-     $new_43=DB::table('leads')->where('status', '=', 'New')->where('last_name', '=', 'TAladpd43.')->select(DB::raw('count(*) as New_43'))->get();
-     $called_36 = DB::table('leads')->where('status', '=', 'called')->where('last_name', '=', 'TAladpd36.')->select(DB::raw('count(*) as Called_36'))->get();
-     $new_36=DB::table('leads')->where('status', '=', 'New')->where('last_name', '=', 'TAladpd36.')->select(DB::raw('count(*) as New_36'))->get();
+     $called_43 = DB::table('leads')->where('status', '=', 'called')->where('last_name', '=', 'Taladpd43.')->select(DB::raw('count(*) as Called_43'))->get();
+     $new_43=DB::table('leads')->where('status', '=', 'New')->where('last_name', '=', 'Taladpd43.')->select(DB::raw('count(*) as New_43'))->get();
+     $called_36 = DB::table('leads')->where('status', '=', 'called')->where('last_name', '=', 'Taladpd36.')->select(DB::raw('count(*) as Called_36'))->get();
+     $new_36=DB::table('leads')->where('status', '=', 'New')->where('last_name', '=', 'Taladpd36.')->select(DB::raw('count(*) as New_36'))->get();
      $collection = collect([$called,$new,$called_43,$new_43,$called_36,$new_36]);
      $collapsed = $collection->collapse();
       return $collapsed;
@@ -44,7 +44,7 @@ class LeadController extends Controller
      */
     public function store(Request $request)
     {
-       $user_id= array(641,602);
+       $user_id= $request->input('selected');
        $dp36=$request->input('dp36');
        $dp43=$request->input('dp43');
 foreach ($user_id as $value) {
@@ -52,13 +52,13 @@ foreach ($user_id as $value) {
     //this will excecute when you pass both $36 And $43 Values
  $users1 = DB::table('leads')
  ->where('user_id', '=',$value)
- ->where('last_name', '=', 'TAladpd36.')
+ ->where('last_name', '=', 'Taladpd36.')
  ->where('status', '=', 'New')
  ->limit($dp36)
  ->get();
  $users2 = DB::table('leads')
  ->where('user_id', '=',$value)
- ->where('last_name', '=', 'TAladpd43.')
+ ->where('last_name', '=', 'Taladpd43.')
  ->where('status', '=', 'New')
  ->limit($dp43)
  ->get();
@@ -120,55 +120,67 @@ $final=Arr::collapse($final);
       //check value passed from the frontend to excecute the logics
       if($Total_Uncontacted){
 
-        $remains = DB::table('leads')
+        $remains =lead::query()
         ->where('status', '=', 'New')
+        ->with('user')
         ->select('user_id', DB::raw('count(*) as total'))
         ->groupBy('user_id')
+        ->orderByDesc('total')
         ->get();
         return $remains;
 
       }elseif ($Total_Contacted) {
         // code...
-        $remains = DB::table('leads')
+          $remains =lead::query()
         ->where('status', '=', 'called')
+        ->with('user')
         ->select('user_id', DB::raw('count(*) as total'))
         ->groupBy('user_id')
+        ->orderByDesc('total')
         ->get();
         return $remains;
       }elseif ($Total_Uncontacted_43) {
         // code...
-        $remains = DB::table('leads')
-        ->where('last_name', '=', 'TAladpd43.')
+        $remains =lead::query()
+        ->where('last_name', '=', 'Taladpd43.')
+        ->with('user')
         ->where('status', '=', 'New')
         ->select('user_id', DB::raw('count(*) as total'))
         ->groupBy('user_id')
+        ->orderByDesc('total')
         ->get();
         return $remains;
       }elseif ($Total_Contacted_43) {
         // code...
-        $remains = DB::table('leads')
-        ->where('last_name', '=', 'TAladpd43.')
+          $remains =lead::query()
+        ->where('last_name', '=', 'Taladpd43.')
+        ->with('user')
         ->where('status', '=', 'called')
         ->select('user_id', DB::raw('count(*) as total'))
         ->groupBy('user_id')
+        ->orderByDesc('total')
         ->get();
         return $remains;
       }elseif ($Total_Uncontacted_36) {
         // code...
-        $remains = DB::table('leads')
-        ->where('last_name', '=', 'TAladpd36.')
+        $remains =lead::query()
+        ->where('last_name', '=', 'Taladpd36.')
+        ->with('user')
         ->where('status', '=', 'New')
         ->select('user_id', DB::raw('count(*) as total'))
         ->groupBy('user_id')
+        ->orderByDesc('total')
         ->get();
         return $remains;
       }elseif ($Total_Contacted_36) {
         // code...
-        $remains = DB::table('leads')
-        ->where('last_name', '=', 'TAladpd36.')
+          $remains =lead::query()
+        ->where('last_name', '=', 'Taladpd36.')
+        ->with('user')
         ->where('status', '=', 'called')
         ->select('user_id', DB::raw('count(*) as total'))
         ->groupBy('user_id')
+        ->orderByDesc('total')
         ->get();
         return $remains;
 
@@ -209,8 +221,9 @@ $final=Arr::collapse($final);
      * @param  \App\lead  $lead
      * @return \Illuminate\Http\Response
      */
-    public function destroy(lead $lead)
+    public function destroy()
     {
-        //
+      lead::truncate();
+
     }
 }

@@ -17,23 +17,22 @@
     <v-flex xs12 md5>
   <v-form@submit.prevent='sendData' >
   <v-card flat>
-  <v-toolbar dark color="grey">
+  <v-toolbar flat dark color="grey">
   <v-toolbar-title><v-icon left>low_priority</v-icon><small>Select number of calls</small></v-toolbar-title>
    <v-spacer></v-spacer>
   </v-toolbar>
   <v-card-text>
     <v-text-field label="Deliquency 43" v-model='dp43' ></v-text-field>
     <v-text-field label="Deliquency 36 and 22" v-model='dp36'></v-text-field>
-          <div class="form-group">
-          <label>agent name</label>
-          <select v-model='user_id' class="form-control" id="sel1">
-          <option  value='1'>all</option>
-          <option value='2'>mavin</option>
-          <option value='3'>paul</option>
-          <option value='4'>kevin</option>
-          <option value='5'>joseph</option>
-           </select>
-          </div>
+    <div class="row">
+    <label>select users</label>
+      <div class="col-md-12">
+        <select v-model='selected' class="mdb-select colorful-select dropdown-primary md-form" multiple searchable="Search here..">
+          <option  v-for='user in users' v-bind:key="user.id" v-bind:value="user.s_id">{{user.name}}</option>
+        </select>
+      </div>
+    </div>
+
   </v-card-text>
     <v-card-actions>
     <v-btn type='submit' color="blue"><font color="white">Filter</font></v-btn>
@@ -78,11 +77,16 @@
     </div></td>
   </tr>
 </table>
+<v-btn flat color='grey'  v-on:click='deleteData()' ><v-icon small left color='red'>delete</v-icon></v-btn>
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  <a href="http://localhost:8000/api/leads"><v-icon medium left>cloud_upload</v-icon></a>
 </v-flex>
-<v-flex xs12 md4>
+<v-flex xs12 md5>
 <v-form@submit.prevent='Send'>
 <v-card flat>
-<v-toolbar dark color="grey">
+<v-toolbar flat>
 <v-toolbar-title><v-icon left>call</v-icon><small>Call History</small></v-toolbar-title>
  <v-spacer></v-spacer>
 </v-toolbar>
@@ -118,11 +122,36 @@
       class="elevation-1"
     >
       <template  v-slot:items="props">
-        <td>{{ props.item.user_id }}</td>
+        <td>{{ props.item.user.name }}</td>
          <td>{{ props.item.total }}</td>
 
       </template>
     </v-data-table>
+</v-flex>
+<v-flex xs12 md1>
+</v-flex>
+<v-flex xs12 md6>
+<v-form@submit.prevent='position' >
+<v-card flat>
+<v-toolbar flat >
+<v-toolbar-title><v-icon left>timeline</v-icon><small>Promise to Pay</small></v-toolbar-title>
+ <v-spacer></v-spacer>
+</v-toolbar>
+<v-card-text>
+<v-menu>
+<v-text-field slot='activator' label='Starting date' :value='picker' prepend-icon='date_range'></v-text-field>
+   <v-date-picker v-model="picker"></v-date-picker>
+   <v-text-field slot='activator' label='End date' :value='picker1' prepend-icon='date_range'></v-text-field>
+      <v-date-picker v-model="picker1"></v-date-picker>
+   </v-menu>
+  </v-card-text>
+
+  <v-card-actions>
+    <v-btn type='submit' color="blue"><font color="white">Export</font></v-btn>
+</v-card-actions>
+
+</v-card>
+</v-form>
 </v-flex>
 </v-layout>
 <v-footer class="pa-3" absolute>
@@ -140,7 +169,11 @@ import remainsChart from './remainsChart'
   },
     data () {
       return {
+      users:'',
+      selected:[],
       data:[],
+      picker:'',
+      picker1:'',
      fields: ['cfid', 'contact', 'user_id','last_name'],
      dp36:'',
      dp43:'',
@@ -165,18 +198,31 @@ import remainsChart from './remainsChart'
       }
     },created() {
 this.fetchData()
+this.getUser()
      },
     methods:{
+    getUser(){
+    axios.get('api/getUser').then((response)=>
+    {
+    console.log(response.data)
+    this.users=response.data
+    }).catch((error)=>
+    {
+    console.log(error)
+    })
+    },
     sendData(){
     axios.post('api/leads',{
     dp36:this.dp36,
-    dp43:this.dp43
+    dp43:this.dp43,
+    selected:this.selected
 
     })
 .then((response)=>{
 console.log(response.data)
 this.data=response.data
 this.fetchData()
+alert('data processed successfully');
 })
 .catch(function (error) {
 console.log(error);
@@ -227,8 +273,25 @@ this.fetchData()
 console.log(error);
 });
     }
-    }
+    },
+    deleteData(){
+    if
+    (confirm("are you sure you want to permanently clear your database"))
+    {
+     axios.delete('api/lead_delete')
+.then((response) => {
+
+               this.fetchData();
+               console.log(response.data)
+               alert('deleted');
+
+           })
+.catch(function (error) {
+console.log(error);
+});
+}
 
     }
-  }
+    }
+}
 </script>

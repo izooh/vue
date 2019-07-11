@@ -47,6 +47,7 @@ if(context.getters.loggedIn){
     },
     retrieveToken2(context ,credentials){
       axios.post('api/register',{
+        s_id:credentials.s_id,
         name:credentials.name,
         email:credentials.email,
         password:credentials.password
