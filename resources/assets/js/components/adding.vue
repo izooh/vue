@@ -1,6 +1,6 @@
 <template>
 <div id='app'>
-  <p v-if='name' style="text-align:center" class="text-purple small"> welcome {{name}} </p>
+  <p v-if='name' style="text-align:center" class="text-white small"> welcome {{name}} </p>
   <v-dialog max-width='800px' v-model='dialog'>
     <v-btn flat slot='activator' class='blue lighten-1'>Add Suggestion</v-btn>
     <v-card flat>

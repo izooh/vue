@@ -19,8 +19,9 @@
 
        <br><br><br><br><br>
        <div class="container">
-    <div class="panel panel-default">
-      <div class="panel-heading">Panel Heading</div>
+    <div class="panel panel-primary">
+      <div class="panel-heading">Upload</div>
+
   <form class="form-horizontal" method="POST" action="{{ route('lead_import_parse') }}" enctype="multipart/form-data">
  <label for="csv_file" class="col-md-4 control-label">CSV file to import</label>
 <div class="col-md-6">

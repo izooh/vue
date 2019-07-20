@@ -128,7 +128,7 @@ Article::where('id',$id)->update($data);
         //dleting from article table
 
         $article=Article::FindOrFail($id);
-        $logged_user=auth('api')->user()->id;
+        $logged_user=auth('api')->user()->s_id;
         $del_article=$article->user_id;
         if($logged_user==$del_article){
           if($article->delete())

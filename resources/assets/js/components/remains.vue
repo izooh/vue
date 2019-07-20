@@ -25,8 +25,8 @@
     <v-text-field label="Deliquency 43" v-model='dp43' ></v-text-field>
     <v-text-field label="Deliquency 36 and 22" v-model='dp36'></v-text-field>
     <div class="row">
-    <label>select users</label>
       <div class="col-md-12">
+      <label><p class="text-warning">Select Users</p></label>
         <select v-model='selected' class="mdb-select colorful-select dropdown-primary md-form" multiple searchable="Search here..">
           <option  v-for='user in users' v-bind:key="user.id" v-bind:value="user.s_id">{{user.name}}</option>
         </select>
@@ -35,7 +35,7 @@
 
   </v-card-text>
     <v-card-actions>
-    <v-btn type='submit' color="blue"><font color="white">Filter</font></v-btn>
+    <v-btn type='submit' color="blue" v-bind:disabled="hasClicked"><font color="white">Filter</font></v-btn>
     <v-spacer></v-spacer>
     <v-btn color="red" v-on:click='Revert'><font color="white">
     <span class="caption">Revert</span></font> <v-icon small right>replay</v-icon></v-btn>
@@ -81,7 +81,7 @@
  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-  <a href="http://localhost:8000/api/leads"><v-icon medium left>cloud_upload</v-icon></a>
+  <a href="http://192.168.0.147:8000/api/leads"><v-icon medium left>cloud_upload</v-icon></a>
 </v-flex>
 <v-flex xs12 md5>
 <v-form@submit.prevent='Send'>
@@ -169,6 +169,7 @@ import remainsChart from './remainsChart'
   },
     data () {
       return {
+      hasClicked:false,
       users:'',
       selected:[],
       data:[],
@@ -212,6 +213,7 @@ this.getUser()
     })
     },
     sendData(){
+    this.hasClicked=true;
     axios.post('api/leads',{
     dp36:this.dp36,
     dp43:this.dp43,
@@ -223,6 +225,7 @@ console.log(response.data)
 this.data=response.data
 this.fetchData()
 alert('data processed successfully');
+this.hasClicked=false;
 })
 .catch(function (error) {
 console.log(error);

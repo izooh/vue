@@ -331,6 +331,9 @@ export default {
   register(){
       let tokenStr = localStorage.getItem('access_token');
 this.loader = 'loading4'
+if
+(confirm("are you sure you want to submit"))
+{
 axios.post('api/rate',{
 user_id:this.user_id,
 Call_Controlling:this.Call_Controlling,
@@ -354,11 +357,31 @@ Opening:this.Opening
 console.log(res)
 this.snackval=res.data
 this.snackbar=true;
+this.user_id='',
+this.Call_Controlling='',
+this.First_Contact_Resolution='',
+this.Listening='',
+this.Timeliness='',
+this.Tone_Manner='',
+this.Language='',
+this.Empathy='',
+this.Handling_Efficiency='',
+this.Commitment='',
+this.Urgency='',
+this.Product_Knowledge='',
+this.Negotiation='',
+this.Probing='',
+this.Understanding='',
+this.Closing='',
+this.Verification='',
+this.Opening=''
+
 }).catch((error)=>{
 console.log('failed')
 this.snackval='sorry nothing saved'
 this.snackbar=true;
 })
+  }
   }
   }
 }

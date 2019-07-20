@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/getUser', function (Request $request) {
-    return User::all();
+    return User::query()->orderBy('name', 'asc')->get();
 });
 Route::post('/register','AuthController@register');
 Route::post('/login','AuthController@login');
