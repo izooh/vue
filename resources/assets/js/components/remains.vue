@@ -25,8 +25,8 @@
     <v-text-field label="Deliquency 43" v-model='dp43' ></v-text-field>
     <v-text-field label="Deliquency 36 and 22" v-model='dp36'></v-text-field>
     <div class="row">
-    <label>select users</label>
       <div class="col-md-12">
+      <label><p class="text-warning">Select Users</p></label>
         <select v-model='selected' class="mdb-select colorful-select dropdown-primary md-form" multiple searchable="Search here..">
           <option  v-for='user in users' v-bind:key="user.id" v-bind:value="user.s_id">{{user.name}}</option>
         </select>
@@ -35,7 +35,7 @@
 
   </v-card-text>
     <v-card-actions>
-    <v-btn type='submit' color="blue"><font color="white">Filter</font></v-btn>
+    <v-btn type='submit' color="blue" v-bind:disabled="hasClicked"><font color="white">Filter</font></v-btn>
     <v-spacer></v-spacer>
     <v-btn color="red" v-on:click='Revert'><font color="white">
     <span class="caption">Revert</span></font> <v-icon small right>replay</v-icon></v-btn>
@@ -81,7 +81,7 @@
  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-  <a href="http://localhost:8000/api/leads"><v-icon medium left>cloud_upload</v-icon></a>
+  <a href="http://192.168.0.220/api/leads"><v-icon medium left>cloud_upload</v-icon></a>
 </v-flex>
 <v-flex xs12 md5>
 <v-form@submit.prevent='Send'>
@@ -131,7 +131,7 @@
 <v-flex xs12 md1>
 </v-flex>
 <v-flex xs12 md6>
-<v-form@submit.prevent='position' >
+<v-form@submit.prevent='promise' >
 <v-card flat>
 <v-toolbar flat >
 <v-toolbar-title><v-icon left>timeline</v-icon><small>Promise to Pay</small></v-toolbar-title>
@@ -147,9 +147,16 @@
   </v-card-text>
 
   <v-card-actions>
+  <vue-csv-downloader
+        :data="promise"
+        :fields="fields1"
+    >
+    <template v-slot:activator="{ on }">
     <v-btn type='submit' color="blue"><font color="white">Export</font></v-btn>
-</v-card-actions>
+    </template>
+</vue-csv-downloader>
 
+</v-card-actions>
 </v-card>
 </v-form>
 </v-flex>
@@ -169,12 +176,15 @@ import remainsChart from './remainsChart'
   },
     data () {
       return {
+      hasClicked:false,
       users:'',
       selected:[],
       data:[],
       picker:'',
       picker1:'',
-     fields: ['cfid', 'contact', 'user_id','last_name'],
+      promise:'',
+      fields: [],
+      fields: ['cfid', 'contact', 'user_id','last_name'],
      dp36:'',
      dp43:'',
      remains:[],
@@ -212,6 +222,7 @@ this.getUser()
     })
     },
     sendData(){
+    this.hasClicked=true;
     axios.post('api/leads',{
     dp36:this.dp36,
     dp43:this.dp43,
@@ -223,6 +234,7 @@ console.log(response.data)
 this.data=response.data
 this.fetchData()
 alert('data processed successfully');
+this.hasClicked=false;
 })
 .catch(function (error) {
 console.log(error);
@@ -273,6 +285,19 @@ this.fetchData()
 console.log(error);
 });
     }
+    },
+    promise(){
+    axios.post('api/ptps',{
+    date1:this.picker,
+    date2:this.picker1
+    }).then((response)=>{
+    console.log(response)
+    }).catch((error)=>{
+    console.log(error)
+    }
+
+    )
+
     },
     deleteData(){
     if
