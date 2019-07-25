@@ -26,7 +26,7 @@ return{
     pagination:{},
     edit:false
 }
-}, 
+},
 created(){
 this.fetchArticles();
 },
@@ -52,7 +52,7 @@ deleteArticle(id){
 },
 addArticle(){
   if(this.edit===false){
- 
+
   fetch('api/article/',
   {
   method:'post',
@@ -71,13 +71,11 @@ addArticle(){
   })
   .catch(err=>console.log(err));
   }else{
- 
+
   }
 }
 
 }
-    
+
 };
 </script>
-
-

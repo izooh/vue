@@ -81,7 +81,7 @@
  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-  <a href="http://192.168.0.147:8000/api/leads"><v-icon medium left>cloud_upload</v-icon></a>
+  <a href="http://192.168.0.220/api/leads"><v-icon medium left>cloud_upload</v-icon></a>
 </v-flex>
 <v-flex xs12 md5>
 <v-form@submit.prevent='Send'>
@@ -131,7 +131,7 @@
 <v-flex xs12 md1>
 </v-flex>
 <v-flex xs12 md6>
-<v-form@submit.prevent='position' >
+<v-form@submit.prevent='promise' >
 <v-card flat>
 <v-toolbar flat >
 <v-toolbar-title><v-icon left>timeline</v-icon><small>Promise to Pay</small></v-toolbar-title>
@@ -147,9 +147,16 @@
   </v-card-text>
 
   <v-card-actions>
+  <vue-csv-downloader
+        :data="promise"
+        :fields="fields1"
+    >
+    <template v-slot:activator="{ on }">
     <v-btn type='submit' color="blue"><font color="white">Export</font></v-btn>
-</v-card-actions>
+    </template>
+</vue-csv-downloader>
 
+</v-card-actions>
 </v-card>
 </v-form>
 </v-flex>
@@ -175,7 +182,9 @@ import remainsChart from './remainsChart'
       data:[],
       picker:'',
       picker1:'',
-     fields: ['cfid', 'contact', 'user_id','last_name'],
+      promise:'',
+      fields: [],
+      fields: ['cfid', 'contact', 'user_id','last_name'],
      dp36:'',
      dp43:'',
      remains:[],
@@ -276,6 +285,19 @@ this.fetchData()
 console.log(error);
 });
     }
+    },
+    promise(){
+    axios.post('api/ptps',{
+    date1:this.picker,
+    date2:this.picker1
+    }).then((response)=>{
+    console.log(response)
+    }).catch((error)=>{
+    console.log(error)
+    }
+
+    )
+
     },
     deleteData(){
     if
