@@ -29,9 +29,9 @@ Route::middleware('auth:api')->delete('article/{id}', 'my_api@destroy');
 Route::middleware('admin')->post('article', 'my_api@store');
 Route::PUT('article/{id}', 'my_api@edit');
 //rating controller routes
-Route::post('rate', 'RatingController@store');
-Route::post('rating','RatingController@create');
-Route::post('default','RatingController@index');
+Route::middleware('admin')->post('rate', 'RatingController@store');
+Route::middleware('admin')->post('rating','RatingController@create');
+Route::middleware('admin')->post('default','RatingController@index');
 
 // remains upload routes
 Route::get('/test','importController@getImport');
@@ -48,15 +48,17 @@ Route::post('/lead_import_process', 'leadImportController@processImport')->name(
 //leads Controller
 //route to retrive leads that dont belong to remain table
 Route::middleware('admin')->get('lead','LeadController@index');
-Route::get('remains','LeadController@index');
-Route::post('leads','LeadController@store');
-Route::post('user_remains','LeadController@show');
-Route::delete('/lead_delete','LeadController@destroy');
+Route::middleware('admin')->get('remains','LeadController@index');
+Route::middleware('admin')->post('leads','LeadController@store');
+Route::middleware('admin')->post('user_remains','LeadController@show');
+Route::post('revert','LeadController@revert');
+Route::get('revertAll','LeadController@revertAll');
+Route::middleware('admin')->delete('/lead_delete','LeadController@destroy');
 //SuggestionController RouteS
 Route::post('suggestion', 'SuggestionController@store');
 Route::get('suggestions', 'SuggestionController@index');
 Route::get('suggestion/{id}', 'SuggestionController@show');
 Route::middleware('auth:api')->delete('suggestion/{id}', 'SuggestionController@destroy');
 //promise controller RouteS
-Route::post('promise','PromiseController@store');
+Route::post('promises','PromiseController@store');
 Route::post('ptps','PromiseController@show');

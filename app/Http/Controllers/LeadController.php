@@ -90,6 +90,7 @@ $final=Arr::collapse($final);
 
 //obtain the id values to be updated
   $id_update= Arr::pluck($final, 'id');
+
   //call the update Statement
   if(DB::table('leads')->whereIn('id', $id_update)->update(array('status' =>'called')))
   {
@@ -198,9 +199,15 @@ $final=Arr::collapse($final);
      * @param  \App\lead  $lead
      * @return \Illuminate\Http\Response
      */
-    public function edit(lead $lead)
+    public function revert(Request $request)
     {
-        //
+      $undo=$request->input('undo');
+      if(DB::table('leads')->whereIn('id', $undo)->update(array('status' =>'New')))
+      {
+      return 'you successfully reversed the changes';
+      }else {
+        return "changes failed";
+      }
     }
 
     /**
@@ -210,9 +217,15 @@ $final=Arr::collapse($final);
      * @param  \App\lead  $lead
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, lead $lead)
+    public function revertAll()
     {
         //
+      $affected = DB::table('leads')->where('status', '=', 'called')->update(array('status' =>'New'));
+
+
+
+
+
     }
 
     /**

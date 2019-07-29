@@ -12,7 +12,7 @@ class leadImportController extends Controller
 {
   public function getImport()
     {
-        return view('leadUpload');
+        return view('leadupload');
     }
 
     public function parseImport(CsvImportRequest $request)

@@ -353,7 +353,7 @@ Understanding:this.Understanding,
 Closing:this.Closing,
 Verification:this.Verification,
 Opening:this.Opening
-}).then((res)=>{
+},{ headers: {"Authorization" : `Bearer ${tokenStr}`} }).then((res)=>{
 console.log(res)
 this.snackval=res.data
 this.snackbar=true;

@@ -38,7 +38,7 @@
     <v-btn type='submit' color="blue" v-bind:disabled="hasClicked"><font color="white">Filter</font></v-btn>
     <v-spacer></v-spacer>
     <v-btn color="red" v-on:click='Revert'><font color="white">
-    <span class="caption">Revert</span></font> <v-icon small right>replay</v-icon></v-btn>
+    <span class="caption">Undo filter</span></font> <v-icon small right>replay</v-icon></v-btn>
   </v-card-actions>
   </v-card>
   </v-form>
@@ -77,11 +77,11 @@
     </div></td>
   </tr>
 </table>
-<v-btn flat color='grey'  v-on:click='deleteData()' ><v-icon small left color='red'>delete</v-icon></v-btn>
+<v-btn flat color='grey'  v-on:click='resetData()' ><v-icon small left color='red'>autorenew</v-icon></v-btn>
  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-  <a href="http://192.168.0.220/api/leads"><v-icon medium left>cloud_upload</v-icon></a>
+  <a href="http://localhost:8000/api/leads"><v-icon medium left>cloud_upload</v-icon></a>
 </v-flex>
 <v-flex xs12 md5>
 <v-form@submit.prevent='Send'>
@@ -131,7 +131,7 @@
 <v-flex xs12 md1>
 </v-flex>
 <v-flex xs12 md6>
-<v-form@submit.prevent='promise' >
+<v-form@submit.prevent='promises' >
 <v-card flat>
 <v-toolbar flat >
 <v-toolbar-title><v-icon left>timeline</v-icon><small>Promise to Pay</small></v-toolbar-title>
@@ -147,14 +147,8 @@
   </v-card-text>
 
   <v-card-actions>
-  <vue-csv-downloader
-        :data="promise"
-        :fields="fields1"
-    >
-    <template v-slot:activator="{ on }">
+
     <v-btn type='submit' color="blue"><font color="white">Export</font></v-btn>
-    </template>
-</vue-csv-downloader>
 
 </v-card-actions>
 </v-card>
@@ -179,6 +173,7 @@ import remainsChart from './remainsChart'
       hasClicked:false,
       users:'',
       selected:[],
+      lead_id:[],
       data:[],
       picker:'',
       picker1:'',
@@ -222,17 +217,20 @@ this.getUser()
     })
     },
     sendData(){
+    let tokenStr = localStorage.getItem('access_token');
     this.hasClicked=true;
     axios.post('api/leads',{
     dp36:this.dp36,
     dp43:this.dp43,
     selected:this.selected
 
-    })
+    },{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
 .then((response)=>{
 console.log(response.data)
 this.data=response.data
 this.fetchData()
+this.dp36=""
+this.dp43=""
 alert('data processed successfully');
 this.hasClicked=false;
 })
@@ -241,8 +239,8 @@ console.log(error);
 });
     },
     fetchData(){
-
-      axios.get('api/remains')
+let tokenStr = localStorage.getItem('access_token');
+      axios.get('api/remains',{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
 .then((response) => {
                 console.log(response.data);
                 this.remains=response.data
@@ -254,6 +252,7 @@ console.log(error);
 
     },
     Send(){
+    let tokenStr = localStorage.getItem('access_token');
     axios.post('api/user_remains',{
     Total_Contacted:this.Total_Contacted,
     Total_Uncontacted:this.Total_Uncontacted,
@@ -262,7 +261,7 @@ console.log(error);
     Total_Contacted_36:this.Total_Contacted_36,
     Total_Uncontacted_36:this.Total_Uncontacted_36
 
-    })
+    },{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
 .then((response)=>{
 console.log(response.data)
 this.datar=response.data
@@ -275,10 +274,16 @@ console.log(error);
     if
     (confirm("are you sure you want to undo changes in the database"))
     {
-    axios.post('api/revert')
+    let undo=this.data
+    undo.forEach(element => {
+    this.lead_id.push(element.id);
+
+    });
+    axios.post('api/revert',
+    {undo:this.lead_id}
+  )
 .then((response)=>{
 console.log(response.data)
-this.data=response.data
 this.fetchData()
 })
 .catch(function (error) {
@@ -286,7 +291,7 @@ console.log(error);
 });
     }
     },
-    promise(){
+    promises(){
     axios.post('api/ptps',{
     date1:this.picker,
     date2:this.picker1
@@ -299,16 +304,17 @@ console.log(error);
     )
 
     },
-    deleteData(){
+    resetData(){
     if
-    (confirm("are you sure you want to permanently clear your database"))
+    (confirm("are you sure you want to permanently reset your database"))
     {
-     axios.delete('api/lead_delete')
+    let tokenStr = localStorage.getItem('access_token');
+     axios.get('api/revertAll',{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
 .then((response) => {
 
                this.fetchData();
                console.log(response.data)
-               alert('deleted');
+               alert('reset complete');
 
            })
 .catch(function (error) {

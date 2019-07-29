@@ -21,9 +21,9 @@ class AuthController extends Controller
       //creating a new user account
 
       $user= User::firstOrNew(['email'=>$request->email]);
-      $user->name=$request->name;
-      $user->email=$request->email;
-      $user->s_id=$request->s_id;
+      $user->name=trim($request->name);
+      $user->email=trim($request->email);
+      $user->s_id=trim($request->s_id);
       $user->password=bcrypt($request->password);
       $user->save();
 

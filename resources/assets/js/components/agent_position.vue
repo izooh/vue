@@ -147,8 +147,9 @@ import add_rating from './add_rating.vue'
     },
     methods:{
     position(){
+        let tokenStr = localStorage.getItem('access_token');
           this.dataLoaded=false
-      axios.post('api/rating',{date1:this.picker,date2:this.picker1})
+      axios.post('api/rating',{date1:this.picker,date2:this.picker1},{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
 .then((response) => {
 
                 this.desserts=response.data.data
@@ -162,7 +163,8 @@ console.log(error);
 
     },
     filtered(){
-    axios.post('api/default',{status:this.status,date1:this.date3,date2:this.date4})
+    let tokenStr = localStorage.getItem('access_token');
+    axios.post('api/default',{status:this.status,date1:this.date3,date2:this.date4},{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
   .then((response) => {
               console.log(response.data.data);
               this.datar=response.data.data
