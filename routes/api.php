@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/getUser', function (Request $request) {
     return User::query()->orderBy('name', 'asc')->get();
 });
-Route::post('/register','AuthController@register');
+Route::middleware('admin')->post('/register','AuthController@register');
 Route::post('/login','AuthController@login');
 Route::post('/logout','AuthController@logout');
 Route::get('articles', 'my_api@index');
@@ -52,7 +52,7 @@ Route::middleware('admin')->get('remains','LeadController@index');
 Route::middleware('admin')->post('leads','LeadController@store');
 Route::middleware('admin')->post('user_remains','LeadController@show');
 Route::post('revert','LeadController@revert');
-Route::get('revertAll','LeadController@revertAll');
+Route::middleware('admin')->post('revertAll','LeadController@revertAll');
 Route::middleware('admin')->delete('/lead_delete','LeadController@destroy');
 //SuggestionController RouteS
 Route::post('suggestion', 'SuggestionController@store');

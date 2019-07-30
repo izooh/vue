@@ -217,10 +217,13 @@ $final=Arr::collapse($final);
      * @param  \App\lead  $lead
      * @return \Illuminate\Http\Response
      */
-    public function revertAll()
+    public function revertAll( Request $request)
     {
-        //
-      $affected = DB::table('leads')->where('status', '=', 'called')->update(array('status' =>'New'));
+        $revert_id=$request->input('revert_id');
+
+      $reverts= DB::table('leads')->whereIn('user_id', $revert_id)
+                                    ->where('status', '=', 'called')
+                                    ->update(array('status' =>'New'));
 
 
 

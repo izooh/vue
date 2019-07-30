@@ -4,6 +4,7 @@
 <vue-csv-downloader
       :data="data"
       :fields="fields"
+      download-name='agent leads.csv'
   ><v-tooltip top>
   <template v-slot:activator="{ on }">
   <v-btn large fixed right bottom fab dark  color="blue" v-on="on">
@@ -35,10 +36,10 @@
 
   </v-card-text>
     <v-card-actions>
-    <v-btn type='submit' color="blue" v-bind:disabled="hasClicked"><font color="white">Filter</font></v-btn>
+    <v-btn type='submit' color="blue" v-bind:disabled="hasClicked"><font color="white">Filter <v-icon small right>find_replace</v-icon></font></v-btn>
     <v-spacer></v-spacer>
     <v-btn color="red" v-on:click='Revert'><font color="white">
-    <span class="caption">Undo filter</span></font> <v-icon small right>replay</v-icon></v-btn>
+      <span class="caption">Undo filter</span><v-icon small right>replay</v-icon></font> </v-btn>
   </v-card-actions>
   </v-card>
   </v-form>
@@ -77,12 +78,8 @@
     </div></td>
   </tr>
 </table>
-<v-btn flat color='grey'  v-on:click='resetData()' ><v-icon small left color='red'>autorenew</v-icon></v-btn>
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-  <a href="http://localhost:8000/api/leads"><v-icon medium left>cloud_upload</v-icon></a>
 </v-flex>
+
 <v-flex xs12 md5>
 <v-form@submit.prevent='Send'>
 <v-card flat>
@@ -109,7 +106,7 @@
   </v-card-text>
 
   <v-card-actions>
-    <v-btn type='submit' color="blue"><font color="white">Submit</font></v-btn>
+    <v-btn type='submit' color="blue"><font color="white">Submit<v-icon small right>check_circle</v-icon></font></v-btn>
 </v-card-actions>
 
 </v-card>
@@ -127,6 +124,7 @@
 
       </template>
     </v-data-table>
+    <br><br>
 </v-flex>
 <v-flex xs12 md1>
 </v-flex>
@@ -147,9 +145,50 @@
   </v-card-text>
 
   <v-card-actions>
+  <v-btn type='submit' color="blue"><font color="white">Filter<v-icon small right>find_replace</v-icon></font></v-btn>
+  <v-spacer></v-spacer>
+  <vue-csv-downloader
+       :data="data1"
+       :fields="fields"
+       download-name='promise_to_pay.csv'
+   >
+   <v-btn color="green"><font color="white">Export<v-icon small right>import_export</v-icon></font></v-btn>
+   </vue-csv-downloader>
 
-    <v-btn type='submit' color="blue"><font color="white">Export</font></v-btn>
 
+
+</v-card-actions>
+</v-card>
+</v-form>
+
+</v-flex>
+
+<v-flex xs12 md4>
+<v-form@submit.prevent='Operations'>
+<v-card flat>
+<v-toolbar flat>
+<v-toolbar-title><v-icon left>build</v-icon><small>Table Operations</small></v-toolbar-title>
+ <v-spacer></v-spacer>
+</v-toolbar>
+<v-card-text>
+<div class="row">
+     <div class="col-xs-7">
+<label><p class="text-warning">Select Users name to reset</p></label><br>
+  <select v-model='operations' class="mdb-select colorful-select dropdown-primary md-form" multiple>
+  <option  v-for='user in users1' v-bind:key="user.id" v-bind:value="user.s_id">{{user.name}}</option>
+  </select>
+  </div>
+  </div>
+</v-card-text>
+<v-card-actions>
+  <v-btn type='submit' color="red"><font color="white">Reset<v-icon small right>autorenew</v-icon></font></v-btn>
+  <v-spacer></v-spacer>
+  <v-tooltip top>
+      <template v-slot:activator="{ on }">
+  <v-btn color="primary" dark v-on="on">upload<a href="http://localhost:8000/api/leads"><v-icon medium left>cloud_upload</v-icon></a></v-btn>
+  </template>
+     <span>upload new leads</span>
+   </v-tooltip>
 </v-card-actions>
 </v-card>
 </v-form>
@@ -172,9 +211,12 @@ import remainsChart from './remainsChart'
       return {
       hasClicked:false,
       users:'',
+      users1:'',
       selected:[],
+      operations:[],
       lead_id:[],
       data:[],
+      data1:[],
       picker:'',
       picker1:'',
       promise:'',
@@ -211,6 +253,7 @@ this.getUser()
     {
     console.log(response.data)
     this.users=response.data
+    this.users1=response.data
     }).catch((error)=>
     {
     console.log(error)
@@ -277,7 +320,6 @@ console.log(error);
     let undo=this.data
     undo.forEach(element => {
     this.lead_id.push(element.id);
-
     });
     axios.post('api/revert',
     {undo:this.lead_id}
@@ -290,19 +332,38 @@ this.fetchData()
 console.log(error);
 });
     }
-    },
+  },
     promises(){
     axios.post('api/ptps',{
     date1:this.picker,
     date2:this.picker1
     }).then((response)=>{
-    console.log(response)
+    console.log(response.data)
+    let prom=response.data
+    prom.forEach(element => {
+    this.data1.push(element.lead);
+
+    });
+console.log(this.data1)
     }).catch((error)=>{
     console.log(error)
     }
 
     )
 
+    },
+    Operations(){
+    if
+    (confirm("are you sure you want to undo changes in the database"))
+    {
+    let tokenStr = localStorage.getItem('access_token');
+      axios.post('api/revertAll',{revert_id:this.operations},{ headers: {"Authorization" : `Bearer ${tokenStr}`} }).then((response)=>{
+      console.log(response)
+      this.fetchData()
+      }).catch((error)=>{
+      console.log(error)
+      })
+      }
     },
     resetData(){
     if
