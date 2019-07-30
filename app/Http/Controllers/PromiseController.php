@@ -38,7 +38,7 @@ class PromiseController extends Controller
         //
         $promise= new Promise;
         $promise->user_id=$request->input('user_id');
-        $promise->contact=$request->input('contact');
+        $promise->contact=trim($request->input('contact'));
         $promise->ptp_date=$request->input('ptp_date');
         if($promise->save()){
           return 'details updated successfully';

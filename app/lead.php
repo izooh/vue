@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class lead extends Model
 {
-  protected $fillable = ['user_id', 'cfid', 'contact','last_name'];
+  protected $fillable = ['user_id', 'cfid', 'contact','last_name','status'];
 
     public function user()
     {

@@ -8,7 +8,7 @@
 <br><br><hr>
 <v-layout row class="mb-3">
 <v-flex xs12 md8 >
-<v-form@submit.prevent='login' >
+<v-form@submit.prevent='ptps' >
 <v-card flat>
 <v-toolbar dark color="grey">
 <v-toolbar-title><small>PTP  Reminder</small></v-toolbar-title>
@@ -19,10 +19,11 @@
 <v-text-field
         label="Phone Number"
         placeholder="add a number"
+        v-model='contact'
       ></v-text-field>
 <v-menu>
-<v-text-field slot='activator' label='Promise to Pay Date' :value='picker' prepend-icon='date_range'></v-text-field>
-   <v-date-picker v-model="picker"></v-date-picker>
+<v-text-field slot='activator' label='Promise to Pay Date' :value='ptp_date' prepend-icon='date_range'></v-text-field>
+   <v-date-picker v-model="ptp_date"></v-date-picker>
    </v-menu>
   </v-card-text>
 
@@ -65,6 +66,8 @@ return{
 picker:'',
     articles:[],
     article:{},
+    contact:'',
+    ptp_date:'',
     name:'',
     user_id:'',
     title:'',
@@ -80,6 +83,19 @@ picker:'',
 
          },
         methods: {
+          ptps(){
+          axios.post('api/promises',{
+          user_id:this.user_id,
+          contact:this.contact,
+          ptp_date:this.ptp_date
+          }).then((response)=>
+          {
+          console.log(response)
+          }).catch((error)=>{
+          console.log(error)
+          });
+
+          },
         getUser() {
 
           let tokenStr = localStorage.getItem('access_token');
@@ -89,6 +105,7 @@ picker:'',
               }
             })
             .then((response) => {
+            console.log(response)
               this.user_id = response.data.id
             })
             .catch(function(error) {

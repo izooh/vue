@@ -261,7 +261,7 @@ this.articles.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
     }
 </script>
 <style>
-.louis{
+.Isaac Mulehi{
 border-left:4px solid #3cd1c2;
 }
 .Junior{

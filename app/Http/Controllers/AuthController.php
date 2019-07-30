@@ -21,9 +21,9 @@ class AuthController extends Controller
       //creating a new user account
 
       $user= User::firstOrNew(['email'=>$request->email]);
-      $user->name=$request->name;
-      $user->email=$request->email;
-      $user->s_id=$request->s_id;
+      $user->name=trim($request->name);
+      $user->email=trim($request->email);
+      $user->s_id=trim($request->s_id);
       $user->password=bcrypt($request->password);
       $user->save();
 
@@ -32,11 +32,11 @@ class AuthController extends Controller
       $http = new Client;
 
 
-$response = $http->post('http://localhost/vue/public/oauth/token', [
+$response = $http->post('http://skywave/oauth/token', [
     'form_params' => [
       'grant_type' => 'password',
       'client_id' =>'2',
-      'client_secret' => '9ttp8SfLT9RDMmDGOkjs9iIfs3zLWXeeULt5Ok2T',
+      'client_secret' => 'svZ1OjFmEe7b4bNXGbj2Sv2Gk6HhaB5N3bGWn0Ov',
       'username' => $request->email,
       'password' => $request->password,
         'scope' => '',
@@ -65,11 +65,11 @@ return response(['data'=>json_decode((string) $response->getBody(), true)]);
               $http = new Client;
 
 
-        $response = $http->post('http://localhost/vue/public/oauth/token', [
+        $response = $http->post('http://skywave/oauth/token', [
             'form_params' => [
                 'grant_type' => 'password',
                 'client_id' => 2,
-                'client_secret' => '9ttp8SfLT9RDMmDGOkjs9iIfs3zLWXeeULt5Ok2T',
+                'client_secret' => 'svZ1OjFmEe7b4bNXGbj2Sv2Gk6HhaB5N3bGWn0Ov',
                 'username' => $request->email,
                 'password' => $request->password,
                 'scope' => '',
