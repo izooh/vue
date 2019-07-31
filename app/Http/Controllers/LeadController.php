@@ -44,7 +44,7 @@ class LeadController extends Controller
      */
     public function store(Request $request)
     {
-      {
+      
                $request->validate([
         'dp36'=>'numeric|min:50|max:500',
         'dp43'=>'numeric|min:50|max:500',
