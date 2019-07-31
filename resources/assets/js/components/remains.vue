@@ -185,7 +185,7 @@
   <v-spacer></v-spacer>
   <v-tooltip top>
       <template v-slot:activator="{ on }">
-  <v-btn color="primary" dark v-on="on">upload<a href="http://localhost:8000/api/leads"><v-icon medium left>cloud_upload</v-icon></a></v-btn>
+  <v-btn color="primary" dark v-on="on">upload<a href="http://192.168.0.220/api/leads"><v-icon medium left>cloud_upload</v-icon></a></v-btn>
   </template>
      <span>upload new leads</span>
    </v-tooltip>
