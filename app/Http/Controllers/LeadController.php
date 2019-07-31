@@ -44,6 +44,13 @@ class LeadController extends Controller
      */
     public function store(Request $request)
     {
+      {
+               $request->validate([
+        'dp36'=>'numeric|min:50|max:500',
+        'dp43'=>'numeric|min:50|max:500',
+
+      ]);
+
        $user_id= $request->input('selected');
        $dp36=$request->input('dp36');
        $dp43=$request->input('dp43');
