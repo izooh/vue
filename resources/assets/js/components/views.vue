@@ -261,22 +261,22 @@ this.articles.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
     }
 </script>
 <style>
-.Isaac Mulehi{
+.Isaac{
 border-left:4px solid #3cd1c2;
 }
 .Junior{
 border-left:4px solid indigo;
 }
-.izooh{
+.Sherley{
 border-left:4px solid red;
 }
-.v-chip.louis{
+.v-chip.Isaac{
 border:4px solid #3cd1c2;
 }
-.v-chip.Junior{
+.v-chip.Sherley{
 border:4px solid indigo;
 }
-.v-chip.izooh{
+.v-chip.Junior{
 border:4px solid red;
 }
 [v-cloak] {

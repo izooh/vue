@@ -2,7 +2,7 @@
 return[
   'administrator'=>[
     'lous@gmail.com',
-    'isaacopicho@gmail.com',
-    'junior@skywave.com',
+    'skywaveltd@gmail.com',
+    'junior@gmail.com',
   ]
 ];

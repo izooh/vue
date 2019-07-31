@@ -38,7 +38,7 @@
     <v-card-actions>
     <v-btn type='submit' color="blue" v-bind:disabled="hasClicked"><font color="white">Filter <v-icon small right>find_replace</v-icon></font></v-btn>
     <v-spacer></v-spacer>
-    <v-btn color="red" v-on:click='Revert'><font color="white">
+    <v-btn color="red" v-on:click='Revert' v-if="hidden"><font color="white">
       <span class="caption">Undo filter</span><v-icon small right>replay</v-icon></font> </v-btn>
   </v-card-actions>
   </v-card>
@@ -214,6 +214,7 @@ import remainsChart from './remainsChart'
       users1:'',
       selected:[],
       operations:[],
+      hidden:false,
       lead_id:[],
       data:[],
       data1:[],
@@ -271,6 +272,7 @@ this.getUser()
 .then((response)=>{
 console.log(response.data)
 this.data=response.data
+this.hidden=true
 this.fetchData()
 this.dp36=""
 this.dp43=""
@@ -326,6 +328,7 @@ console.log(error);
   )
 .then((response)=>{
 console.log(response.data)
+this.hidden=false
 this.fetchData()
 })
 .catch(function (error) {
