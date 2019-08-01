@@ -44,7 +44,7 @@ class LeadController extends Controller
      */
     public function store(Request $request)
     {
-      
+
                $request->validate([
         'dp36'=>'numeric|min:50|max:500',
         'dp43'=>'numeric|min:50|max:500',
@@ -237,6 +237,17 @@ $final=Arr::collapse($final);
 
 
     }
+
+    public function close( Request $request)
+    {
+      $closed=$request->input('closed');
+      $str_arr = explode ("\n", $closed);
+if (DB::table('leads')->whereIn('cfid', $str_arr)->update(array('status' =>'Closed'))) {
+  // code...
+  return 'Accounts successfully closed';
+}
+return  'Account Closing failed try again!';
+}
 
     /**
      * Remove the specified resource from storage.
