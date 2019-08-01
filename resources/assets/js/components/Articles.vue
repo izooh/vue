@@ -33,7 +33,9 @@
 
 </v-card>
 </v-form>
+  </v-flex>
 <hr>
+<v-flex xs12 md4 >
 <v-btn flat  color='grey' v-on:click='fetchData()' ><span class="caption grey--text">view suggestions</span></v-btn>
   <v-card flat v-for="article in articles" v-bind:key="article.id">
   <v-card-title>
@@ -48,8 +50,9 @@
    <v-btn flat  color='blue' v-on:click='' ><v-icon small left>edit</v-icon></v-btn>
  </v-card text>
  </v-card>
+ </v-flex>
  <br>
-  </v-flex>
+
   </v-layout>
   <v-footer class="pa-3" absolute>
   <v-spacer></v-spacer>
@@ -91,6 +94,9 @@ picker:'',
           }).then((response)=>
           {
           console.log(response)
+          this.contact='',
+          this.ptp_date=''
+          alert(response.data);
           }).catch((error)=>{
           console.log(error)
           });

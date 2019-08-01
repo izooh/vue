@@ -81,7 +81,7 @@
       <button @click.prevent="editForm=false" v-show="showIt(article.id)">cancel</button>
       </form>
         <v-btn flat color='red'  v-on:click='deleteData(article.id)' ><v-icon small left>delete</v-icon></v-btn>
-          <v-btn flat  color='blue' v-on:click='editIt(article.id)' ><v-icon small left>edit</v-icon></v-btn>
+          <v-btn flat  color='blue' v-on:click='' ><v-icon small left>edit</v-icon></v-btn>
           <v-btn flat  color='black' v-on:click='' ><v-icon small left>message</v-icon></v-btn>
 
     </v-card>
@@ -277,7 +277,7 @@ border:4px solid #3cd1c2;
 border:4px solid indigo;
 }
 .v-chip.Junior{
-border:4px solid red;
+border:4px solid indigo;
 }
 [v-cloak] {
      display: none;

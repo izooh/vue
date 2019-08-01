@@ -36,9 +36,9 @@
 
   </v-card-text>
     <v-card-actions>
-    <v-btn type='submit' color="blue" v-bind:disabled="hasClicked"><font color="white">Filter <v-icon small right>find_replace</v-icon></font></v-btn>
+    <v-btn type='submit' color="blue" v-bind:disabled="hasClicked" depressed><font color="white">Filter <v-icon small right>find_replace</v-icon></font></v-btn>
     <v-spacer></v-spacer>
-    <v-btn color="red" v-on:click='Revert' v-if="hidden"><font color="white">
+    <v-btn color="red" v-on:click='Revert' v-if="hidden" depressed><font color="white">
       <span class="caption">Undo filter</span><v-icon small right>replay</v-icon></font> </v-btn>
   </v-card-actions>
   </v-card>
@@ -106,7 +106,7 @@
   </v-card-text>
 
   <v-card-actions>
-    <v-btn type='submit' color="blue"><font color="white">Submit<v-icon small right>check_circle</v-icon></font></v-btn>
+    <v-btn type='submit' color="blue" depressed><font color="white">Submit<v-icon small right>check_circle</v-icon></font></v-btn>
 </v-card-actions>
 
 </v-card>
@@ -145,14 +145,14 @@
   </v-card-text>
 
   <v-card-actions>
-  <v-btn type='submit' color="blue"><font color="white">Filter<v-icon small right>find_replace</v-icon></font></v-btn>
+  <v-btn type='submit' color="blue" depressed><font color="white">Filter<v-icon small right>find_replace</v-icon></font></v-btn>
   <v-spacer></v-spacer>
   <vue-csv-downloader
        :data="data1"
        :fields="fields"
        download-name='promise_to_pay.csv'
    >
-   <v-btn color="green"><font color="white">Export<v-icon small right>import_export</v-icon></font></v-btn>
+   <v-btn color="green" depressed><font color="white">Export<v-icon small right>import_export</v-icon></font></v-btn>
    </vue-csv-downloader>
 
 
@@ -181,11 +181,11 @@
   </div>
 </v-card-text>
 <v-card-actions>
-  <v-btn type='submit' color="red"><font color="white">Reset<v-icon small right>autorenew</v-icon></font></v-btn>
+  <v-btn type='submit' color="red" depressed><font color="white">Reset<v-icon small right>autorenew</v-icon></font></v-btn>
   <v-spacer></v-spacer>
   <v-tooltip top>
       <template v-slot:activator="{ on }">
-  <v-btn color="primary" dark v-on="on">upload<a href="http://192.168.0.220/api/leads"><v-icon medium left>cloud_upload</v-icon></a></v-btn>
+  <v-btn color="primary" dark v-on="on" depressed>upload<a href="http://192.168.0.220/api/leads"><v-icon medium left>cloud_upload</v-icon></a></v-btn>
   </template>
      <span>upload new leads</span>
    </v-tooltip>
@@ -193,7 +193,28 @@
 </v-card>
 </v-form>
 </v-flex>
+<v-flex xs12 md2>
+</v-flex>
+<v-flex xs12 md6>
+<v-form@submit.prevent='Close'>
+        <v-textarea
+          outlined
+          rows="4"
+          name="input-7-4"
+          label="Close Accounts"
+          v-model="closed"
+          >
+          </v-textarea>
+
+        <p class="lead text-muted"><small><mark>input format: <pre>
+     Cfid
+     Cfid
+</pre></mark></small></p>
+          <v-btn type='submit' color="blue" depressed><font color="white">Close<v-icon small right>no_sim</v-icon></font></v-btn>
+          </v-form>
+        </v-flex>
 </v-layout>
+<br>
 <v-footer class="pa-3" absolute>
 <v-spacer></v-spacer>
 <div><span>Blockchain</span>&copy; {{ new Date().getFullYear() }}</div>
@@ -226,6 +247,7 @@ import remainsChart from './remainsChart'
      dp36:'',
      dp43:'',
      remains:[],
+     closed:'',
      user_id:'',
      Total_Contacted:'',
      Total_Uncontacted:'',
@@ -344,7 +366,8 @@ console.log(error);
     console.log(response.data)
     let prom=response.data
     prom.forEach(element => {
-    this.data1.push(element.lead);
+    this.data1.push(element.lead)
+
 
     });
 console.log(this.data1)
@@ -367,6 +390,14 @@ console.log(this.data1)
       console.log(error)
       })
       }
+    },
+    Close(){
+       axios.post('api/close',{closed:this.closed}).then((response)=>{
+       console.log(response)
+       alert(response.data);
+       }).catch((error)=>{
+       console.log(error)
+       })
     },
     resetData(){
     if
