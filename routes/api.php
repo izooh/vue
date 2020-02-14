@@ -20,7 +20,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/getUser', function (Request $request) {
     return User::query()->orderBy('name', 'asc')->get();
 });
-Route::middleware('admin')->post('/register','AuthController@register');
+Route::get('/test1',function(){
+  echo "worked";
+});
+Route::post('/register','AuthController@register');
 Route::post('/login','AuthController@login');
 Route::post('/logout','AuthController@logout');
 Route::get('articles', 'my_api@index');

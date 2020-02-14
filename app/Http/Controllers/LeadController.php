@@ -20,11 +20,17 @@ class LeadController extends Controller
       //called numbers and numbers not contacted
      $called = DB::table('leads')->where('status', '=', 'called')->select(DB::raw('count(*) as Called'))->get();
      $new=DB::table('leads')->where('status', '=', 'New')->select(DB::raw('count(*) as New'))->get();
-     $called_43 = DB::table('leads')->where('status', '=', 'called')->where('last_name', '=', 'Taladpd43.')->select(DB::raw('count(*) as Called_43'))->get();
-     $new_43=DB::table('leads')->where('status', '=', 'New')->where('last_name', '=', 'Taladpd43.')->select(DB::raw('count(*) as New_43'))->get();
      $called_36 = DB::table('leads')->where('status', '=', 'called')->where('last_name', '=', 'Taladpd36.')->select(DB::raw('count(*) as Called_36'))->get();
      $new_36=DB::table('leads')->where('status', '=', 'New')->where('last_name', '=', 'Taladpd36.')->select(DB::raw('count(*) as New_36'))->get();
-     $collection = collect([$called,$new,$called_43,$new_43,$called_36,$new_36]);
+     $called_52 = DB::table('leads')->where('status', '=', 'called')->where('last_name', '=', 'Taladpd52.')->select(DB::raw('count(*) as Called_52'))->get();
+     $new_52=DB::table('leads')->where('status', '=', 'New')->where('last_name', '=', 'Taladpd52.')->select(DB::raw('count(*) as New_52'))->get();
+     $called_112 = DB::table('leads')->where('status', '=', 'called')->where('last_name', '=', 'Taladpd112.')->select(DB::raw('count(*) as Called_112'))->get();
+     $new_112=DB::table('leads')->where('status', '=', 'New')->where('last_name', '=', 'Taladpd112.')->select(DB::raw('count(*) as New_112'))->get();
+     $called_232 = DB::table('leads')->where('status', '=', 'called')->where('last_name', '=', 'Taladpd232.')->select(DB::raw('count(*) as Called_232'))->get();
+     $new_232=DB::table('leads')->where('status', '=', 'New')->where('last_name', '=', 'Taladpd232.')->select(DB::raw('count(*) as New_232'))->get();
+     $called_272 = DB::table('leads')->where('status', '=', 'called')->where('last_name', '=', 'Taladpd272.')->select(DB::raw('count(*) as Called_272'))->get();
+     $new_272=DB::table('leads')->where('status', '=', 'New')->where('last_name', '=', 'Taladpd272.')->select(DB::raw('count(*) as New_272'))->get();
+     $collection = collect([$called,$new,$called_36,$new_36,$called_52,$new_52,$called_112,$new_112,$called_232,$new_232,$called_272,$new_272]);
      $collapsed = $collection->collapse();
       return $collapsed;
     }

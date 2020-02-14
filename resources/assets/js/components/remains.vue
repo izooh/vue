@@ -48,14 +48,21 @@
   <v-flex xs12 md1>
   </v-flex>
       <v-flex xs12 md6>
+      <div style="overflow-x:auto;">
   <table style="width:100%" border="1">
   <tr>
     <th>Total calls made</th>
     <th> Total non contacted numbers</th>
-    <th>non contacted numbers(dpd43)</th>
-    <th>contacted numbers(dpd43)</th>
     <th>non contacted numbers(dpd36)</th>
     <th>contacted numbers(dpd36)</th>
+    <th>non contacted numbers(dpd52)</th>
+    <th>contacted numbers(dpd52)</th>
+    <th>non contacted numbers(dpd112)</th>
+    <th>contacted numbers(dpd112)</th>
+    <th>non contacted numbers(dpd232)</th>
+    <th>contacted numbers(dpd232)</th>
+    <th>non contacted numbers(dpd272)</th>
+    <th>contacted numbers(dpd272)</th>
   </tr>
   <tr>
     <td><div v-for="(value, name) in remains">
@@ -65,19 +72,38 @@
     {{ value.New}}
     </div></td>
     <td><div v-for="(value, name) in remains">
-    {{ value.New_43}}
-    </div></td>
-    <td><div v-for="(value, name) in remains">
-    {{ value.Called_43 }}
-    </div></td>
-    <td><div v-for="(value, name) in remains">
     {{ value.New_36}}
     </div></td>
     <td><div v-for="(value, name) in remains">
     {{ value.Called_36 }}
     </div></td>
+    <td><div v-for="(value, name) in remains">
+    {{ value.New_52}}
+    </div></td>
+    <td><div v-for="(value, name) in remains">
+    {{ value.Called_52 }}
+    </div></td>
+    <td><div v-for="(value, name) in remains">
+    {{ value.New_112}}
+    </div></td>
+    <td><div v-for="(value, name) in remains">
+    {{ value.Called_112}}
+    </div></td>
+    <td><div v-for="(value, name) in remains">
+    {{ value.New_232}}
+    </div></td>
+    <td><div v-for="(value, name) in remains">
+    {{ value.Called_232 }}
+    </div></td>
+    <td><div v-for="(value, name) in remains">
+    {{ value.New_272}}
+    </div></td>
+    <td><div v-for="(value, name) in remains">
+    {{ value.Called_272 }}
+    </div></td>
   </tr>
 </table>
+</div>
 </v-flex>
 
 <v-flex xs12 md5>
@@ -185,7 +211,7 @@
   <v-spacer></v-spacer>
   <v-tooltip top>
       <template v-slot:activator="{ on }">
-  <v-btn color="primary" dark v-on="on" depressed>upload<a href="http://192.168.0.220/api/leads"><v-icon medium left>cloud_upload</v-icon></a></v-btn>
+  <v-btn color="primary" dark v-on="on" depressed>upload<a href="http://localhost:8000/import-excel"><v-icon medium left>cloud_upload</v-icon></a></v-btn>
   </template>
      <span>upload new leads</span>
    </v-tooltip>

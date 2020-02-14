@@ -20,6 +20,7 @@ class AuthController extends Controller
       ]);
       //creating a new user account
 
+
       $user= User::firstOrNew(['email'=>$request->email]);
       $user->name=trim($request->name);
       $user->email=trim($request->email);
@@ -27,24 +28,21 @@ class AuthController extends Controller
       $user->password=bcrypt($request->password);
       $user->save();
 
-      //requesting a new token
 
       $http = new Client;
 
-
-$response = $http->post('http://skywave/oauth/token', [
+$response = $http->post('http://localhost/vue/public/oauth/token', [
     'form_params' => [
-      'grant_type' => 'password',
-      'client_id' =>'2',
-      'client_secret' => 'svZ1OjFmEe7b4bNXGbj2Sv2Gk6HhaB5N3bGWn0Ov',
-      'username' => $request->email,
-      'password' => $request->password,
+        'grant_type' => 'password',
+        'client_id' => '2',
+        'client_secret' => 'TY7TLu7lGtEhcW7huRtAFKM38rEFUCgnNNtgdL6n',
+        'username' => $request->email,
+        'password' => $request->password,
         'scope' => '',
     ],
 ]);
 
-return response(['data'=>json_decode((string) $response->getBody(), true)]);
-
+return json_decode((string) $response->getBody(), true);
     }
     public function login(Request $request)
     {
@@ -65,11 +63,11 @@ return response(['data'=>json_decode((string) $response->getBody(), true)]);
               $http = new Client;
 
 
-        $response = $http->post('http://skywave/oauth/token', [
+        $response = $http->post('http://localhost/vue/public/oauth/token', [
             'form_params' => [
                 'grant_type' => 'password',
                 'client_id' => 2,
-                'client_secret' => 'svZ1OjFmEe7b4bNXGbj2Sv2Gk6HhaB5N3bGWn0Ov',
+                'client_secret' => 'TY7TLu7lGtEhcW7huRtAFKM38rEFUCgnNNtgdL6n',
                 'username' => $request->email,
                 'password' => $request->password,
                 'scope' => '',
