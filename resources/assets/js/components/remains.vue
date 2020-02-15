@@ -23,8 +23,11 @@
    <v-spacer></v-spacer>
   </v-toolbar>
   <v-card-text>
-    <v-text-field label="Deliquency 43" v-model='dp43' ></v-text-field>
-    <v-text-field label="Deliquency 36 and 22" v-model='dp36'></v-text-field>
+    <v-text-field label="Deliquency 36" v-model='dp36' ></v-text-field>
+    <v-text-field label="Deliquency 52" v-model='dp52'></v-text-field>
+    <v-text-field label="Deliquency 112" v-model='dp112'></v-text-field>
+    <v-text-field label="Deliquency 232" v-model='dp232'></v-text-field>
+    <v-text-field label="Deliquency 272" v-model='dp272'></v-text-field>
     <div class="row">
       <div class="col-md-12">
       <label><p class="text-warning">Select Users</p></label>
@@ -119,14 +122,26 @@
 <label for="jack">Total called</label>
 <input type="checkbox" id="john" value="1" v-model="Total_Uncontacted">
 <label for="john">Uncontacted</label>
-<input type="checkbox" id="mike" value="1" v-model="Total_Contacted_43">
-<label for="mike">Called(43)</label><br>
-<input type="checkbox" id="john" value="1" v-model="Total_Uncontacted_43">
-<label for="john">Uncontacted(43)</label>
 <input type="checkbox" id="mike" value="1" v-model="Total_Contacted_36">
-<label for="mike">Called(36)</label>
+<label for="mike">Called(36)</label><br>
 <input type="checkbox" id="john" value="1" v-model="Total_Uncontacted_36">
 <label for="john">Uncontacted(36)</label>
+<input type="checkbox" id="mike" value="1" v-model="Total_Contacted_52">
+<label for="mike">Called(52)</label>
+<input type="checkbox" id="john" value="1" v-model="Total_Uncontacted_52">
+<label for="john">Uncontacted(52)</label>
+<input type="checkbox" id="mike" value="1" v-model="Total_Contacted_112">
+<label for="mike">Called(112)</label>
+<input type="checkbox" id="john" value="1" v-model="Total_Uncontacted_112">
+<label for="john">Uncontacted(112)</label>
+<input type="checkbox" id="mike" value="1" v-model="Total_Contacted_232">
+<label for="mike">Called(232)</label>
+<input type="checkbox" id="john" value="1" v-model="Total_Uncontacted_232">
+<label for="john">Uncontacted(232)</label>
+<input type="checkbox" id="mike" value="1" v-model="Total_Contacted_272">
+<label for="mike">Called(272)</label>
+<input type="checkbox" id="john" value="1" v-model="Total_Uncontacted_272">
+<label for="john">Uncontacted(272)</label>
 <br>
 </div>
   </v-card-text>
@@ -271,16 +286,25 @@ import remainsChart from './remainsChart'
       fields: [],
       fields: ['cfid', 'contact', 'user_id','last_name'],
      dp36:'',
-     dp43:'',
+     dp52:'',
+     dp112:'',
+     dp232:'',
+     dp272:'',
      remains:[],
      closed:'',
      user_id:'',
      Total_Contacted:'',
      Total_Uncontacted:'',
-     Total_Contacted_43:'',
-     Total_Uncontacted_43:'',
+     Total_Contacted_52:'',
+     Total_Uncontacted_52:'',
      Total_Contacted_36:'',
      Total_Uncontacted_36:'',
+     Total_Contacted_112:'',
+     Total_Uncontacted_112:'',
+     Total_Contacted_232:'',
+     Total_Uncontacted_232:'',
+     Total_Contacted_272:'',
+     Total_Uncontacted_272:'',
      headers: [
        {
          text: 'Agent Name',
@@ -313,7 +337,11 @@ this.getUser()
     this.hasClicked=true;
     axios.post('api/leads',{
     dp36:this.dp36,
-    dp43:this.dp43,
+    dp52:this.dp52,
+    dp112:this.dp112,
+    dp232:this.dp232,
+    dp272:this.dp272,
+
     selected:this.selected
 
     },{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
@@ -349,10 +377,16 @@ console.log(error);
     axios.post('api/user_remains',{
     Total_Contacted:this.Total_Contacted,
     Total_Uncontacted:this.Total_Uncontacted,
-    Total_Contacted_43:this.Total_Contacted_43,
-    Total_Uncontacted_43:this.Total_Uncontacted_43,
     Total_Contacted_36:this.Total_Contacted_36,
-    Total_Uncontacted_36:this.Total_Uncontacted_36
+    Total_Uncontacted_36:this.Total_Uncontacted_36,
+    Total_Contacted_52:this.Total_Contacted_52,
+    Total_Uncontacted_52:this.Total_Uncontacted_52,
+    Total_Contacted_112:this.Total_Contacted_112,
+    Total_Uncontacted_112:this.Total_Uncontacted_112,
+    Total_Contacted_232:this.Total_Contacted_232,
+    Total_Uncontacted_232:this.Total_Uncontacted_232,
+    Total_Contacted_272:this.Total_Contacted_272,
+    Total_Uncontacted_272:this.Total_Uncontacted_272
 
     },{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
 .then((response)=>{

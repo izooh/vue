@@ -50,18 +50,24 @@ class LeadController extends Controller
      */
     public function store(Request $request)
     {
+        //return $request->all();
 
                $request->validate([
-        'dp36'=>'numeric|min:50|max:500',
-        'dp43'=>'numeric|min:50|max:500',
+        //'dp36'=>'numeric|min:50|max:500',
+        //'dp52'=>'numeric|min:50|max:500',
 
       ]);
 
        $user_id= $request->input('selected');
        $dp36=$request->input('dp36');
-       $dp43=$request->input('dp43');
+       $dp52=$request->input('dp52');
+       $dp112=$request->input('dp112');
+       $dp232=$request->input('dp232');
+       $dp272=$request->input('dp272');
+
+
 foreach ($user_id as $value) {
-  if($dp36 and $dp43){
+  if($dp36 and $dp52 and $dp112 and $dp232 and $dp272){
     //this will excecute when you pass both $36 And $43 Values
  $users1 = DB::table('leads')
  ->where('user_id', '=',$value)
@@ -71,31 +77,74 @@ foreach ($user_id as $value) {
  ->get();
  $users2 = DB::table('leads')
  ->where('user_id', '=',$value)
- ->where('last_name', '=', 'Taladpd43.')
+ ->where('last_name', '=', 'Taladpd52.')
  ->where('status', '=', 'New')
- ->limit($dp43)
+ ->limit($dp52)
  ->get();
- $users1=$users1->merge($users2);
+ $users3 = DB::table('leads')
+ ->where('user_id', '=',$value)
+ ->where('last_name', '=', 'Taladpd112.')
+ ->where('status', '=', 'New')
+ ->limit($dp112)
+ ->get();
+ $users4 = DB::table('leads')
+ ->where('user_id', '=',$value)
+ ->where('last_name', '=', 'Taladpd232.')
+ ->where('status', '=', 'New')
+ ->limit($dp232)
+ ->get();
+ $users5 = DB::table('leads')
+ ->where('user_id', '=',$value)
+ ->where('last_name', '=', 'Taladpd272.')
+ ->where('status', '=', 'New')
+ ->limit($dp272)
+ ->get();
+ $users1=$users1->merge($users2)->merge($users3)->merge($users4)->merge($users5);
 $final[]=$users1;
  }elseif ($dp36) {
  $users1 = DB::table('leads')
  ->where('user_id', '=',$value)
- ->where('last_name', '=', 'TAladpd36.')
+ ->where('last_name', '=', 'Taladpd36.')
  ->where('status', '=', 'New')
  ->limit($dp36)
  ->get();
   $final[]=$users1;
  //dd($users1);
- }elseif($dp43){
+}elseif($dp52){
  // will excecute if you pass $43 only
  $users2 = DB::table('leads')
  ->where('user_id', '=',$value)
- ->where('last_name', '=', 'TAladpd43.')
+ ->where('last_name', '=', 'Taladpd52.')
  ->where('status', '=', 'New')
- ->limit($dp43)
+ ->limit($dp52)
  ->get();
  $final[]=$users2;
- }
+}elseif ($dp112) {
+  $users2 = DB::table('leads')
+  ->where('user_id', '=',$value)
+  ->where('last_name', '=', 'Taladpd112.')
+  ->where('status', '=', 'New')
+  ->limit($dp112)
+  ->get();
+  $final[]=$users2;
+
+}elseif ($dp232) {
+  $users2 = DB::table('leads')
+  ->where('user_id', '=',$value)
+  ->where('last_name', '=', 'Taladpd232.')
+  ->where('status', '=', 'New')
+  ->limit($dp232)
+  ->get();
+  $final[]=$users2;
+}elseif ($dp272) {
+  $users2 = DB::table('leads')
+  ->where('user_id', '=',$value)
+  ->where('last_name', '=', 'Taladpd272.')
+  ->where('status', '=', 'New')
+  ->limit($dp272)
+  ->get();
+  $final[]=$users2;
+}
 }
 //collapse to obtain a single array
 $final=Arr::collapse($final);
@@ -127,10 +176,16 @@ $final=Arr::collapse($final);
       //values from the frontend
       $Total_Uncontacted=$request->input('Total_Uncontacted');
       $Total_Contacted=$request->input('Total_Contacted');
-      $Total_Uncontacted_43=$request->input('Total_Uncontacted_43');
-      $Total_Contacted_43=$request->input('Total_Contacted_43');
       $Total_Uncontacted_36=$request->input('Total_Uncontacted_36');
       $Total_Contacted_36=$request->input('Total_Contacted_36');
+      $Total_Uncontacted_52=$request->input('Total_Uncontacted_52');
+      $Total_Contacted_52=$request->input('Total_Contacted_52');
+      $Total_Uncontacted_112=$request->input('Total_Uncontacted_112');
+      $Total_Contacted_112=$request->input('Total_Contacted_112');
+      $Total_Uncontacted_232=$request->input('Total_Uncontacted_232');
+      $Total_Contacted_232=$request->input('Total_Contacted_232');
+      $Total_Uncontacted_272=$request->input('Total_Uncontacted_272');
+      $Total_Contacted_272=$request->input('Total_Contacted_272');
       //check value passed from the frontend to excecute the logics
       if($Total_Uncontacted){
 
@@ -148,28 +203,6 @@ $final=Arr::collapse($final);
           $remains =lead::query()
         ->where('status', '=', 'called')
         ->with('user')
-        ->select('user_id', DB::raw('count(*) as total'))
-        ->groupBy('user_id')
-        ->orderByDesc('total')
-        ->get();
-        return $remains;
-      }elseif ($Total_Uncontacted_43) {
-        // code...
-        $remains =lead::query()
-        ->where('last_name', '=', 'Taladpd43.')
-        ->with('user')
-        ->where('status', '=', 'New')
-        ->select('user_id', DB::raw('count(*) as total'))
-        ->groupBy('user_id')
-        ->orderByDesc('total')
-        ->get();
-        return $remains;
-      }elseif ($Total_Contacted_43) {
-        // code...
-          $remains =lead::query()
-        ->where('last_name', '=', 'Taladpd43.')
-        ->with('user')
-        ->where('status', '=', 'called')
         ->select('user_id', DB::raw('count(*) as total'))
         ->groupBy('user_id')
         ->orderByDesc('total')
@@ -197,8 +230,94 @@ $final=Arr::collapse($final);
         ->orderByDesc('total')
         ->get();
         return $remains;
+      }elseif ($Total_Uncontacted_52) {
+        // code...
+        $remains =lead::query()
+        ->where('last_name', '=', 'Taladpd52.')
+        ->with('user')
+        ->where('status', '=', 'New')
+        ->select('user_id', DB::raw('count(*) as total'))
+        ->groupBy('user_id')
+        ->orderByDesc('total')
+        ->get();
+        return $remains;
+      }elseif ($Total_Contacted_52) {
+        // code...
+          $remains =lead::query()
+        ->where('last_name', '=', 'Taladpd52.')
+        ->with('user')
+        ->where('status', '=', 'called')
+        ->select('user_id', DB::raw('count(*) as total'))
+        ->groupBy('user_id')
+        ->orderByDesc('total')
+        ->get();
+        return $remains;
 
-      }else {
+      }elseif ($Total_Contacted_112) {
+        $remains =lead::query()
+      ->where('last_name', '=', 'Taladpd112.')
+      ->with('user')
+      ->where('status', '=', 'called')
+      ->select('user_id', DB::raw('count(*) as total'))
+      ->groupBy('user_id')
+      ->orderByDesc('total')
+      ->get();
+      return $remains;
+
+      }elseif ($Total_Uncontacted_112) {
+        $remains =lead::query()
+        ->where('last_name', '=', 'Taladpd112.')
+        ->with('user')
+        ->where('status', '=', 'New')
+        ->select('user_id', DB::raw('count(*) as total'))
+        ->groupBy('user_id')
+        ->orderByDesc('total')
+        ->get();
+
+      }elseif ($Total_Contacted_232) {
+        // code...
+        $remains =lead::query()
+      ->where('last_name', '=', 'Taladpd232.')
+      ->with('user')
+      ->where('status', '=', 'called')
+      ->select('user_id', DB::raw('count(*) as total'))
+      ->groupBy('user_id')
+      ->orderByDesc('total')
+      ->get();
+      return $remains;
+      }elseif ($Total_Uncontacted_232) {
+        // code...
+        $remains =lead::query()
+        ->where('last_name', '=', 'Taladpd232.')
+        ->with('user')
+        ->where('status', '=', 'New')
+        ->select('user_id', DB::raw('count(*) as total'))
+        ->groupBy('user_id')
+        ->orderByDesc('total')
+        ->get();
+      }elseif ($Total_Contacted_272) {
+        // code...
+        $remains =lead::query()
+      ->where('last_name', '=', 'Taladpd272.')
+      ->with('user')
+      ->where('status', '=', 'called')
+      ->select('user_id', DB::raw('count(*) as total'))
+      ->groupBy('user_id')
+      ->orderByDesc('total')
+      ->get();
+      return $remains;
+      }elseif ($Total_Uncontacted_272) {
+        // code...
+        $remains =lead::query()
+        ->where('last_name', '=', 'Taladpd272.')
+        ->with('user')
+        ->where('status', '=', 'New')
+        ->select('user_id', DB::raw('count(*) as total'))
+        ->groupBy('user_id')
+        ->orderByDesc('total')
+        ->get();
+      }
+      else {
         // code...
         return 'nothing selected';
       }

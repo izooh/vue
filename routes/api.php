@@ -52,7 +52,7 @@ Route::post('/lead_import_process', 'leadImportController@processImport')->name(
 //route to retrive leads that dont belong to remain table
 Route::middleware('admin')->get('lead','LeadController@index');
 Route::middleware('admin')->get('remains','LeadController@index');
-Route::middleware('admin')->post('leads','LeadController@store');
+Route::post('leads','LeadController@store');
 Route::middleware('admin')->post('user_remains','LeadController@show');
 Route::post('revert','LeadController@revert');
 Route::middleware('admin')->post('revertAll','LeadController@revertAll');
