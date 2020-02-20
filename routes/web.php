@@ -28,3 +28,5 @@ Route::get('/', function () {
 Route::get('/r', function () {
     return view('vue');
 });
+Route::get('import-excel', 'ImportExcel\ImportExcelController@index');
+Route::post('import-excel', 'ImportExcel\ImportExcelController@import');

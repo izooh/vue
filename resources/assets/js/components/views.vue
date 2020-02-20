@@ -143,6 +143,7 @@ return{
     .then((response) => {
           console.log(response.data.s_id)
             this.user_id=response.data.s_id
+            this.loading=false
 
                 })
     .catch(function (error) {
@@ -203,13 +204,15 @@ return this.editForm=notebookId;
 
           axios.get('api/articles')
  .then((response) => {
+
                     console.log(response);
                     this.articles = response.data.data;
-                    this.loading=false;
+
 
                 })
   .catch(function (error) {
     console.log(error);
+
   });
 
 

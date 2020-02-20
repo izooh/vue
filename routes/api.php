@@ -20,7 +20,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/getUser', function (Request $request) {
     return User::query()->orderBy('name', 'asc')->get();
 });
-Route::middleware('admin')->post('/register','AuthController@register');
+Route::get('/test1',function(){
+  echo "worked";
+});
+Route::post('/register','AuthController@register');
 Route::post('/login','AuthController@login');
 Route::post('/logout','AuthController@logout');
 Route::get('articles', 'my_api@index');
@@ -49,10 +52,10 @@ Route::post('/lead_import_process', 'leadImportController@processImport')->name(
 //route to retrive leads that dont belong to remain table
 Route::middleware('admin')->get('lead','LeadController@index');
 Route::middleware('admin')->get('remains','LeadController@index');
-Route::middleware('admin')->post('leads','LeadController@store');
+Route::post('leads','LeadController@store');
 Route::middleware('admin')->post('user_remains','LeadController@show');
 Route::post('revert','LeadController@revert');
-Route::middleware('admin')->post('revertAll','LeadController@revertAll');
+Route::post('revertAll','LeadController@revertAll');
 Route::middleware('admin')->delete('/lead_delete','LeadController@destroy');
 Route::post('close','LeadController@close');
 //SuggestionController RouteS
