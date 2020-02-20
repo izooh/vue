@@ -56,8 +56,8 @@ return{
 drawer:false,
 links:[
 {icon:'dashboard',text:'Notice Board',route:'/'},
-{icon:'store',text:'My Profile',route:'/suggestion'},
-{icon:'person',text:'Ratings',route:'/agent_position'},
+{icon:'store',text:'My Profile',route:'/sugg-estion'},
+{icon:'person',text:'Rating',route:'/age-nt_position'},
 {icon:'call',text:'Leads',route:'/remains'},
 {icon:'bubble_chart',text:'Templates',route:''},
 {icon:'account_balance',text:'Users',route:''}

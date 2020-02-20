@@ -23,11 +23,12 @@
    <v-spacer></v-spacer>
   </v-toolbar>
   <v-card-text>
+    <v-text-field label="Deliquency 22" v-model='dp22' ></v-text-field>
     <v-text-field label="Deliquency 36" v-model='dp36' ></v-text-field>
     <v-text-field label="Deliquency 52" v-model='dp52'></v-text-field>
     <v-text-field label="Deliquency 112" v-model='dp112'></v-text-field>
+    <v-text-field label="Deliquency 172" v-model='dp172'></v-text-field>
     <v-text-field label="Deliquency 232" v-model='dp232'></v-text-field>
-    <v-text-field label="Deliquency 272" v-model='dp272'></v-text-field>
     <div class="row">
       <div class="col-md-12">
       <label><p class="text-warning">Select Users</p></label>
@@ -56,6 +57,8 @@
   <tr>
     <th>Total calls made</th>
     <th> Total non contacted numbers</th>
+    <th>non contacted numbers(dpd22)</th>
+    <th>contacted numbers(dpd22)</th>
     <th>non contacted numbers(dpd36)</th>
     <th>contacted numbers(dpd36)</th>
     <th>non contacted numbers(dpd52)</th>
@@ -64,8 +67,8 @@
     <th>contacted numbers(dpd112)</th>
     <th>non contacted numbers(dpd232)</th>
     <th>contacted numbers(dpd232)</th>
-    <th>non contacted numbers(dpd272)</th>
-    <th>contacted numbers(dpd272)</th>
+    <th>non contacted numbers(dpd172)</th>
+    <th>contacted numbers(dpd172)</th>
   </tr>
   <tr>
     <td><div v-for="(value, name) in remains">
@@ -73,6 +76,12 @@
     </div></td>
     <td><div v-for="(value, name) in remains">
     {{ value.New}}
+    </div></td>
+    <td><div v-for="(value, name) in remains">
+    {{ value.New_22}}
+    </div></td>
+    <td><div v-for="(value, name) in remains">
+    {{ value.Called_22 }}
     </div></td>
     <td><div v-for="(value, name) in remains">
     {{ value.New_36}}
@@ -99,10 +108,10 @@
     {{ value.Called_232 }}
     </div></td>
     <td><div v-for="(value, name) in remains">
-    {{ value.New_272}}
+    {{ value.New_172}}
     </div></td>
     <td><div v-for="(value, name) in remains">
-    {{ value.Called_272 }}
+    {{ value.Called_172 }}
     </div></td>
   </tr>
 </table>
@@ -122,6 +131,10 @@
 <label for="jack">Total called</label>
 <input type="checkbox" id="john" value="1" v-model="Total_Uncontacted">
 <label for="john">Uncontacted</label>
+<input type="checkbox" id="mike" value="1" v-model="Total_Contacted_22">
+<label for="mike">Called(22)</label><br>
+<input type="checkbox" id="john" value="1" v-model="Total_Uncontacted_22">
+<label for="john">Uncontacted(22)</label>
 <input type="checkbox" id="mike" value="1" v-model="Total_Contacted_36">
 <label for="mike">Called(36)</label><br>
 <input type="checkbox" id="john" value="1" v-model="Total_Uncontacted_36">
@@ -138,10 +151,10 @@
 <label for="mike">Called(232)</label>
 <input type="checkbox" id="john" value="1" v-model="Total_Uncontacted_232">
 <label for="john">Uncontacted(232)</label>
-<input type="checkbox" id="mike" value="1" v-model="Total_Contacted_272">
-<label for="mike">Called(272)</label>
-<input type="checkbox" id="john" value="1" v-model="Total_Uncontacted_272">
-<label for="john">Uncontacted(272)</label>
+<input type="checkbox" id="mike" value="1" v-model="Total_Contacted_172">
+<label for="mike">Called(172)</label>
+<input type="checkbox" id="john" value="1" v-model="Total_Uncontacted_172">
+<label for="john">Uncontacted(172)</label>
 <br>
 </div>
   </v-card-text>
@@ -213,12 +226,24 @@
 </v-toolbar>
 <v-card-text>
 <div class="row">
-     <div class="col-xs-7">
+     <div>
 <label><p class="text-warning">Select Users name to reset</p></label><br>
-  <select v-model='operations' class="mdb-select colorful-select dropdown-primary md-form" multiple>
-  <option  v-for='user in users1' v-bind:key="user.id" v-bind:value="user.s_id">{{user.name}}</option>
+  <select v-model='operations'  multiple>
+  <option  v-for='user in users1' v-bind:key="user.id" v-bind:value="user.s_id">{{user.name}}<br></option>
   </select>
   </div>
+  </div>
+<br><br>
+  <div class="input-group mb-3">
+  <select class="custom-select" id="inputGroupSelect01" v-model="lastname">
+    <option selected>Choose Deliquency</option>
+    <option value="Taladpd22.">Taladpd22</option>
+    <option value="Taladpd36.">Taladpd36</option>
+    <option value="Taladpd52.">Taladpd52</option>
+    <option value="Taladpd112.">Taladpd112</option>
+    <option value="Taladpd232.">Taladpd232</option>
+    <option value="Taladpd172.">Taladpd172</option>
+  </select>
   </div>
 </v-card-text>
 <v-card-actions>
@@ -226,7 +251,7 @@
   <v-spacer></v-spacer>
   <v-tooltip top>
       <template v-slot:activator="{ on }">
-  <v-btn color="primary" dark v-on="on" depressed>upload<a href="http://localhost:8000/import-excel"><v-icon medium left>cloud_upload</v-icon></a></v-btn>
+  <v-btn color="primary" dark v-on="on" depressed>upload<a href="http://192.168.0.220/import-excel"><v-icon medium left>cloud_upload</v-icon></a></v-btn>
   </template>
      <span>upload new leads</span>
    </v-tooltip>
@@ -285,16 +310,19 @@ import remainsChart from './remainsChart'
       promise:'',
       fields: [],
       fields: ['cfid', 'contact', 'user_id','last_name'],
+     dp22:'',
      dp36:'',
      dp52:'',
      dp112:'',
      dp232:'',
-     dp272:'',
+     dp172:'',
      remains:[],
      closed:'',
      user_id:'',
      Total_Contacted:'',
      Total_Uncontacted:'',
+     Total_Contacted_22:'',
+     Total_Uncontacted_22:'',
      Total_Contacted_52:'',
      Total_Uncontacted_52:'',
      Total_Contacted_36:'',
@@ -303,8 +331,9 @@ import remainsChart from './remainsChart'
      Total_Uncontacted_112:'',
      Total_Contacted_232:'',
      Total_Uncontacted_232:'',
-     Total_Contacted_272:'',
-     Total_Uncontacted_272:'',
+     Total_Contacted_172:'',
+     Total_Uncontacted_172:'',
+     lastname:'',
      headers: [
        {
          text: 'Agent Name',
@@ -336,11 +365,12 @@ this.getUser()
     let tokenStr = localStorage.getItem('access_token');
     this.hasClicked=true;
     axios.post('api/leads',{
+    dp22:this.dp22,
     dp36:this.dp36,
     dp52:this.dp52,
     dp112:this.dp112,
     dp232:this.dp232,
-    dp272:this.dp272,
+    dp172:this.dp172,
 
     selected:this.selected
 
@@ -351,7 +381,11 @@ this.data=response.data
 this.hidden=true
 this.fetchData()
 this.dp36=""
-this.dp43=""
+this.dp22=""
+this.dp52=""
+this.dp112=""
+this.dp172=""
+this.dp232=""
 alert('data processed successfully');
 this.hasClicked=false;
 })
@@ -377,6 +411,8 @@ console.log(error);
     axios.post('api/user_remains',{
     Total_Contacted:this.Total_Contacted,
     Total_Uncontacted:this.Total_Uncontacted,
+    Total_Contacted_22:this.Total_Contacted_22,
+    Total_Uncontacted_22:this.Total_Uncontacted_22,
     Total_Contacted_36:this.Total_Contacted_36,
     Total_Uncontacted_36:this.Total_Uncontacted_36,
     Total_Contacted_52:this.Total_Contacted_52,
@@ -385,8 +421,8 @@ console.log(error);
     Total_Uncontacted_112:this.Total_Uncontacted_112,
     Total_Contacted_232:this.Total_Contacted_232,
     Total_Uncontacted_232:this.Total_Uncontacted_232,
-    Total_Contacted_272:this.Total_Contacted_272,
-    Total_Uncontacted_272:this.Total_Uncontacted_272
+    Total_Contacted_172:this.Total_Contacted_172,
+    Total_Uncontacted_172:this.Total_Uncontacted_172
 
     },{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
 .then((response)=>{
@@ -443,9 +479,15 @@ console.log(this.data1)
     (confirm("are you sure you want to undo changes in the database"))
     {
     let tokenStr = localStorage.getItem('access_token');
-      axios.post('api/revertAll',{revert_id:this.operations},{ headers: {"Authorization" : `Bearer ${tokenStr}`} }).then((response)=>{
+      axios.post('api/revertAll',
+      {
+      revert_id:this.operations,
+      last_name:this.lastname
+      },
+      { headers: {"Authorization" : `Bearer ${tokenStr}`} }).then((response)=>{
       console.log(response)
       this.fetchData()
+      alert('operation complete');
       }).catch((error)=>{
       console.log(error)
       })

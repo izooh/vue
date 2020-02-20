@@ -55,7 +55,7 @@ Route::middleware('admin')->get('remains','LeadController@index');
 Route::post('leads','LeadController@store');
 Route::middleware('admin')->post('user_remains','LeadController@show');
 Route::post('revert','LeadController@revert');
-Route::middleware('admin')->post('revertAll','LeadController@revertAll');
+Route::post('revertAll','LeadController@revertAll');
 Route::middleware('admin')->delete('/lead_delete','LeadController@destroy');
 Route::post('close','LeadController@close');
 //SuggestionController RouteS
