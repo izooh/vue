@@ -1,6 +1,6 @@
 <template>
 <div>
- 
+
 <div v-cloak>
 <br><br>
     <v-dialog max-width='800px' v-model='dialog'>
@@ -58,10 +58,10 @@
 <v-flex xs12 md12>
   <v-expansion-panel popout>
   <v-expansion-panel-content   v-for="article in filteredBlogs" v-bind:key="article.id">
-    <div slot="header" :class="`${article.user.name} `" ><div class='caption grey--text' v-show="!showIt(article.id)"><strong>{{article.name}}</strong></div>
+    <div slot="header" class="opicho" ><div class='caption grey--text' v-show="!showIt(article.id)"><strong>{{article.name}}</strong></div>
 
     <div class="right" >
-    <v-chip small :class="`${article.user.name} black--text caption my-2`">
+    <v-chip small class="opicho black--text caption my-2">
 {{article.date}}
     </v-chip>
     </div>
@@ -156,14 +156,14 @@ return{
         body:this.body
         })
     .then((response)=>{
-     
+
     this.title='',
     this.body='',
     this.loading=false,
     this.dialog=false
     this.$router.go(0)
-   
-   
+
+
 
     })
     .catch(function (error) {
@@ -199,7 +199,7 @@ return this.editForm=notebookId;
           axios.get('articles')
  .then((response) => {
 
-                    
+
                     console.log(response.data.data);
                     this.art = response.data.data
                     this.loading=false
@@ -222,11 +222,11 @@ this.articles.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
          if
          (confirm("are you sure you want to delete"))
          {
- 
+
           axios.delete('article/'+id)
  .then((response) => {
 
-                    
+
                     console.log(response.data)
                     alert(response.data);
                     this.$router.go(0)

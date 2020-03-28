@@ -58,14 +58,9 @@ Route::delete('/lead_delete','LeadController@destroy');
 Route::post('close','LeadController@close');
 
 //noticeboard routes
-Route::post('article', 'my_api@store')->middleware('role:s_admin');
+Route::post('article', 'my_api@store')->middleware('role:admin');
 Route::get('articles', 'my_api@index');
 Route::delete('article/{id}', 'my_api@destroy');
 
 //history routes
 Route::resource('history','HistoryController');
-
-
-
-
-
