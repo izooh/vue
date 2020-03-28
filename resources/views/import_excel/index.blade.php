@@ -1,19 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Blockchain</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
-</head>
-
-<body>
-
-<div class="container">
-    <div class="card mt-4">
+@extends('layouts.custom')
+@section('content')
+<div class="card mt-4">
         <div class="card-header">
           import leads into the database
         </div>
@@ -38,7 +25,7 @@
                 @csrf
                 <input type="file" name="import_file" class="form-control">
                 <br>
-                <button class="btn btn-success">Import File</button>
+                <button class="btn btn-success mr-5">Import File</button><a class="btn btn-primary ml-5" href="javascript:history.back()">Go Back</a>
             </form>
         </div>
     </div>
@@ -67,8 +54,4 @@
      </div>
     </div>
 </div>
-
-</div>
-
-</body>
-</html>
+@endsection

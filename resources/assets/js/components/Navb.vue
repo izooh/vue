@@ -33,12 +33,11 @@
 </v-flex>
 </v-layout>
 <v-list>
-<v-list-tile  v-for='link in links' :key='link.text' router :to="link.route" >
 <v-list-tile-action>
-<v-icon class='white--text'>{{link.icon}}</v-icon>
 </v-list-tile-action>
 <v-list-tile-content>
-<v-list-tile-title class='white--text'>{{link.text}}</v-list-tile-title>
+    <a class="button" href="#">leads</a>
+
 </v-list-tile-content>
 </v-list-tile>
 </v-list>
@@ -58,7 +57,7 @@ links:[
 {icon:'dashboard',text:'Notice Board',route:'/'},
 {icon:'store',text:'My Profile',route:'/sugg-estion'},
 {icon:'person',text:'Rating',route:'/age-nt_position'},
-{icon:'call',text:'Leads',route:'/remains'},
+{icon:'call',text:'Leads',method:'leads'},
 {icon:'bubble_chart',text:'Templates',route:''},
 {icon:'account_balance',text:'Users',route:''}
 ]

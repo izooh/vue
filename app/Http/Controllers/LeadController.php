@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\lead;
+use App\User;
+use App\History;
 use Illuminate\Http\Request;
 use DB;
 use Session;
@@ -61,17 +63,17 @@ class LeadController extends Controller
 
       ]);
 
-       $user_id= $request->input('selected');
-       $dp22=$request->input('dp22');
-       $dp36=$request->input('dp36');
-       $dp52=$request->input('dp52');
-       $dp112=$request->input('dp112');
-       $dp232=$request->input('dp232');
-       $dp172=$request->input('dp172');
+       
+       $dp22=$request->input('dp22')?: 0;
+       $dp36=$request->input('dp36')?: 0;
+       $dp52=$request->input('dp52')?: 0;
+       $dp112=$request->input('dp112')?: 0;
+       $dp232=$request->input('dp232')?: 0;
+       $dp172=$request->input('dp172')?: 0;
+       $user_id=$request->input('selected');
 
 
 foreach ($user_id as $value) {
-  if($dp22 and $dp36 and $dp52 and $dp112 and $dp232 and $dp172){
     //this will excecute when you pass both $36 And $43 Values
     $users0 = DB::table('leads')
     ->where('user_id', '=',$value)
@@ -111,63 +113,21 @@ foreach ($user_id as $value) {
  ->get();
  $users1=$users1->merge($users0)->merge($users2)->merge($users3)->merge($users4)->merge($users5);
 $final[]=$users1;
- }elseif ($dp36) {
- $users1 = DB::table('leads')
- ->where('user_id', '=',$value)
- ->where('last_name', '=', 'Taladpd36.')
- ->where('status', '=', 'New')
- ->limit($dp36)
- ->get();
-  $final[]=$users1;
- //dd($users1);
-}elseif($dp52){
- // will excecute if you pass $43 only
- $users2 = DB::table('leads')
- ->where('user_id', '=',$value)
- ->where('last_name', '=', 'Taladpd52.')
- ->where('status', '=', 'New')
- ->limit($dp52)
- ->get();
- $final[]=$users2;
-}elseif ($dp112) {
-  $users2 = DB::table('leads')
-  ->where('user_id', '=',$value)
-  ->where('last_name', '=', 'Taladpd112.')
-  ->where('status', '=', 'New')
-  ->limit($dp112)
-  ->get();
-  $final[]=$users2;
-
-}elseif ($dp172) {
-  $users2 = DB::table('leads')
-  ->where('user_id', '=',$value)
-  ->where('last_name', '=', 'Taladpd172.')
-  ->where('status', '=', 'New')
-  ->limit($dp172)
-  ->get();
-  $final[]=$users2;
-}elseif ($dp232) {
-  $users2 = DB::table('leads')
-  ->where('user_id', '=',$value)
-  ->where('last_name', '=', 'Taladpd232.')
-  ->where('status', '=', 'New')
-  ->limit($dp232)
-  ->get();
-  $final[]=$users2;
-}elseif ($dp22) {
-  // code...
-  $users2 = DB::table('leads')
-  ->where('user_id', '=',$value)
-  ->where('last_name', '=', 'Taladpd22.')
-  ->where('status', '=', 'New')
-  ->limit($dp22)
-  ->get();
-  $final[]=$users2;
-}
 }
 //collapse to obtain a single array
 $final=Arr::collapse($final);
+//inserting to the history table
+foreach($final as $history){
+  History::create(array(
+    'user_id' => $history->user_id,
+    'cfid'=> $history->cfid,
+    'contact' => $history->contact,
+    'last_name' => $history->last_name,
+    'insert_date'=>date("Y-m-d")
+));
 
+
+}
 
 //obtain the id values to be updated
   $id_update= Arr::pluck($final, 'id');
@@ -399,6 +359,7 @@ $final=Arr::collapse($final);
      */
     public function revertAll( Request $request)
     {
+     
          //  return $request->all();
         $revert_id=$request->input('revert_id');
         $last_name=$request->input('last_name');

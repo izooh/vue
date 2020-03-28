@@ -1,5 +1,6 @@
 <template>
 <div>
+ 
 <div v-cloak>
 <br><br>
     <v-dialog max-width='800px' v-model='dialog'>
@@ -91,10 +92,7 @@
     </v-flex>
 
 </v-layout>
-<v-footer class="pa-3" absolute>
-<v-spacer></v-spacer>
-<div><span>Blockchain</span>&copy; {{ new Date().getFullYear() }}</div>
-</v-footer>
+
 </div>
 <template>
 <div class="text-center">
@@ -133,7 +131,6 @@ return{
         created() {
 
        this.fetchData();
-       this.getUser();
 
          },
         methods:{
@@ -153,23 +150,20 @@ return{
 
         },
         sendData(){
-        let tokenStr = localStorage.getItem('access_token');
         this.loading=true;
-        axios.post('api/article',{
-        user_id:this.user_id,
+        axios.post('article',{
         title:this.title,
         body:this.body
-        },{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
+        })
     .then((response)=>{
-
-
-    console.log(response.data.data)
-    this.article=response.data.data
+     
     this.title='',
     this.body='',
     this.loading=false,
     this.dialog=false
-    this.fetchData();
+    this.$router.go(0)
+   
+   
 
     })
     .catch(function (error) {
@@ -202,12 +196,13 @@ return this.editForm=notebookId;
 
         fetchData(){
 
-          axios.get('api/articles')
+          axios.get('articles')
  .then((response) => {
 
-                    console.log(response);
-                    this.articles = response.data.data;
-
+                    
+                    console.log(response.data.data);
+                    this.art = response.data.data
+                    this.loading=false
 
                 })
   .catch(function (error) {
@@ -227,13 +222,14 @@ this.articles.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
          if
          (confirm("are you sure you want to delete"))
          {
-  let tokenStr = localStorage.getItem('access_token');
-          axios.delete('api/article/'+id,{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
+ 
+          axios.delete('article/'+id)
  .then((response) => {
 
-                    this.fetchData();
+                    
                     console.log(response.data)
                     alert(response.data);
+                    this.$router.go(0)
 
                 })
   .catch(function (error) {
@@ -248,7 +244,7 @@ this.articles.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
 
         computed:{
         filteredBlogs:function(){
-        return this.articles.filter((article)=>{
+        return this.art.filter((article)=>{
         return article.name.match(this.search)
               });
 
@@ -264,7 +260,7 @@ this.articles.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
     }
 </script>
 <style>
-.Isaac{
+.opicho{
 border-left:4px solid #3cd1c2;
 }
 .Junior{
@@ -273,7 +269,7 @@ border-left:4px solid indigo;
 .Sherley{
 border-left:4px solid red;
 }
-.v-chip.Isaac{
+.v-chip.opicho{
 border:4px solid #3cd1c2;
 }
 .v-chip.Sherley{

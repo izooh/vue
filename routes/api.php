@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/getUser', function (Request $request) {
-    return User::query()->orderBy('name', 'asc')->get();
+    return User::query()->select('name','s_id')->orderBy('name', 'asc')->get();
 });
 Route::get('/test1',function(){
   echo "worked";
@@ -29,7 +29,7 @@ Route::post('/logout','AuthController@logout');
 Route::get('articles', 'my_api@index');
 Route::get('article/{id}', 'my_api@show');
 Route::middleware('auth:api')->delete('article/{id}', 'my_api@destroy');
-Route::middleware('admin')->post('article', 'my_api@store');
+Route::post('article', 'my_api@store');
 Route::PUT('article/{id}', 'my_api@edit');
 //rating controller routes
 Route::middleware('admin')->post('rate', 'RatingController@store');
@@ -44,10 +44,7 @@ Route::post('/import_process', 'ImportController@processImport')->name('import_p
 //remain controller routes
 Route::middleware('admin')->get('remains','remainsController@index');
 
-//leads upload Routes
-Route::get('/leads','leadImportController@getImport');
-Route::post('/lead_import_parse', 'leadImportController@parseImport')->name('lead_import_parse');
-Route::post('/lead_import_process', 'leadImportController@processImport')->name('lead_import_process');
+
 //leads Controller
 //route to retrive leads that dont belong to remain table
 Route::middleware('admin')->get('lead','LeadController@index');
@@ -57,7 +54,7 @@ Route::middleware('admin')->post('user_remains','LeadController@show');
 Route::post('revert','LeadController@revert');
 Route::post('revertAll','LeadController@revertAll');
 Route::middleware('admin')->delete('/lead_delete','LeadController@destroy');
-Route::post('close','LeadController@close');
+Route::middleware('admin')->post('close','LeadController@close');
 //SuggestionController RouteS
 Route::post('suggestion', 'SuggestionController@store');
 Route::get('suggestions', 'SuggestionController@index');
@@ -66,3 +63,6 @@ Route::middleware('auth:api')->delete('suggestion/{id}', 'SuggestionController@d
 //promise controller RouteS
 Route::post('promises','PromiseController@store');
 Route::post('ptps','PromiseController@show');
+
+
+

@@ -23,18 +23,24 @@
    <v-spacer></v-spacer>
   </v-toolbar>
   <v-card-text>
-    <v-text-field label="Deliquency 22" v-model='dp22' ></v-text-field>
-    <v-text-field label="Deliquency 36" v-model='dp36' ></v-text-field>
-    <v-text-field label="Deliquency 52" v-model='dp52'></v-text-field>
-    <v-text-field label="Deliquency 112" v-model='dp112'></v-text-field>
-    <v-text-field label="Deliquency 172" v-model='dp172'></v-text-field>
-    <v-text-field label="Deliquency 232" v-model='dp232'></v-text-field>
+    <v-text-field label="Deliquency 22" v-model='dp22' type="number" min='0'></v-text-field>
+    <v-text-field label="Deliquency 36" v-model='dp36' type="number" min='0'></v-text-field>
+    <v-text-field label="Deliquency 52" v-model='dp52' type="number" min='0'></v-text-field>
+    <v-text-field label="Deliquency 112" v-model='dp112' type="number" min='0'></v-text-field>
+    <v-text-field label="Deliquency 172" v-model='dp172' type="number" min='0'></v-text-field>
+    <v-text-field label="Deliquency 232" v-model='dp232' type="number" min='0'></v-text-field>
     <div class="row">
       <div class="col-md-12">
-      <label><p class="text-warning">Select Users</p></label>
-        <select v-model='selected' class="mdb-select colorful-select dropdown-primary md-form" multiple searchable="Search here..">
-          <option  v-for='user in users' v-bind:key="user.id" v-bind:value="user.s_id">{{user.name}}</option>
-        </select>
+         <v-select
+          v-model="s_user"
+          :items="user"
+          item-text="name"
+         item-value="s_id"
+          label="Select Users"
+          multiple
+          chips
+          persistent-hint
+        ></v-select>
       </div>
     </div>
 
@@ -225,13 +231,17 @@
  <v-spacer></v-spacer>
 </v-toolbar>
 <v-card-text>
-<div class="row">
      <div>
-<label><p class="text-warning">Select Users name to reset</p></label><br>
-  <select v-model='operations'  multiple>
-  <option  v-for='user in users1' v-bind:key="user.id" v-bind:value="user.s_id">{{user.name}}<br></option>
-  </select>
-  </div>
+   <v-select
+          v-model="s_user1"
+          :items="user"
+          item-text="name"
+         item-value="s_id"
+          label="Select Users"
+          multiple
+          chips
+          persistent-hint
+        ></v-select>
   </div>
 <br><br>
   <div class="input-group mb-3">
@@ -281,10 +291,7 @@
         </v-flex>
 </v-layout>
 <br>
-<v-footer class="pa-3" absolute>
-<v-spacer></v-spacer>
-<div><span>Blockchain</span>&copy; {{ new Date().getFullYear() }}</div>
-</v-footer>
+
 </div>
 </template>
 <script>
@@ -297,8 +304,7 @@ import remainsChart from './remainsChart'
     data () {
       return {
       hasClicked:false,
-      users:'',
-      users1:'',
+      uid:[],
       selected:[],
       operations:[],
       hidden:false,
@@ -334,6 +340,10 @@ import remainsChart from './remainsChart'
      Total_Contacted_172:'',
      Total_Uncontacted_172:'',
      lastname:'',
+     s_user1:'',
+     s_user:'',
+        user:'',
+
      headers: [
        {
          text: 'Agent Name',
@@ -351,20 +361,22 @@ this.getUser()
      },
     methods:{
     getUser(){
+     
     axios.get('api/getUser').then((response)=>
     {
     console.log(response.data)
-    this.users=response.data
-    this.users1=response.data
+    this.user=response.data
+    
     }).catch((error)=>
     {
     console.log(error)
     })
     },
     sendData(){
+
     let tokenStr = localStorage.getItem('access_token');
     this.hasClicked=true;
-    axios.post('api/leads',{
+    axios.post('leads',{
     dp22:this.dp22,
     dp36:this.dp36,
     dp52:this.dp52,
@@ -372,9 +384,9 @@ this.getUser()
     dp232:this.dp232,
     dp172:this.dp172,
 
-    selected:this.selected
+    selected:this.s_user
 
-    },{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
+    })
 .then((response)=>{
 console.log(response.data)
 this.data=response.data
@@ -394,8 +406,8 @@ console.log(error);
 });
     },
     fetchData(){
-let tokenStr = localStorage.getItem('access_token');
-      axios.get('api/remains',{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
+    let tokenStr = localStorage.getItem('access_token');
+      axios.get('remains')
 .then((response) => {
                 console.log(response.data);
                 this.remains=response.data
@@ -407,8 +419,7 @@ console.log(error);
 
     },
     Send(){
-    let tokenStr = localStorage.getItem('access_token');
-    axios.post('api/user_remains',{
+    axios.post('user_remains',{
     Total_Contacted:this.Total_Contacted,
     Total_Uncontacted:this.Total_Uncontacted,
     Total_Contacted_22:this.Total_Contacted_22,
@@ -424,7 +435,7 @@ console.log(error);
     Total_Contacted_172:this.Total_Contacted_172,
     Total_Uncontacted_172:this.Total_Uncontacted_172
 
-    },{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
+    })
 .then((response)=>{
 console.log(response.data)
 this.datar=response.data
@@ -478,13 +489,12 @@ console.log(this.data1)
     if
     (confirm("are you sure you want to undo changes in the database"))
     {
-    let tokenStr = localStorage.getItem('access_token');
-      axios.post('api/revertAll',
+    
+      axios.post('revertAll',
       {
-      revert_id:this.operations,
+      revert_id:this.s_user1,
       last_name:this.lastname
-      },
-      { headers: {"Authorization" : `Bearer ${tokenStr}`} }).then((response)=>{
+      }).then((response)=>{
       console.log(response)
       this.fetchData()
       alert('operation complete');
@@ -494,7 +504,8 @@ console.log(this.data1)
       }
     },
     Close(){
-       axios.post('api/close',{closed:this.closed}).then((response)=>{
+       
+       axios.post('close',{closed:this.closed}).then((response)=>{
        console.log(response)
        alert(response.data);
        }).catch((error)=>{
@@ -523,3 +534,14 @@ console.log(error);
     }
 }
 </script>
+<style>
+    select {
+        width: 250px;
+        margin: 10px;
+        height: auto;
+    }
+    select:focus {
+        min-width: 150px;
+        width: auto;
+    }    
+</style>

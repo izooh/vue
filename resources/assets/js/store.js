@@ -29,7 +29,7 @@ if(context.getters.loggedIn){
 }
     },
     retrieveToken(context ,credentials){
-      axios.post('api/login',{
+      axios.post('login',{
         email:credentials.email,
         password:credentials.password
       }).then((res)=>{

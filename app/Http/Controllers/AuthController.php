@@ -35,7 +35,7 @@ $response = $http->post('http://localhost/vue/public/oauth/token', [
     'form_params' => [
         'grant_type' => 'password',
         'client_id' => '2',
-        'client_secret' => 'TY7TLu7lGtEhcW7huRtAFKM38rEFUCgnNNtgdL6n',
+        'client_secret' => 'uxn1KGvHeu8PUHuGZwhAxH7K8pc9LqblOGhuSr4M',
         'username' => $request->email,
         'password' => $request->password,
         'scope' => '',
@@ -67,7 +67,7 @@ return json_decode((string) $response->getBody(), true);
             'form_params' => [
                 'grant_type' => 'password',
                 'client_id' => 2,
-                'client_secret' => 'TY7TLu7lGtEhcW7huRtAFKM38rEFUCgnNNtgdL6n',
+                'client_secret' => 'uxn1KGvHeu8PUHuGZwhAxH7K8pc9LqblOGhuSr4M',
                 'username' => $request->email,
                 'password' => $request->password,
                 'scope' => '',

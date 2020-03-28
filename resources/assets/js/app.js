@@ -37,7 +37,8 @@ const store  = new Vuex.Store(StoreData);
  */
 
 Vue.component('navb', require('./components/Navb.vue'));
-//Vue.component('articles', require('./components/Articles.vue'));
+Vue.component('views', require('./components/views.vue'));
+Vue.component('leads', require('./components/remains.vue'));
 
 
 const app = new Vue({

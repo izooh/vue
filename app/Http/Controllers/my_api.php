@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Article;
 use App\Http\Resources\articleresource;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use App\User;
 
 class my_api extends Controller
 {
@@ -15,7 +18,8 @@ class my_api extends Controller
      */
     public function index()
     {
-
+       // $user=User::find(204);
+        //$user->assignRole('admin');
          return articleresource::collection(Article::with('user')->latest()->paginate(25));
         //$articles=Article::paginate(15);
         //print_r($articles);
@@ -48,7 +52,7 @@ class my_api extends Controller
         ]);
 
         $articles=new Article;
-        $articles->user_id=$request->input('user_id');
+        $articles->user_id=auth()->user()->id;
         $articles->title=$request->input('title');
         $articles->body=$request->input('body');
         if($articles->save())
@@ -128,7 +132,7 @@ Article::where('id',$id)->update($data);
         //dleting from article table
 
         $article=Article::FindOrFail($id);
-        $logged_user=auth('api')->user()->s_id;
+        $logged_user=auth()->user()->id;
         $del_article=$article->user_id;
         if($logged_user==$del_article){
           if($article->delete())
