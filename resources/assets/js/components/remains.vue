@@ -31,6 +31,7 @@
     <v-text-field label="Deliquency 232" v-model='dp232' type="number" min='0'></v-text-field>
     <div class="row">
       <div class="col-md-12">
+         
          <v-select
           v-model="s_user"
           :items="user"
@@ -40,7 +41,10 @@
           multiple
           chips
           persistent-hint
-        ></v-select>
+        >
+         
+        </v-select>
+        <input type='checkbox' @click='checkAll()' v-model='isCheckAll'>Select all users
       </div>
     </div>
 
@@ -242,6 +246,7 @@
           chips
           persistent-hint
         ></v-select>
+         <input type='checkbox' @click='checkAll1()' v-model='isCheckAll'>Select all users
   </div>
 <br><br>
   <div class="input-group mb-3">
@@ -343,6 +348,7 @@ import remainsChart from './remainsChart'
      s_user1:'',
      s_user:'',
         user:'',
+        isCheckAll:false,
 
      headers: [
        {
@@ -360,6 +366,26 @@ this.fetchData()
 this.getUser()
      },
     methods:{
+      checkAll: function(){
+
+      this.isCheckAll = !this.isCheckAll;
+      this.s_user = [];
+      if(this.isCheckAll){ // Check all
+        for (var use in this.user) {
+                    this.s_user.push(this.user[use].s_id);
+                }
+        }
+      },
+      checkAll1: function(){
+
+      this.isCheckAll = !this.isCheckAll;
+      this.s_user1 = [];
+      if(this.isCheckAll){ // Check all
+        for (var use in this.user) {
+                    this.s_user1.push(this.user[use].s_id);
+                }
+        }
+      },
     getUser(){
      
     axios.get('api/getUser').then((response)=>

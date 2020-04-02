@@ -31,14 +31,14 @@ Route::get('/r', function () {
 //leads related routes
 Route::get('/leads', function () {
     return view('leads');
-})->name('lead_page')->middleware('permission:leads allocation');
+})->name('lead_page');
 //importing csv to system
 Route::middleware('auth')->get('import-excel', 'ImportExcel\ImportExcelController@index');
 Route::post('import-excel', 'ImportExcel\ImportExcelController@import');
 //complain log routes
 Route::post('/add_new', 'ComplainsController@Addcomplain')->name('addnew');
-Route::get('/display', 'ComplainsController@Displayall')->name('display')->middleware('permission:view complains');
-Route::get('/display_unreviewed', 'ComplainsController@Displayunreviewed')->name('display_unreviewed')->middleware('permission:review complains');
+Route::get('/display', 'ComplainsController@Displayall')->name('display');
+Route::get('/display_unreviewed', 'ComplainsController@Displayunreviewed')->name('display_unreviewed');
 Route::post('/review/{id}', 'ComplainsController@Review')->name('review');
 Route::get('/get_review/{id}', 'ComplainsController@GetReview')->name('get_review');
 
@@ -64,3 +64,6 @@ Route::delete('article/{id}', 'my_api@destroy');
 
 //history routes
 Route::resource('history','HistoryController');
+
+//log routes
+Route::resource('log','LogController');

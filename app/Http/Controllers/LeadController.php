@@ -117,17 +117,6 @@ $final[]=$users1;
 //collapse to obtain a single array
 $final=Arr::collapse($final);
 //inserting to the history table
-foreach($final as $history){
-  History::create(array(
-    'user_id' => $history->user_id,
-    'cfid'=> $history->cfid,
-    'contact' => $history->contact,
-    'last_name' => $history->last_name,
-    'insert_date'=>date("Y-m-d")
-));
-
-
-}
 
 //obtain the id values to be updated
   $id_update= Arr::pluck($final, 'id');
